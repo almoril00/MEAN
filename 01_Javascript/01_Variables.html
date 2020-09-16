@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!--
+Mime type de javascript
+javascript             - en los tiempos remotos
+text/javascript        - hasta Html 4
+application/javascript - hasta Html 5
+-->
+
+<script type="application/javascript">
+
+//JAVASCRIPT
+//--------------------------------
+//-Interpretado
+//-Ejecutado por un motor javascript
+//-Inicialmente solo en navegadores
+//-NO es un lenguaje multipropósito
+//  -no permite acceder al sistema de archivos
+//  -no permite acceder a las funciones de SO
+//  -no permite abrir un socket
+
+//-Sintaxis basada en C
+//-Nada que ver con java
+//-Dinámico
+//-Secuencial (sin GOTO)
+//-Estructurado
+//-Orientado a objetos (por prototipado)
+//-Funcional
+//-No tipado
+//-Case sensitive
+//-Tiene null
+//-No permite al programador crear hilos
+
+//alert es una función implícita
+//alert("No hay que usar alerts")
+
+console.log("Tampoco hay que usar console.log")
+
+///////////////
+// VARIABLES //
+///////////////
+
+//No estan tipadas
+//Pueden guardar:
+//-números
+//-cadenas de texto (arrays de caracteres)
+//-un caracter
+//-booleanos
+//-referencia a un objeto
+//-null
+
+//Utilizando variables sin declararlas
+//Es obligatorio asignar un valor
+numero = 5
+texto = "HOLA"
+activo = true
+
+//
+//Declarando las variables con 'var'
+//Ya no es necesario asignar un valor
+//
+var altura //Esta variable no tiene valor
+console.log(altura) //undefined
+
+var dato = null; //En JS null es un valor
+console.log(dato)
+
+var mensaje = "Hola que tal"
+
+//Podemos redefinir variables (cosa que nos parece mal)
+var x = 10
+var x = "No me fastidies"
+console.log(x)
+
+
+//
+//Declarando las variables con 'let' (introducido en ecmascript6)
+//La principar diferencia con var está relacionada con el ámbito de la variable
+let telefono = "1234"
+//Con let no podemos redefinir variables
+//let telefono = "HOLA"
+
+//
+//const (ES6)
+// 
+const dato2 = 10
+//dato2 = 20 //Error de ejecución
+
+
+//undefined y valor null
+//
+let dato3 //undefined
+
+//Cuidado con las comparaciones
+if(dato3 == null){
+    console.log("dato 3 es null (mentira)")
+}
+
+if(dato3 === null){
+    console.log("dato 3 es null (mentira)")
+} else {
+    console.log("dato 3 NO ES NULL, ES UNDEFINED")
+}
+
+//
+//Averiguando el tipo de una variable
+//
+let num = "cinco"
+if( isNaN(num) ){
+    console.log("No es un número")
+}
+
+//Mucho mejor con typeof
+//Typeof es un OPERADOR
+//valores devueltos por typeof
+//-number
+//-string
+//-boolean
+//-object
+//-function (es un objeto)
+//-undefined
+//-...
+
+console.log(typeof num)
+
+if( typeof num != "number"){
+    console.log("No es un número")
+}
+
+///////////////////////////
+//ÁMBITO DE LAS VARIABLES//
+///////////////////////////
+
+//VAR
+//
+//con var la variable es accesible desde la función en la que está declarada
+//es ámbito de la variable es la función
+console.log("========================================")
+function pruebaVar(){
+
+    var v1 = "HOLA"
+    console.log(v1)
+
+    if(10 < 5){
+        var v2 = "A VER QUE PASA"
+    }
+    console.log(v2)
+
+    for(var a=1; a<10; a++){  
+    }
+    console.log(a) //9
+
+    {
+        var b = 10
+    }
+    console.log(b) //10
+
+}
+
+pruebaVar()
+//console.log(v1) //Zasca!
+
+//LET
+//
+//Las variables definidas con let tienen como ámbito el bloque en el que están declaradas
+console.log("========================================")
+function pruebaLet(){
+
+    let v3 = "HOLA"
+    console.log(v3)
+
+    if(10 > 5){
+        let v4 = "A VER QUE PASA"
+    }
+    //console.log(v4) //Zasca!
+
+    for(let a=1; a<10; a++){        
+    }
+    //console.log(a) //Zasca!  
+
+    {
+        let b = 10
+    }
+    //console.log(b) //Zasca 
+}
+
+pruebaLet()
+//console.log(v3) //Zasca
+
+//
+//AL LORO
+//
+function prueba(){
+    mensaje = "???"
+    //Las variables no declaradas explícitamente se convienten 'globales'
+    console.log(mensaje) //???
+}
+
+console.log(mensaje) //???
+prueba()
+
+</script>
+
+<body>
+
+    <h1>01_Variables</h1>
+
+</body>
+</html>
+

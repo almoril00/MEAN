@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+/////////////////////////////////////////////
+//Los arrays en JS no son verdaderos arrays//
+//Los arrays en JS son objetos             //
+/////////////////////////////////////////////
+
+//Declarando un array
+//No se indica el tamaño
+let array1 = [] //un array vacío
+let array2 = [1,2,3,4] //Un array con cuatro valores
+//Los arrays JS no están tipados
+let array3 = [false, true, 2, "tres" ]
+
+//Los array son la única estructura de datos que viene 'de série' con JS
+//Pueden usarse de dos maneras distintas
+//-indexado   : array de toda la vida / ArrayList 
+//-asociativo : (clave-valor) mapas de java, diccionarios de ms
+
+///////////////////////////////////////////
+//Array indexado: accediendo por posición//
+///////////////////////////////////////////
+
+//Añadiendo valores
+array1[0] = 10
+array1[1] = 20
+array1[2] = 30
+
+//Accediendo a valores
+let v1 = array1[0]
+let v2 = array1[1]
+let v3 = array1[2]
+console.log(v1)
+console.log(v2)
+console.log(v3)
+
+console.log( array1[1] )   //20
+console.log( array1[2000] ) //undefined, pero no se queja
+
+console.log(array1)
+console.table(array1)
+
+//Los arrays en JS al ser objetos tienen identidad y funcionalidad
+
+//Identidad
+//-los valores guardados en el array
+//-la longitud del array
+console.log(array1.length)
+
+//Funcionalidad
+console.log("=======================================")
+let array4 = []
+array4.push("A") //Añade el valor al final
+array4.push("B")
+array4.push("C")
+array4.push("D")
+array4.push("E")
+console.log(array4)
+
+//Con las funciones de los arrays JS podemos usarlos como si fueran una cola FIFO o una pila LIFO
+
+let e1 = array4.shift() //Extrae y entrega el primero
+let e2 = array4.pop()   //Extrae y entrega el último
+
+console.log(e1) //A
+console.log(e2) //E
+
+//Con splice eliminamos elementos de un array
+//array4.splice(posicion inicial, numero de elementos a borrar)
+//devuelve un array con los elementos eliminados
+console.log(array4.splice(1,2)) //C, D
+console.log(array4) //B
+
+/////////////////////////////////////////
+//Arrays asociativos: pares clave-valor//
+/////////////////////////////////////////
+console.log("=======================================")
+//Estructura de datos no indexada
+//Basado el pares clave-valor
+//La clave y el valor pueden ser de cualquier tipo
+//No se declaran de una manera concreta. Se usan los corchetes
+//A parte de los corchetes tienen una sintaxis propia
+
+//Indexado posición-valor
+let empleados = []
+empleados[0] = "ringo-jefe"
+empleados[1] = "homer-almacenero"
+empleados[2] = "groucho-envios"
+empleados[3] = "bart-bromasTelefonicas" 
+console.log(empleados.length) //4
+
+//Asociativo clave-valor
+let empleados2 = [] 
+empleados2["JEFE"] = "ringo starr"
+empleados2["ALMACENERO"] = "Hommer"
+empleados2["ENVIOS"] = "groucho"
+empleados2["BT"] = "Bart"
+
+console.log(empleados2["ENVIOS"]) //Groucho
+//Añadir un par clave-valor no aumenta el tamaño, no aumenta 'length'
+console.log(empleados2.length) //0
+
+//Hacer el canelo usando un array como indexado y asociativo simultáneamente
+//..
+
+
+/*
+-nombre
+-direccion
+-telefono
+-correoE
+
+
+let persona = []
+persona[0] = "Harpo") 
+persona.push("C/Falsa, 123") //1
+persona.push("555") //2
+persona.push("harpo@noseque.es") //3
+*/
+
+let persona1 = []
+persona1["nombre"] = "Harpo"
+persona1["direccion"] = "C/Falsa, 123"
+persona1["telefono"] = "555"
+
+let persona2 = []
+persona2["nombre"] = "Groucho"
+persona2["direccion"] = "C/Falsa, 123"
+persona2["telefono"] = "555"
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<body>
+    
+    <h1>03_Arrays</h1>
+
+</body>
+</html>
