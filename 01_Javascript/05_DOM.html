@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<script type="application/javascript">
+
+function pruebasDOM(){
+
+    //DOM: Document Object Model
+    //
+
+    //document es un objeto que 
+    console.log(document)
+
+    let nodo = document.getElementById("dato")
+
+    console.log(nodo)
+    
+}
+
+</script>
+
+
+
+<!--
+Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
+-->
+<body onload="pruebasDOM()">
+
+    <h1>05_Árbol DOM</h1>
+
+    Nombre: <input type="text" 
+                   name="dato" 
+                   id="dato" 
+                   size="25" 
+                   value="texto" 
+                   class="xXx"/>
+    
+    <hr/>
+    
+    <form name="formulario" id="formulario" action="http://www.estaseguroquenoexiste.es" method="get"> 
+        <input type="button" name="accion" value="Validar" onclick="validar()"/>
+        <input type="button" value="Preparar parametros" onclick="prepararParametros()"/>
+        <input type="submit" name="accion" value="Insertar"/>
+        <input type="submit" name="accion" value="Modificar"/>
+        <input type="submit" name="accion" value="Borrar"/>
+
+        <table>
+            <tr>
+                <td id="td1">Nombre</td>
+                <td id="td2">
+                    <input type="text" name="nombre" id="nombre"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td3">Dirección</td>
+                <td id="td4">
+                    <input type="text" name="direccion" id="direccion"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td5">Teléfono</td>
+                <td id="td6">
+                    <input type="text" name="telefono" id="telefono"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td7">Ciudad</td>
+                <td id="td8">
+                    <select name="ciudad" id="ciudad">
+                        <option>Getafe</option>
+                        <option>Madrid</option>
+                        <option>Salamanca</option>
+                        <option>Santa Pola</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td id="td9">Observaciones</td>
+                <td id="td10">
+                    <textarea name="observaciones" id="observaciones"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+</body>
+</html>
+
+
