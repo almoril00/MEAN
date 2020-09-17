@@ -56,6 +56,7 @@ console.table(array1)
 console.log(array1.length)
 
 //Funcionalidad
+//En una array encontramos funciones muy útiles
 console.log("=======================================")
 let array4 = []
 array4.push("A") //Añade el valor al final
@@ -63,6 +64,7 @@ array4.push("B")
 array4.push("C")
 array4.push("D")
 array4.push("E")
+//array4.push(1,2,3,4,5,6,7) //push admite parámetros variables
 console.log(array4)
 
 //Con las funciones de los arrays JS podemos usarlos como si fueran una cola FIFO o una pila LIFO
@@ -111,7 +113,6 @@ console.log(empleados2.length) //0
 //Hacer el canelo usando un array como indexado y asociativo simultáneamente
 //..
 
-
 /*
 -nombre
 -direccion
@@ -119,6 +120,9 @@ console.log(empleados2.length) //0
 -correoE
 
 
+//Supongamos que queremos guardar los datos de una persona en un array
+
+//Podemos hacerlo con un array indexado pero es una castaña
 let persona = []
 persona[0] = "Harpo") 
 persona.push("C/Falsa, 123") //1
@@ -126,15 +130,94 @@ persona.push("555") //2
 persona.push("harpo@noseque.es") //3
 */
 
+//MUCHO MEJOR con arrays asociativos
+console.log("=======================================")
 let persona1 = []
 persona1["nombre"] = "Harpo"
 persona1["direccion"] = "C/Falsa, 123"
 persona1["telefono"] = "555"
 
+let persona2 = []
+persona2["nombre"] = "Ringo"
+persona2["direccion"] = "C/Tal, 123"
+persona2["telefono"] = "555123"
+
+let persona3 = []
+persona3["nombre"] = "Bender"
+persona3["direccion"] = "C/Tal, 123"
+persona3["telefono"] = "555123"
+
+//Ahora podemos guardar las personas en un array indexado
+let personas = []
+personas.push(persona1)
+personas.push(persona2)
+personas.push(persona3)
+
+console.log(personas)
+
+//
+//Utilizar los corchetes para crear un array asociativo es tedioso
+//Tenemos una segunda manera de hacerlo: la notación del .
+//
+
+let coche = []
+coche.marca     = "FIAT"
+coche.modelo    = "Uno 45s"
+coche.matricula = "M-1234-JP"
+console.log(coche)
+console.log(coche["modelo"])
+console.log(coche.modelo)
 
 
+//
+//Disponemos de una sintaxis específica para declarar e inicializar arrays asociativos
+//
+let avion = {
+    fabricante : 'McDonnell Douglas',
+    modelo     : 'F-15',
+    year       : '1976'
+}
 
+console.log(avion)
+console.log(avion.fabricante)
+avion.year = 1234
+console.log(avion.year)
+//Podemos seguir usando los corchetes:
+console.log(avion["modelo"])
 
+//Diferencia entre un array asociativo con [] y con {}
+//Con corchetes: 
+//-es un array normal y corriente
+//-tiene todas las funciones de array (push, pop, splice...)
+//-si es asociativo hablamos de CLAVES
+//
+//Con llaves:
+//-es un array únicamente asociativo
+//-NO tiene ninguna de las funciones de array
+//-En vez de claves hablamos de PROPIEDADES
+
+//
+//Añadiendo funcionalidad a los objetos
+//
+let cerveza = {
+    marca      : "Mahou",
+    tipo       : "la verde",
+    volAlcohol : 5,
+
+    saludar    : function(){
+        console.log("Hola, soy "+this.marca+", "+this.tipo)
+    } 
+
+}
+
+cerveza.volAlcohol = 5.5
+cerveza.saludar()
+
+//////////////////////
+//RECORRIENDO ARRAYS//
+//////////////////////
+
+//...
 
 
 
@@ -148,3 +231,7 @@ persona1["telefono"] = "555"
 
 </body>
 </html>
+
+
+
+
