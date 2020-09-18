@@ -14,12 +14,48 @@ function pruebasDOM(){
     //DOM: Document Object Model
     //
 
-    //document es un objeto que 
-    console.log(document)
+    //document tiene funciones que sirven para buscar nodos en el árbol
 
+    //
+    //Buscando nodos por id
+    //
+    console.log("=======================================")
+    console.log(document)
     let nodo = document.getElementById("dato")
 
+    //Los nodos son objetos javascript que tienen una larga lista de propiedades
+    //podemos acceder a ellas con el punto o con los corchetes
+
     console.log(nodo)
+    console.log(nodo.value)
+    console.log(nodo["value"])
+
+    for(propiedad in nodo){
+        //console.log(propiedad+":"+nodo[propiedad])
+    }
+
+    //Por cada etiqueta que tenga id se crea una variable IMPLÍCITA que referencia al nodo
+    console.log(document.getElementById("nombre"))
+    console.log(nombre)
+    console.log(direccion)
+
+    //
+    //Buscando nodos por tipo de etiqueta
+    //
+    console.log("=======================================")
+    let arrayDeNodos = document.getElementsByTagName("input")
+    console.log(arrayDeNodos)
+
+
+
+
+
+
+
+
+
+
+
     
 }
 

@@ -217,7 +217,81 @@ cerveza.saludar()
 //RECORRIENDO ARRAYS//
 //////////////////////
 
-//...
+//Con un for normal (Solo para arrays indexados)
+console.log("=======================================")
+let array5 = [ 11,22,33,44,55,66,77,88,99 ]
+for(let a=0; a<array5.length; a++){
+    console.log(array5[a])
+}
+
+//Con un for..of  (Solo para arrays indexados)
+console.log("=======================================")
+for(let elemento of array5){
+    console.log(elemento)
+}
+
+//Recorriendo un array con la funcion forEach (solo para arrays indexados)
+console.log("=======================================")
+
+//La función forEach recibe por parámetro una funcion
+//Se recorre el array y la función recibida es invocada tantas veces como elementos haya 
+//en el array
+//Cuando se invoque la función se pasa el elmento por parámetro
+
+//Declarando la función en una variable y pasando la variable
+let funcion = function(elemento, pos){
+    console.log("elemento: "+elemento+", posicion:"+pos)
+}
+array5.forEach( funcion )
+
+//Definiendo la función en la misma llamada al forEach
+array5.forEach(function(elemento, pos){
+        console.log("elemento: "+elemento+", posicion:"+pos)
+    }) 
+
+//Utilizando funciones flecha (ya las veremos)
+array5.forEach( elemento => console.log(elemento) )
+
+//
+//Con un for...in 
+//Para arrays ASOCIATIVOS
+//
+//No se puede recorrer un array asociativo
+//Con for...in recorremos las claves y
+//luego por cada clave solicitamos el valor
+//Tambien sirve para recorrer de una manera rebuscada y poco eficiente
+//un array indexado
+console.log("=======================================")
+let grupo = []
+grupo["bajo"]     = "Paul"
+grupo["bateria"]  = "Ringo"
+grupo["sitar"]    = "George"
+grupo["guitarra"] = "John"
+//grupo["clave"] = "de sol"
+for(let clave in grupo){
+    //console.log(clave+"-"+grupo[clave])
+    //Esta no funciona: busca el valor asociado a 'clave', literalmente
+    //console.log(grupo.clave)
+}
+
+
+//Si recorremos con un for in un array indexado nos entrega las posiciones que tienen valores
+console.log("=======================================")
+let array6 = [11,22,33,44]
+array6[10] = 55
+console.log(array6.length)
+console.log(array6)
+for(let clave in array6){
+    console.log(clave)
+}
+
+
+
+//
+//Creando arrays con el prototipo Array
+//
+
+//Lo veremos más adelante
 
 
 
