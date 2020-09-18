@@ -46,22 +46,130 @@ function pruebasDOM(){
     let arrayDeNodos = document.getElementsByTagName("input")
     console.log(arrayDeNodos)
 
+    //recorrer el array de nodos y mostrar el 'value' de los que son botones de submit
+    for(let nodo of arrayDeNodos){
+        if( nodo.type == 'submit'){
+            console.log(nodo.value)
+        }
+    }
+
+    //Mola
+    //Array.from(document.getElementsByTagName("input")).filter(n => n.type == "submit")
 
 
+    //
+    //Buscando nodos por nombre
+    //
+    console.log("================================")
+    nodos = document.getElementsByName("nombre")  
+    nodo = nodos[0]
+    //Como normalmente solo hay un único nodo con cierto valor en 'name'
+    //podemos simplificar así:  
+    nodo = document.getElementsByName("nombre")[0]
+    console.log(nodo)
+    
+    //
+    //Buscando nodos por estilo css
+    //
+    console.log("================================")
+    //Devuelve un array
+    nodos = document.getElementsByClassName("xXx")
+    console.log(nodos)
 
+    //document tiene una función específica para buscar nodos en un
+    //XML
+    //document.getElementsByTagNameNS()
+ 
+}
 
+function validar(){
 
+    let error = ""
 
+    //let nombre = document.getElementById("nombre")
+    if( nombre.value.trim() == ""){
+        //alert("El nombre es obligatorio")
+        error = error + "Nombre es obligatorio. "
+    }
+    if( direccion.value.trim() == ""){
+        //alert("La direccion es obligatoria")
+        error += "Direccion es obligatoria. "
+    }
+    if( telefono.value.trim() == ""){
+        //alert("El teléfono es obligatorio")
+        error += "Teléfono es obligatorio. "
+    }
 
+    /*
+    if(error != ""){
+        alert(error)
+        return false
+    } else {
+        return true
+    }
+    */
 
-
-
+    if(error != ""){
+        alert(error)
+        return false
+    }    
+    return true
     
 }
 
+function insertarPersona(){
+
+    // !ok es lo mismo que ok == false
+    
+    //let ok = validar()
+    //if( !ok ){
+    //} 
+
+    if(!validar()) {
+        return 
+    }  
+    
+    /*
+    {
+        "nombre" : "XXX",
+        "direccion" : "YYY",
+        "telefono" : "ZZZ"
+    }
+    */
+
+    //A lo bruto
+    let json = '{  "nombre" : "'+nombre.value
+              +'", "direccion" : "'+direccion.value
+              +'", "telefono" : "'+telefono.value
+              +'" }'
+
+    //Con la comilla esa torcia (backtick)
+    //`
+    json = `{
+        "nombre"    : "${nombre.value}",
+        "direccion" : "${direccion.value}",
+        "telefono"  : "${telefono.value}"
+    }`
+
+    //O mejor aún utilizando el objeto implícito JSON
+    let persona = {
+        nombre    : nombre.value,
+        direccion : direccion.value,
+        telefono  : telefono.value
+    }
+    json = JSON.stringify(persona)
+
+    console.log(json)
+    console.log(persona)
+
+}
+
+
+
+
+
+
 </script>
-
-
 
 <!--
 Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
@@ -80,9 +188,11 @@ Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
     <hr/>
     
     <form name="formulario" id="formulario" action="http://www.estaseguroquenoexiste.es" method="get"> 
+        
         <input type="button" name="accion" value="Validar" onclick="validar()"/>
-        <input type="button" value="Preparar parametros" onclick="prepararParametros()"/>
-        <input type="submit" name="accion" value="Insertar"/>
+        
+        <input type="button" value="Preparar parametros"/>
+        <input type="button" name="accion" value="Insertar" onclick="insertarPersona()"/>
         <input type="submit" name="accion" value="Modificar"/>
         <input type="submit" name="accion" value="Borrar"/>
 
