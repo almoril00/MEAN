@@ -60,6 +60,7 @@ function pruebasDOM(){
     //
     //Buscando nodos por nombre
     //
+    //Devuelve un array
     console.log("================================")
     nodos = document.getElementsByName("nombre")  
     nodo = nodos[0]
@@ -143,7 +144,7 @@ function insertarPersona(){
               +'", "telefono" : "'+telefono.value
               +'" }'
 
-    //Con la comilla esa torcia (backtick)
+    //Con la comilla esa torcía (backtick)
     //`
     json = `{
         "nombre"    : "${nombre.value}",
@@ -164,10 +165,40 @@ function insertarPersona(){
 
 }
 
+function validar(){
+    let error = ""
+    if( nombre.value.trim() == ""){
+        error = error + "Nombre es obligatorio. "
+    }
+    if( direccion.value.trim() == ""){
+        error += "Direccion es obligatoria. "
+    }
+    if( telefono.value.trim() == ""){
+        error += "Teléfono es obligatorio. "
+    }
 
+    if(error != ""){
+        alert(error)
+        return false
+    }    
+    return true
+}
 
+function insertarPersona(){
+    if(!validar()) {
+        return 
+    }  
 
+    let persona = {
+        nombre    : nombre.value,
+        direccion : direccion.value,
+        telefono  : telefono.value
+    }
+    json = JSON.stringify(persona)
 
+    console.log(json)
+    console.log(persona)
+}
 
 </script>
 
