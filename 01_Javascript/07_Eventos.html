@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+
+function botonDalePulsado(){
+    console.log(arguments)
+    console.log("Botón dale pulsado!")
+}
+
+function vaciarFormulario(){
+    console.log(arguments)
+    cajaTexto.value = ""
+}
+
+function pruebaEvento(evento){
+    console.log(arguments[0])
+    console.log(evento)
+    console.log(evento.x+", "+evento.y)
+}
+
+function escribirEnTitulo(texto){
+    console.log(texto)
+    titulo.innerHTML += texto
+}
+
+function validarFormulario(){
+    let ok = true
+    if( dato.value.trim()==''){
+        espán.innerHTML = "Dato es obligatorio"
+        alert("MAL")
+        ok = false
+    }
+    return ok
+}
+
+function funcion1(){
+    console.log("UNO")
+}
+function funcion2(){
+    console.log("DOS")
+}
+
+window.onload = function(){
+
+    //Cuando al producirse un evento hay que invocar una función
+    //que no recibe parámetros la asignamos directamente
+    btnDale.onclick   = botonDalePulsado //SIN LOS PARENTESIS
+    btnVaciar.onclick = vaciarFormulario
+
+    //Las funciones que asignamos a los eventos, tengan declarados parámetros
+    //o no, recibirán siempre un valor: el evento 
+    btn3.onclick = pruebaEvento
+
+    //Cuando al producirse un evento hay que invocar una función que 
+    //recibe parámetros (y ese parámetro no es el evento) haremos lo siguiente:
+    //-nada de poner una funcion que reciba el evento:
+    //cajaTexto.onkeydown = teclaPulsada MAL
+
+    //colocaremos una función anónima que reciba el evento, extraiga
+    //de él lo que haga falta y luego llame a la verdadera funcion
+    //que procesa el evento pero con los parámetros adecuados
+    cajaTexto.onkeydown = function(evento){
+        //el evento es un objeto que representa lo que ha sucedido
+        //hay eventos de varios tipos
+        //-eventos de teclado
+        //-eventos del ratón
+
+        //Eventos del teclado
+        //-onkeypress : tecla pulsada, a secas
+        //-onkeydown  : tecla presionada
+        //-onkeyup    : tecla liberada       
+
+        let tecla = evento.key
+        escribirEnTitulo(tecla)
+    }
+
+    //podemos cancelar un evento
+    btnEnviar.onclick = function(evento){
+        /*
+        let ok = validarFormulario()
+        if(ok==false){
+            evento.preventDefault()
+        }
+        */
+        if(!validarFormulario()){
+            evento.preventDefault()
+        }
+    }
+
+    //Podemos añadir más de una funcion a un evento concreto
+
+    //btn4.onclick = funcion1
+    //btn4.onclick = funcion2 //Machaca a la anterior
+
+    btn4.addEventListener('click', funcion1)
+    btn4.addEventListener('click', funcion2)
+
+}
+
+
+
+</script>
+
+
+
+<body>
+    
+    <h1>07_Eventos</h1>
+
+    <hr/>
+
+    <h1 id="titulo"></h1>
+
+    <button id="btnDale">DALE</button>
+    <input type="text" id="cajaTexto"/>
+    <button id="btnVaciar">Vaciar</button>
+    <button id="btn3">Botón 3</button>
+    <button id="btn4">Botón 4</button>
+    
+    <hr/>
+    
+    <form action="xxx">
+        Dato <input type="text" name="dato" id="dato"/>
+        <input type="submit" id="btnEnviar" value="Enviar"/>
+        <span id="espán"></span>
+    </form>
+
+</body>
+</html>
