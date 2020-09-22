@@ -189,21 +189,42 @@ function vaciarSelect(){
 
 }
 
+//window es el objeto que representa a la pestaña del navegador
+//Tiene un montón de propiedades. 
+//En algunas se guardan valores
+//-location: la url que está escrita en la barra de navegacion
+//-posicion x e y del navegor
+//-tamaño de la pestaña y del navegador
+//-...
+//En otras se guardan funciones, pensadas para ejecutarse cuando se
+//disparan los eventos
+//-onclose: se va a cerrar el navegador/pestaña
+//-onload : ha terminado la inicialización de la página
+//-...
 
-function inicializar(){
-    
+//window.onload = function(){
+//    console.log("YA!")
+//}
+
+//Esto no es correcto (pero funciona)
+//window.onload = function(){
+//    inicializar()
+//}
+
+window.onload = function(){
+
     document.getElementById("btn_documentWrite").onclick   = documentWrite
     document.getElementById("btn_innerHTML").onclick       = pruebaInnerHTML
     document.getElementById("btn_vaciarInnerHTML").onclick = vaciarInnerHTML
     document.getElementById("btn_crearNodos").onclick      = crearNodos
     document.getElementById("btn_crearNodos2").onclick     = crearNodos2
     document.getElementById("btn_vaciarSelect").onclick    = vaciarSelect
-
+    
 }
 
 </script>
 
-<body onload="inicializar()">
+<body>
 
     <marquee>
         <h1>
