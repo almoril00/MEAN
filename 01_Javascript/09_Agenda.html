@@ -39,18 +39,38 @@ function insertar(){
     rellenarTabla()
 }
 
+function modificar(){
+
+    for(let persona of personas){
+        if(persona._id == personaSel._id){
+            persona.nombre    = nombre.value
+            persona.direccion = direccion.value
+            persona.telefono  = telefono.value
+            persona.correoE   = correoE.value
+            break
+        }
+    }
+
+    vaciarFormulario()
+    rellenarTabla()
+    personaSel = null
+}
+
+
+
 function borrar(){
 
     for(let a=0; a<personas.length; a++){
         let persona = personas[a]
         if(persona._id == personaSel._id){
             personas.splice(a, 1)
-            vaciarFormulario()
-            rellenarTabla()
-            personaSel = null
             break;
         }
     }
+
+    vaciarFormulario()
+    rellenarTabla()
+    personaSel = null
 }
 
 function seleccionarPersona(_id){
@@ -166,10 +186,11 @@ function leerPersonas(){
 
 
 window.onload = function(){
-    btnVaciar.onclick   = vaciarFormulario
-    btnInsertar.onclick = insertar
-    btnBorrar.onclick   = borrar
-    btnGuardar.onclick  = guardarPersonas
+    btnVaciar.onclick    = vaciarFormulario
+    btnInsertar.onclick  = insertar
+    btnModificar.onclick = modificar
+    btnBorrar.onclick    = borrar
+    btnGuardar.onclick   = guardarPersonas
 
     leerPersonas()
     rellenarTabla()
