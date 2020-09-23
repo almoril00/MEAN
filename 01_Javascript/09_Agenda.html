@@ -10,6 +10,10 @@
 
 //En este array guardamos las personas
 let personas = []
+//En esta variable referenciamos a la persona que ocupa el formulario
+let personaSel = null
+//Tambien podríamos habernos quedado con el _id
+//let idPersonaSel = 0
 
 function vaciarFormulario(){
     nombre.value    = ''
@@ -35,11 +39,35 @@ function insertar(){
     rellenarTabla()
 }
 
-function seleccionarPersona(id){
-    alert("SEL:"+id)
+function borrar(){
 
+    for(let a=0; a<personas.length; a++){
+        let persona = personas[a]
+        if(persona._id == personaSel._id){
+            personas.splice(a, 1)
+            vaciarFormulario()
+            rellenarTabla()
+            personaSel = null
+            break;
+        }
+    }
+}
 
+function seleccionarPersona(_id){
+    for(let persona of personas){
+        if(persona._id == _id){
+            nombre.value    = persona.nombre
+            direccion.value = persona.direccion
+            telefono.value  = persona.telefono
+            correoE.value   = persona.correoE
 
+            //una vez encontrada la persona dentro del array la guardamos en la
+            //variable 'global' personaSel
+            personaSel = persona
+            break
+        }
+    }
+    
 }
 
 function rellenarTabla(){
@@ -83,10 +111,68 @@ function rellenarTabla(){
 
 }
 
+function guardarPersonas(){
+
+    //las cookies y el local storage se comparten a nivel de navegador
+    //incluyendo todas las pestañas y todas las instancias
+    //local storage
+    //session storage
+    //-asociados al dominio del que se descargó el JS
+    //-son objetos implícitos
+    //-sirven para guardar información en el navegador:
+    //-la información almacenada en el localStorage permanece aunque se cierre
+    // la pestaña/navegador
+    //-la información almacenada en el sessionStorage desaparece al cerrar la 
+    // pestaña/navegador
+
+    //local/sessionStorage son muy parecidos a un array asociativo:
+    //-se guardan pares clave/valor
+    //-la diferencia está en que el valor solo puede ser un string
+    //localStorage.setItem(clave, valor) //Para añadir o sustituir
+    //let valor = localStorage.getItem(clave) //Para obtener un valor
+    //localStorage.removeItem(clave) //Para eliminar un valor
+    //localStorage.clear() //Para eliminar todos los valores
+
+
+    /*
+    localStorage.setItem("CLAVE","VALOR")
+    localStorage.getItem("CLAVE")
+    localStorage.removeItem("CLAVE")
+
+    sessionStorage.setItem("CLAVE","VALOR")
+    sessionStorage.getItem("CLAVE")
+    sessionStorage.removeItem("CLAVE")
+    */
+    
+    //Objeto JSON
+    //Trabaja en profundidad
+    //let json = JSON.stringify(objeto)
+    //let objeto = JSON.parse(json)
+    localStorage.setItem("personas", JSON.stringify(personas))
+
+}
+
+function leerPersonas(){
+
+    let json = localStorage.getItem("personas")
+    //if(json != null){
+    //    personas = JSON.parse(json)
+    //}        
+    if(json){
+        personas = JSON.parse(json)
+    }
+
+}
+
 
 window.onload = function(){
-    btnVaciar.onclick = vaciarFormulario
+    btnVaciar.onclick   = vaciarFormulario
     btnInsertar.onclick = insertar
+    btnBorrar.onclick   = borrar
+    btnGuardar.onclick  = guardarPersonas
+
+    leerPersonas()
+    rellenarTabla()
 }
 
 </script>
@@ -154,13 +240,7 @@ window.onload = function(){
         <tbody id="tablaPersonas"></tbody>
     </table>
 
-
-
-
-
-
-
-
 </body>
 
 </html>
+

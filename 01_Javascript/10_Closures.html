@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+function crearMultiplicador(n1){
+    
+    //Las funciones anidadas pueden utilizar variables declaradas en el nido
+    //PAra la función anidada queda declarado en su contexto una copia de la variable 
+    //externa con el valor fijado
+    let f1 = function(n2){
+        return n1*n2
+    }
+
+    return f1
+}
+
+let multiplicadorPor5 = crearMultiplicador(5)
+let multiplicadorPor10 = crearMultiplicador(10)
+let multiplicadorPor15 = crearMultiplicador(15)
+
+console.log( multiplicadorPor5(5)) //25
+console.log( multiplicadorPor10(5)) //50
+console.log( multiplicadorPor10(5)) //50
+
+</script>
+
+<body>    
+    <h1>10_Closures</h1>
+</body>
+</html>
