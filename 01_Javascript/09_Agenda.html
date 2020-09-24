@@ -20,6 +20,8 @@ function vaciarFormulario(){
     direccion.value = ''
     telefono.value  = ''
     correoE.value   = ''
+
+    modoInserccion()
 }
 
 function insertar(){
@@ -41,6 +43,12 @@ function insertar(){
 
 function modificar(){
 
+    //Accedemos a la persona seleccionada (personaSel)
+    //Obtenemos su _id
+    //Recorremos el array buscando a esa persona
+    //Cuando la hayamos encontrado le cambiamos los valores
+    //actualizar la tabla
+
     for(let persona of personas){
         if(persona._id == personaSel._id){
             persona.nombre    = nombre.value
@@ -49,13 +57,25 @@ function modificar(){
             persona.correoE   = correoE.value
             break
         }
-    }
+    }    
+
+    //Podríamos hacerlo con un forEach pero, como todo el mundo sabe, los forEach no
+    //pueden 'romperse'
+    /*
+    personas.forEach(function(persona, posicion){
+        if(persona._id == personaSel._id){
+            persona.nombre    = nombre.value
+            persona.direccion = direccion.value
+            persona.telefono  = telefono.value
+            persona.correoE   = correoE.value          
+        }
+    })
+    */
 
     vaciarFormulario()
     rellenarTabla()
     personaSel = null
 }
-
 
 
 function borrar(){
@@ -87,7 +107,8 @@ function seleccionarPersona(_id){
             break
         }
     }
-    
+
+    modoSeleccion()    
 }
 
 function rellenarTabla(){
@@ -122,6 +143,9 @@ function rellenarTabla(){
 
         //Closure: una funcion que utiliza una variable declarada fuera de ella
         nodoTR.onclick = function(){
+            
+            this.bgColor = "yellow"
+            
             seleccionarPersona(persona._id)
         }
 
@@ -184,7 +208,20 @@ function leerPersonas(){
 
 }
 
+function modoInserccion(){
+    btnBorrar.disabled    = true
+    btnModificar.disabled = true
+    btnInsertar.disabled  = false
+}
 
+function modoSeleccion(){
+    btnBorrar.disabled    = false
+    btnModificar.disabled = false
+    btnInsertar.disabled  = true
+}
+
+//La funcion que asignamos a window.onload será la encargada de inicializar la página
+//Podríamos decir que es equivalente a un main
 window.onload = function(){
     btnVaciar.onclick    = vaciarFormulario
     btnInsertar.onclick  = insertar
@@ -192,6 +229,7 @@ window.onload = function(){
     btnBorrar.onclick    = borrar
     btnGuardar.onclick   = guardarPersonas
 
+    modoInserccion()
     leerPersonas()
     rellenarTabla()
 }

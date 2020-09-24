@@ -13,7 +13,6 @@
 //asociados siempre a otros objetos
 //
 
-
 //Los nombres de las funciones serán verbos
 //Utilizando camel case
 
@@ -138,7 +137,6 @@ nido()
 //Normalmente guardaremos una función en una variable para pasarla por parámetro a otra función
 //La función que recibe el parámetros será la que la incoque
 //
-
 console.log("============================")
 
 function dividir(n1, n2){
@@ -165,10 +163,20 @@ let x = 100
 //x() //Zasca!
 
 //
-//Crear una función utilizando el prototipo function
+//Creando una función con el prototipo Function
 //
+console.log("============================")
+let dividir3 = new Function("n1","n2","return n1/n2")
+/*
+Sería equivalente a:
+let dividir2 = function(n1, n2){
+    return n1/n2
+}
+*/
+console.log(dividir3)
+console.log(dividir3(100,5))
 
-//Ya lo veremos.
+
 
 </script>
 
