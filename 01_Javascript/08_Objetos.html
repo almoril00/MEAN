@@ -162,12 +162,13 @@
             return this.nombre+", "+this.procesador+", "+this.memoria+", "+this.disco
         }
     }
-
     let ordenador1 = new Ordenador("Amstrad CPC 464","Z80","64Kb","JAJA")
     let ordenador2 = new Ordenador("ZX Specttrum","Z80","48Kb","JAJA")
+    let ordenador3 = new Ordenador("Commodore Amiga","M68000","512Kb","-")
 
     console.log(ordenador1.toCSV())
     console.log(ordenador2.toCSV())
+    console.log(ordenador3.toCSV())
     
     //
     //Añadiendo la funcionalidad directamente al prototipo
@@ -179,7 +180,7 @@
         this.bits       = bits 
         this.year       = year
     }
-
+    //NombreDeLaFuncion.prototype.x = function() {} 
     Consola.prototype.toCSV = function(){
         return this.fabricante+", "+this.modelo+", "+this.bits+", "+this.year
     }
@@ -191,14 +192,33 @@
     console.log(c1)
     console.log(c2)
 
+    //
+    //Componentes estáticos
+    //
+    //Los componentes dinámicos pertenecen a los objetos
+    //Los componentes estáticos pertenecen a la clase (en este caso al prototipo)
+    //
+    console.log("=======================================")
+    function Serie(titulo, temporadas){
+        
+        //contador pertenece al prototipo 'Serie'
+        if(!Serie.contador){
+            Serie.contador = 0
+        }
+        Serie.contador++
 
-    ///////////////////////
-    let pelicula = {
-        titulo : "The Terminator"
+        this.id = Serie.contador
+        this.titulo = titulo
+        this.temporadas = temporadas
+    }
+    Serie.prototype.toString = function(){
+        return this.id+", "+this.titulo+", "+this.temporadas
     }
 
-    console.log(pelicula)
-
+    let s1 = new Serie("El equipo A", 5)
+    console.log(s1)
+    let s2 = new Serie("JDT", 8)
+    console.log(s2)    
 
 </script>    
 
@@ -208,3 +228,5 @@
 
 </body>
 </html>
+
+
