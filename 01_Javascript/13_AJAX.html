@@ -111,11 +111,9 @@ function enviarPeticionMillenial(){
         console.log("Ha habido un zasca importante")
     }
 
-    xmlHttp.onload = function(){
-        
-        
-        rellenarTabla( ARRAY DE USUARIOS )
-           
+    xmlHttp.onload = function(){        
+        let respuesta = JSON.parse(this.responseText)        
+        rellenarTabla( respuesta.data )           
     }
 
     xmlHttp.send()
@@ -141,7 +139,20 @@ function enviarPeticionMillenial(){
 
 function rellenarTabla( usuarios ){
 
-    console.log(usuarios)
+    tablaUsuarios.innerHTML = ""
+
+    for(let usuario of usuarios){
+        let tr = `
+            <tr>
+                <td>${usuario.first_name}</td>
+                <td>${usuario.last_name}</td>
+                <td>${usuario.email}</td>
+                <td>
+                    <img src="${usuario.avatar}" height="150"/>
+                </td>
+            </tr>`;        
+        tablaUsuarios.innerHTML = tablaUsuarios.innerHTML + tr
+    }
 
 }
 
