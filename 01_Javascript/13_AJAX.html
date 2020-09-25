@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+
+console.log(document)
+console.log(window)
+console.log(JSON)
+console.log(XMLHttpRequest)
+
+
+//                   //
+// PETICION SÍNCRONA //
+//                   //
+function enviarPeticionSincrona(){
+
+    // XMLHttpRequest
+    let xmlHttp = new XMLHttpRequest()
+
+    //La función open inicializa la petición
+    //REcibe tres pámetros
+    //-el método HTTP
+    //-la URL
+    //-un boolean indicando asíncrono/sincrono (true/false)
+
+    //Métodos HTTP
+    //GET    - sin body - obtener recursos existentes en el servidor
+    //POST   - adjunta en el body un recurso para que se añada en el servidor
+    //PUT    - para sustituir un recurso existente en el servidor por el que se adjunta
+    //PATCH  - para modificar un recurso existente en el servidor con los datos del que se adjunta
+    //DELETE - sin body -para eliminar recursos
+    //------------------
+    //OPTIONS 
+    //HEAD
+
+    xmlHttp.open("GET","https://reqres.in/api/users?delay=10",false)
+
+    console.log(xmlHttp.responseText) //
+
+    //Si queremos añadir algo al body de la petición lo proporcionamos como
+    //parámetro al invocar 'send'
+
+    ///Peticiones síncronas:
+    //El hilo de ejecucion se queda parado en el send hasta
+    //que llegue la respuesta. El navegador se queda bloqueado!!!
+    xmlHttp.send()
+
+    //La respuesta quedará en la propiedad 'responseText'
+    console.log(xmlHttp.status)
+    console.log(xmlHttp.responseText)
+
+    document.getElementById("respuesta").innerHTML = xmlHttp.responseText
+
+}
+
+//                    //
+// PETICIÓN ASÍNCRONA //
+//                    //
+function enviarPeticionAsincrona(){
+
+    let xmlHttp = new XMLHttpRequest()
+
+    xmlHttp.open("GET","https://reqres.in/api/users?delay=5",true)
+
+    console.log(xmlHttp.readyState) //1
+    //readyState
+    //0-UNSENT	            Client has been created. open() not called yet.
+	//1-OPENED	            open() has been called.
+	//2-HEADERS_RECEIVED    send() has been called, and headers and status are available.
+	//3-LOADING	            Downloading; responseText holds partial data.
+	//4-DONE	            The operation is complete.
+
+    xmlHttp.onreadystatechange = function(){
+        console.log(this.readyState)
+        if(this.readyState == 4){
+            if(this.status == 200){
+                document.getElementById("respuesta").innerHTML = xmlHttp.responseText
+            } else {
+                console.log("ZASCA TARRASCA!")
+            }
+        }
+    }
+
+    //Si la petición es asíncrona el hilo de ejecución no se detiene en el 'send'
+    xmlHttp.send()
+
+    //Espera activa. Esto bloquea el único hilo disponible y deja congelado al navegador 
+    //hasta la muerte térmica del universo   
+    //while(xmlHttp.readyState!=4){
+    //}
+    
+    //Esta línea se ejecuta ANTES de tener la respuesta y no sirve de nada
+    console.log("Respuesta:"+xmlHttp.responseText)
+
+
+}
+
+function enviarPeticionMillenial(){
+
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.open("GET","https://reqres.in/api/users?delay=5",true)
+
+    xmlHttp.onerror = function(){
+        console.log("Ha habido un zasca importante")
+    }
+
+    xmlHttp.onload = function(){
+        
+        
+        rellenarTabla( ARRAY DE USUARIOS )
+           
+    }
+
+    xmlHttp.send()
+    
+}
+
+/*
+{
+    "page":1,
+    "per_page":6,
+    "total":12,
+    "total_pages":2,
+    "data": [
+        {
+            "id":1,
+            "email":"george.bluth@reqres.in",
+            "first_name":"George",
+            "last_name":"Bluth",
+            "avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
+        } ]
+}
+*/
+
+function rellenarTabla( usuarios ){
+
+    console.log(usuarios)
+
+}
+
+
+window.onload = function(){
+    btnListarUsuariosSincrono.onclick = enviarPeticionSincrona
+    btnListarUsuariosAsincrono.onclick = enviarPeticionAsincrona
+    btnListarUsuariosMillenial.onclick = enviarPeticionMillenial
+    //btnListarUsuariosFuncionGenerica.onclick = enviarPeticionGenerica
+}
+
+</script>
+
+
+<body>
+    
+    <h1>13_AJAX</h1>
+
+    <p align="center">
+        <button id="btnListarUsuariosSincrono">Listar Síncrono</button>
+        <button id="btnListarUsuariosAsincrono">Listar Asíncrono</button>
+        <button id="btnListarUsuariosMillenial">Listar Millenial</button>
+        <button id="btnListarUsuariosFuncionGenerica">Listar Funcion Genérica</button>
+    </p>
+
+    <input type="text"/>
+
+    <div id="respuesta"></div>
+
+    <h1 align="center" id="mensaje"></h1>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Correo E</th>
+            <th>Afoto</th>
+        </tr>
+        <tbody id="tablaUsuarios"></tbody>
+    </table>
+
+</body>
+</html>
+
+
+
