@@ -135,9 +135,45 @@
     console.log(avion2)
 
     //
-    //Simulando un constructor
+    //Composición de objetos
     //
     console.log("===================================")
+    
+
+    function Direccion(){
+        this.ciudad = null
+        this.calle = null
+        this.numero = null
+    }
+
+    function Persona(){
+        this.nombre = null
+        this.telefono = null
+        //Cada persona tendrá su propia dirección
+        this.direccion = new Direccion()
+        
+        //Con un objeto 'al vuelo'
+        //this.direccion = {
+        //    ciudad : null,
+        //    calle : null,
+        //    numero : null
+        //}
+    }
+
+    let persona3 = new Persona()
+    persona3.nombre = "Manolo"
+    persona3.direccion.calle = "C/Uno"
+    let persona4 = new Persona()
+    persona4.nombre = "Benito"
+    persona4.direccion.calle = "C/Dos"
+
+    console.log(persona3)
+    console.log(persona4)
+
+    //
+    //Simulando un constructor
+    //
+    console.log("===================================")    
     function Animal(nombre, altura, peso){
         this.nombre = nombre
         this.altura = altura
