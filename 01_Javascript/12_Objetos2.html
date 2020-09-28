@@ -168,40 +168,7 @@
     Object.setPrototypeOf(moto1Bis, Amoto)
     moto1Bis.saludar()
 
-
-
-    console.log("=============================================") 
-
-    function Bicicleta(marca, modelo){
-        this.marca = marca
-        this.modelo = modelo
-    }
-    Bicicleta.prototype.rodar = function(){
-        return "Hola, soy la bicicleta "+this.marca+" "+this.modelo+" y ruedo."
-    }
-
-    let bici1 = new Bicicleta("Rabasa Derbi","Panther Mach II")
-    console.log(bici1.rodar())
-
-    json = JSON.stringify(bici1)
-    let bici1Bis = JSON.parse(json)
-
-    Object.setPrototypeOf(bici1Bis, Curso)
-
-    
-
-    bici1Bis.toString()
-
-    console.log(bici1Bis)
-
-
-
-
-
-
-
 </script>
-
 
 
 <body>
