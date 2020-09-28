@@ -60,4 +60,29 @@ servidor.listen(2000) //La llamada a 'listen' es A S I N C R O N A
 console.log("Esperando peticiones (mentira)")
 
 
+function listarPeliculas(){
 
+    return [
+        {
+            titulo : 'Indiana Jones',
+            director : 'Steven Spielberg'
+        },
+        {
+            titulo : 'Depredador',
+            director : 'John McTiernan'
+        },
+        {
+            titulo : 'Los Gremlins',
+            director : 'Joe Dante'
+        },
+        {
+            titulo : 'Tron',
+            director : 'Steven Lisberger'
+        },
+        {
+            titulo : 'El padrino',
+            director : 'Scorsese'
+        }
+    ]
+
+}
