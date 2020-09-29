@@ -19,7 +19,12 @@ console.log("Hola mundo")
 
 const http = require("http")
 
-
+//Creamos el objeto servidor invocando la función 'createServer' del módulo 'http'
+//Cuando creamos el servidor proporcionamos una funcion que se encargará
+//de procesar las peticiones
+//Esta función recibe dos parámetros:
+//-el objeto que representa a la petición entrante
+//-el objeto que representa a la respuesta saliente
 let servidor = http.createServer( function(request, response){
 
     console.log("Petición recibida")
