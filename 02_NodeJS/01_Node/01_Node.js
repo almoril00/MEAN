@@ -41,7 +41,11 @@ let servidor = http.createServer( function(request, response){
                     <tr>
                         <th>Titulo</th>
                         <th>Director</th>
-                    </tr>
+                    </tr>`;
+
+    //PUT YOUR BLOODY CODE HERE
+
+    html += `
                 </table>
             </body>
         </html>`;
