@@ -91,9 +91,13 @@ fs.readFile("./recursos/fichero1.txt", function(error, contenido){
                                     return
                                 }
                                 console.log("Fichero creado")
+                                //Fin callback 4
                             })
-                    })                
+                        //Fin callback 3
+                    })
+                //Fin callback 2                
             })
+        //Fin callback1
     })
 
 
