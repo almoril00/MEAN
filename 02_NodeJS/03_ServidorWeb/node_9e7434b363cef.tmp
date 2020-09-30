@@ -38,9 +38,6 @@ function devolverError(statusCode, response){
                 <font color="red">
                     ${statusCode}
                 </font>
-                <br/>
-                XXXXXXX
-                XXXXXXX
                 XXXXXXX
             </h1>
         </body>
@@ -65,8 +62,6 @@ function leerRecursoEstatico(url, response){
             return  
         }
 
-
-        response.setHeader('Content-Type','text/html')
         response.end(contenido)
     })
 
