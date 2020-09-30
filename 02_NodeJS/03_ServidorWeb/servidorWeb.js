@@ -2,6 +2,14 @@
 const http = require("http")
 const fs = require("fs")
 
+let statusCodes = {
+    404 : "Recurso no encontrado",
+    405 : "Método no permitido",
+    400 : "Petición incorrecta" 
+}
+
+//mime types
+
 //Creamos el servidor y proporcionamos la función que procesará TODAS las peticiones
 let servidor = http.createServer( procesarPeticion )
 //La llamada a 'listen' es asíncrona
@@ -39,9 +47,10 @@ function devolverError(statusCode, response){
                     ${statusCode}
                 </font>
                 <br/>
-                XXXXXXX
-                XXXXXXX
-                XXXXXXX
+                
+                <div align="center">
+                    ${ statusCodes[statusCode] }
+                </div>
             </h1>
         </body>
         </html>
@@ -58,18 +67,20 @@ function leerRecursoEstatico(url, response){
 
     let recurso = url.split("?")[0]
 
-    fs.readFile("./recursos"+recurso, function(error, contenido){
-
+    fs.access("./recursos"+recurso, function(error){
         if(error){
             devolverError(404, response)       
-            return  
+            return             
         }
-
-
-        response.setHeader('Content-Type','text/html')
-        response.end(contenido)
+        fs.readFile("./recursos"+recurso, function(error, contenido){
+            if(error){
+                devolverError(404, response)       
+                return             
+            }           
+            response.setHeader('Content-Type','text/html')
+            response.end(contenido)
+        })
     })
-
 
 }
 
