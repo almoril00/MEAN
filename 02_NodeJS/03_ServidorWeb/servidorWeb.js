@@ -8,7 +8,13 @@ let statusCodes = {
     400 : "Petición incorrecta" 
 }
 
-//mime types
+let mimeTypes = {
+    "html" : "text/html",
+    "js"   : "application/javascript",
+    "css"  : "text/css",
+    "jpg"  : "image/jpeg"
+}
+
 
 //Creamos el servidor y proporcionamos la función que procesará TODAS las peticiones
 let servidor = http.createServer( procesarPeticion )
@@ -65,6 +71,7 @@ function leerRecursoEstatico(url, response){
     //let trozos = url.split("?")
     //let recurso = trozos[0]
 
+
     let recurso = url.split("?")[0]
 
     fs.access("./recursos"+recurso, function(error){
@@ -76,8 +83,11 @@ function leerRecursoEstatico(url, response){
             if(error){
                 devolverError(404, response)       
                 return             
-            }           
-            response.setHeader('Content-Type','text/html')
+            }    
+            
+            let extension = recurso.split(".").pop()
+
+            response.setHeader('Content-Type',mimeTypes[extension])
             response.end(contenido)
         })
     })
