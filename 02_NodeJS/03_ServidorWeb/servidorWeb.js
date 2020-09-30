@@ -15,7 +15,6 @@ let mimeTypes = {
     "jpg"  : "image/jpeg"
 }
 
-
 //Creamos el servidor y proporcionamos la función que procesará TODAS las peticiones
 let servidor = http.createServer( procesarPeticion )
 //La llamada a 'listen' es asíncrona
@@ -93,5 +92,12 @@ function leerRecursoEstatico(url, response){
     })
 
 }
+
+
+
+
+
+
+
 
 
