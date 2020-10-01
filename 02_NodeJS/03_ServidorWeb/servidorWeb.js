@@ -99,5 +99,3 @@ function leerRecursoEstatico(url, response){
 
 
 
-
-
