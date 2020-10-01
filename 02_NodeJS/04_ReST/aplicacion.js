@@ -1,4 +1,5 @@
 const http = require("http")
+const negocioSeries = require("./negocioSeries.js")
 
 http.createServer( procesarPeticion )
     .listen(4000, function(){ 
@@ -36,6 +37,7 @@ function procesarPeticion(request, response){
     let metodo = request.method.toUpperCase()
     let url    = request.url.split("?")[0]
 
+    //Averiguamos a qué funcíon de la lógica de control hay que llamar
     if(metodo=="GET" && url=="/series"){
         listarSeries(request, response)
     } else if(metodo=="GET" && url.match("/series/[0-9]+$") ){
@@ -51,6 +53,7 @@ function extraerQueryParams(request){
 
     let cachos = request.url.split("?")
     if(cachos.length < 2){
+        request.query = []
         return
     }
 
@@ -70,7 +73,6 @@ function extraerQueryParams(request){
     request.query = query //Y YA
 }
 
-
 function devolverError(status, descripcion, response){
     response.statusCode = status
     response.setHeader('Content-Type','application/json')
@@ -83,7 +85,7 @@ function devolverError(status, descripcion, response){
 
 
 //                                                               //
-//Tareas a realizar por la lógica de congtrol en un servicio ReST//
+//Tareas a realizar por la lógica de control en un servicio ReST//
 //                                                               //
 
 //-Averiguar qué nos están pidiendo (esto ya lo hemos hecho arriba con los preciosos IF anidados)
@@ -111,7 +113,11 @@ function listarSeries(request, response){
     console.log(request.query.creador)
     console.log(request.query.year)
 
-    response.end()
+    let serie = negocioSeries.listarSeries()
+
+    response.setHeader('Content-type','application/json')
+    response.end(JSON.stringify(serie))
+
 }
 
 function buscarSeriePorId(request, response){
