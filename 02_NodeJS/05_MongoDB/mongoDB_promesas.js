@@ -65,7 +65,8 @@ mongoDB.connect(url, { useUnifiedTopology: true })
         console.log("======================================") 
         console.log(documentoEncontrado) 
         
-        //Al hacer un find nos devuelven un cursor 
+        //Al hacer un find nos devuelven un cursor
+        //Esto es sincrono
         let cursor = series.find()
         
         //Con la función 'toArray' leemos 'del tirón' todo el cursor
