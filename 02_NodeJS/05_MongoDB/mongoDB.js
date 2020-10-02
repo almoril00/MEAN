@@ -24,6 +24,9 @@ mongoDB.connect(url, { useUnifiedTopology: true }, function(error, dbs){
         return
     }
 
+    console.log("=====================================")
+    console.log("Conexión establecida")
+
     //Al servidor de bases de datos le pedimos un esquema
     //Esta función es síncrona
     let seriesDB = dbs.db("seriesDB")
@@ -31,42 +34,49 @@ mongoDB.connect(url, { useUnifiedTopology: true }, function(error, dbs){
     //Al esquema le pedimos una colección
     //Esta función es síncrona
     let series = seriesDB.collection("series")
-
-    //////////
-    //INSERT//
-    //////////
-
+    
     let serie = {
         //_id      : 1,
-        titulo   : "El equipo A",
-        genero   : "Tiros",
-        year     : 1983,
+        titulo   : "Alf",
+        genero   : "Comedia",
+        year     : 1986,
         pais     : "USA",
-        sinopsis : "Un grupo de combatientes de la guerra de Vietnam es acusado de un ccrimen que no han cometido"
+        sinopsis : "Un señor con posibilidades económicas infinitas acoge a un desastre de marciano en su casa"
     }
 
+    ////////////
+    // INSERT //
+    ////////////
     series.insertOne(serie, function(error, resultado){
         if(error){
             console.log(error)
             return
         }
 
+        console.log("=====================================")        
         console.log(resultado)
+
+        //////////////
+        // FIND ONE //
+        //////////////
+        series.findOne( { genero : "Comedia" }, function(error, documentos){
+            if(error){
+                console.log(error)
+                return
+            }
+            console.log("=====================================")
+            console.log(documentos)
+
+            ////////////////////////
+            // CERRAR LA CONEXIÓN //
+            ////////////////////////
+            dbs.close(function(){
+                console.log("=====================================")
+                console.log("Conexión cerrada")
+            })
+        })
     })
-
-    series.findOne( { genero : "Tiros" }, function(error, documentos){
-        if(error){
-            console.log(error)
-            return
-        }
-        console.log(documentos)
-    })
-
-    
-
-
-
-    //
-
 })
+
+
 
