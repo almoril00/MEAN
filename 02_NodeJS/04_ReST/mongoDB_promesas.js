@@ -9,9 +9,11 @@ let mongoDB = require("mongodb")
 //-connect
 //-insert
 //-findOne
+//-cursor.toArray Recorre el cursor completamente y guarda los elementos en un array
 //
 //Funciones síncronas
 //-dbs.db(nombre_esquema) (obtiene un esquema)
+//-find (devuelve un cursor)
 
 let url = "mongodb://localhost:27017"
 //'db' es un objeto que representa al servidor MongoDB
@@ -23,10 +25,17 @@ let url = "mongodb://localhost:27017"
 //promesa.then(funcion que se ejecutará cuando todo vaya bien)
 //promesa.catch(funcion que se ejecutará si algo va mal)
 
+let dbs = null
 let series = null
-let promesa = mongoDB.connect(url, { useUnifiedTopology: true })
-promesa
-    .then(function(dbs){
+
+//let promesa = mongoDB.connect(url, { useUnifiedTopology: true })
+//promesa
+//    .then(...)
+//    .catch(...)
+
+mongoDB.connect(url, { useUnifiedTopology: true })
+    .then(function(_dbs){
+        dbs = _dbs
         console.log("======================================")
         console.log("Conexión establecida")
 
@@ -35,11 +44,11 @@ promesa
 
         let serie = {
             //_id      : 1,
-            titulo   : "Falcon crest",
+            titulo   : "Norte y sur",
             genero   : "Culebrón",
-            year     : 1981,
+            year     : 1985,
             pais     : "USA",
-            sinopsis : "Angela Channing y su mayordomo chino cruzan el golden gate en limusina para ir al viñedo"
+            sinopsis : "La guerra civil americana desde una perspectiva amorosa"
         }  
         
         //Si la última línea de un then devuelve una promesa...
@@ -50,13 +59,33 @@ promesa
         console.log("======================================")        
         console.log(resultadoInsert)
         
-        return series.findOne({ genero : 'Culebrón'})
+        return series.findOne({ titulo : 'Norte y sur'})
     })
     .then(function(documentoEncontrado){
         console.log("======================================") 
-        console.log(documentoEncontrado)       
+        console.log(documentoEncontrado) 
+        
+        //Al hacer un find nos devuelven un cursor 
+        let cursor = series.find()
+        
+        //Con la función 'toArray' leemos 'del tirón' todo el cursor
+        //Hay que usarla con precaución
+        //La función 'toArray' es ASINCRONA
+        return cursor.toArray()
+    })
+    .then(function(listadoSeries){
+        console.log("======================================") 
+        for(let s of listadoSeries){
+            console.log(s.titulo+", "+s.year)
+        }
 
+        return dbs.close()     
+    })
+    .then(function(){
+        console.log("======================================") 
+        console.log("Conexión cerrada")
     })
     .catch(function(error){
         console.log(error);
     })
+
