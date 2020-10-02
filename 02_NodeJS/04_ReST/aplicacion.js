@@ -11,10 +11,11 @@ http.createServer( procesarPeticion )
 
 {
     _id : 
-    titulo :
-    genero :
-    year   :
-    pais   :
+    titulo   :
+    genero   :
+    year     :
+    pais     :
+    sinopsis :
 }
 
 API ReST
