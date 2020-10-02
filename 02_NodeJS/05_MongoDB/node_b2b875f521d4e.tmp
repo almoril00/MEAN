@@ -37,12 +37,12 @@ mongoDB.connect(url, { useUnifiedTopology: true }, function(error, dbs){
     //////////
 
     let serie = {
-        //_id      : 1,
-        titulo   : "El equipo A",
-        genero   : "Tiros",
-        year     : 1983,
+        _id      : 1,
+        titulo   : "El coche fantástico",
+        genero   : "Ciencia ficción",
+        year     : 1982,
         pais     : "USA",
-        sinopsis : "Un grupo de combatientes de la guerra de Vietnam es acusado de un ccrimen que no han cometido"
+        sinopsis : "Las aventuras de un hombre que no existe en un mundo lleno de peligros. Luego se hizo cantante y tuvo un gran exito en Alemania"
     }
 
     series.insertOne(serie, function(error, resultado){
@@ -54,15 +54,13 @@ mongoDB.connect(url, { useUnifiedTopology: true }, function(error, dbs){
         console.log(resultado)
     })
 
-    series.findOne( { genero : "Tiros" }, function(error, documentos){
-        if(error){
-            console.log(error)
-            return
-        }
-        console.log(documentos)
-    })
 
-    
+    //series.find()
+
+    //series.findOne(, function(error, documentos){
+
+    //})
+
 
 
 
