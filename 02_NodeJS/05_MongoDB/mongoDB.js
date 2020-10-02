@@ -7,6 +7,8 @@ const mongoDB = require("mongoDB")
 
 //Funciones asíncronas:
 //-connect
+//-insert
+//-findOne
 //
 //Funciones síncronas
 //-dbs.db(nombre_esquema) (obtiene un esquema)
