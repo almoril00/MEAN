@@ -3,7 +3,6 @@ const mongoDB = require("mongodb")
 exports.conexion = null
 exports.esquema = null;
 
-
 exports.conectarBBDD = function(){
 
     let url = "mongodb://localhost:27017"
@@ -19,4 +18,5 @@ exports.conectarBBDD = function(){
         exports.esquema = dbs.db("seriesDB")
     })
 }
+
 

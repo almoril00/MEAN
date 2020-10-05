@@ -1,8 +1,6 @@
 const http = require("http");
-const { exit } = require("process");
 const conexionBD = require("./conexionBD.js")
 const negocioSeries = require("./negocioSeries.js")
-
 
 conexionBD.conectarBBDD();
 
@@ -12,8 +10,7 @@ http.createServer( procesarPeticion )
     })
 
 /*
-/series
-
+Serie:
 {
     _id : 
     titulo   :
@@ -25,20 +22,20 @@ http.createServer( procesarPeticion )
 
 API ReST
 
-METODO  RUTA         PARAMS     Funcionalidad
-GET     /series      -          Listar las series
-GET     /series      genero     Listar las series por genero
-GET     /series/:id  -          Buscar una serie por su id
--                               Insertar una serie
--                               Modificar
-DELETE  /series/:id  -          Eliminar una serie por su id
+METODO  RUTA         PARAMS     Body    Funcionalidad
+GET     /series      -          -       Listar las series
+GET     /series      genero     -       Listar las series por genero
+GET     /series/:id  -          -       Buscar una serie por su id
+POST    /series      -          JSON    Insertar una serie
+-       -            -          -       Modificar
+DELETE  /series/:id  -          -       Eliminar una serie por su id
 */
 
 function procesarPeticion(request, response){
     
-    console.log(request.query) //undefined
+    //console.log(request.query) //undefined
     extraerQueryParams(request)
-    console.log(request.query) //
+    //console.log(request.query) //
     
     let metodo = request.method.toUpperCase()
     let url    = request.url.split("?")[0]
@@ -48,7 +45,9 @@ function procesarPeticion(request, response){
         listarSeries(request, response)
     } else if(metodo=="GET" && url.match("/series/[0-9]+$") ){
         buscarSeriePorId(request, response)
-    } else if(metodo=="DELETE" && url.match("/series/[0-9]+$") ){
+    } else if(metodo=="POST" && url=="/series"){
+        insertarSerie(request, response)   
+    }else if(metodo=="DELETE" && url.match("/series/[0-9]+$") ){
         borrarSerie(request, response)
     } else {
         devolverError(404, "No sabemos que nos pides", response)
@@ -69,7 +68,10 @@ function extraerQueryParams(request){
     for(let parametro of parametros){
         let smith = parametro.split("=")
         let clave = smith[0]
-        let valor = smith[1]
+        //Esto no: losmparámetros vienen 'URLEncoded'
+        //let valor = smith[1]
+        //Decodificamos el valor del parámetro por si tenía algún caracter especial
+        let valor = decodeURIComponent(smith[1])
 
         query[clave] = valor
     }
@@ -86,7 +88,6 @@ function devolverError(status, descripcion, response){
     }
     response.end(JSON.stringify(error))    
 }
-
 
 //                                                               //
 //Tareas a realizar por la lógica de control en un servicio ReST//
@@ -138,7 +139,23 @@ function buscarSeriePorId(request, response){
 }
 
 function insertarSerie(request, response){
-    response.end()
+
+    //Cuando la petición sale del Event Queue solo incluye el HEAD
+    //Leer el BODY es cosa nuestra
+    //En el módulo http va con eventos
+
+    //request.on(evento, callback)
+    request.on("data", function(body){
+        console.log(body.toString())
+
+        negocioSeries.insertarSerie(JSON.parse(body))
+        .then(function(resultado){
+            response.end("OK")
+        })
+        .catch(function(error){
+            response.end("MAL")
+        })
+    })
 }
 
 function modificarSerie(request, response){

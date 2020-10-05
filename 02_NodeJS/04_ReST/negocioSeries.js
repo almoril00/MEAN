@@ -20,7 +20,15 @@ exports.listarSeries = function(criterioBusqueda){
 exports.buscarSeriePorId = function(){
 }
 
-exports.insertarSerie = function(){
+//La lógica de negocio trabaja con OBJETOS
+exports.insertarSerie = function(serie){
+
+    //validaciones
+    //autorización (seguridad)
+    //...
+
+    return conexionBD.esquema.collection("series").insertOne(serie)
+
 }
 
 exports.modificarSerie = function(){    
