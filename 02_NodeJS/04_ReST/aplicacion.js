@@ -43,11 +43,11 @@ function procesarPeticion(request, response){
     //Averiguamos a qué funcíon de la lógica de control hay que llamar
     if(metodo=="GET" && url=="/series"){
         listarSeries(request, response)
-    } else if(metodo=="GET" && url.match("/series/[0-9]+$") ){
+    } else if(metodo=="GET" && url.match("/series/[0-9a-zA-Z]+$") ){
         buscarSeriePorId(request, response)
     } else if(metodo=="POST" && url=="/series"){
         insertarSerie(request, response)   
-    }else if(metodo=="DELETE" && url.match("/series/[0-9]+$") ){
+    }else if(metodo=="DELETE" && url.match("/series/[0-9a-zA-Z]+$") ){
         borrarSerie(request, response)
     } else {
         devolverError(404, "No sabemos que nos pides", response)
@@ -133,9 +133,23 @@ function listarSeries(request, response){
 
 }
 
+//GET /series/14A76b
 function buscarSeriePorId(request, response){
-    console.log("BuscarSeriePorId");
-    response.end()
+
+    //id
+    //Troceamos por la barra y nos quedamos con el último cacho
+
+    negocioSeries.buscarSeriePorId(id)
+
+    //Respuestas
+    //200 y un json en el body con la serie encontrada
+    //404 si no la ha encontrado
+    //500 si ha habido un fallo en el servidor
+    
+
+
+
+
 }
 
 function insertarSerie(request, response){

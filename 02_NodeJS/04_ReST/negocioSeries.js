@@ -17,7 +17,12 @@ exports.listarSeries = function(criterioBusqueda){
     return cursor.toArray()    
 }
 
-exports.buscarSeriePorId = function(){
+exports.buscarSeriePorId = function(id){
+
+    //findOne si no encuentra ningun documento no devuelve nada ni da error
+    
+
+
 }
 
 //La lógica de negocio trabaja con OBJETOS
