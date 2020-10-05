@@ -136,20 +136,24 @@ function listarSeries(request, response){
 //GET /series/14A76b
 function buscarSeriePorId(request, response){
 
-    //id
-    //Troceamos por la barra y nos quedamos con el último cacho
+    let _id = request.url.split("/").pop()
 
-    negocioSeries.buscarSeriePorId(id)
-
-    //Respuestas
-    //200 y un json en el body con la serie encontrada
-    //404 si no la ha encontrado
-    //500 si ha habido un fallo en el servidor
-    
-
-
-
-
+    negocioSeries
+        .buscarSeriePorId(_id)
+        .then(function(serie){
+            if(!serie){
+                //404
+                devolverError(404,"La serie no existe", response)  
+                return
+            }            
+            //200
+            response.setHeader('Content-type','application/json')
+            response.end(JSON.stringify(serie))
+        })
+        .catch(function(error){
+            //500
+            devolverError(500,"Fallo interno en el servidor", response)
+        })
 }
 
 function insertarSerie(request, response){
@@ -176,8 +180,31 @@ function modificarSerie(request, response){
     response.end()
 }
 
+//DELETE /series/123454qwerty
 function borrarSerie(request, response){
     console.log("Borrar serie")
-    response.end()
+
+    let _id = request.url.split("/").pop()
+
+    negocioSeries
+        .borrarSerie(_id)
+        .then(function(resultado){
+            if(resultado.deletedCount == 0){
+                //404
+                devolverError(404,"Fallo interno en el servidor", response)            
+                return
+            }
+            //200
+            response.end("Borrado")
+        })
+        .catch(function(error){
+            devolverError(500,"Fallo interno en el servidor", response)            
+        })
+
+
 }
+
+
+
+
 

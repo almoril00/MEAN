@@ -1,4 +1,5 @@
 const conexionBD = require("./conexionBD.js")
+const mongodb = require("mongodb")
 
 //El objeto exports es implícito
 //Le asignaremos como propiedades todo lo que queramos que sea visible desde otros 
@@ -17,11 +18,15 @@ exports.listarSeries = function(criterioBusqueda){
     return cursor.toArray()    
 }
 
-exports.buscarSeriePorId = function(id){
 
-    //findOne si no encuentra ningun documento no devuelve nada ni da error
-    
 
+exports.buscarSeriePorId = function(_id){
+
+    //El _id que nos llega es una cadena de texto
+    //En los documentos de la colección el valor de _id es del tipo ObjectID
+    //Hay que crear un ObjectId con el valor que nos llega
+    let objectId = new mongodb.ObjectId(_id)
+    return conexionBD.esquema.collection("series").findOne( { "_id" : objectId } )
 
 }
 
@@ -31,7 +36,6 @@ exports.insertarSerie = function(serie){
     //validaciones
     //autorización (seguridad)
     //...
-
     return conexionBD.esquema.collection("series").insertOne(serie)
 
 }
@@ -39,7 +43,11 @@ exports.insertarSerie = function(serie){
 exports.modificarSerie = function(){    
 }
 
-exports.borrarSerie = function(){    
+exports.borrarSerie = function(_id){  
+    
+    let objectId = new mongodb.ObjectId(_id)
+    return conexionBD.esquema.collection("series").deleteOne( { "_id" : objectId })
+
 }
 
 

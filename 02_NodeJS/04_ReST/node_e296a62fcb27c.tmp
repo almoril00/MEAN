@@ -43,11 +43,11 @@ function procesarPeticion(request, response){
     //Averiguamos a qué funcíon de la lógica de control hay que llamar
     if(metodo=="GET" && url=="/series"){
         listarSeries(request, response)
-    } else if(metodo=="GET" && url.match("/series/[0-9]+$") ){
+    } else if(metodo=="GET" && url.match("/series/[0-9a-zA-Z]+$") ){
         buscarSeriePorId(request, response)
     } else if(metodo=="POST" && url=="/series"){
         insertarSerie(request, response)   
-    }else if(metodo=="DELETE" && url.match("/series/[0-9]+$") ){
+    }else if(metodo=="DELETE" && url.match("/series/[0-9a-zA-Z]+$") ){
         borrarSerie(request, response)
     } else {
         devolverError(404, "No sabemos que nos pides", response)
@@ -133,9 +133,27 @@ function listarSeries(request, response){
 
 }
 
+//GET /series/14A76b
 function buscarSeriePorId(request, response){
-    console.log("BuscarSeriePorId");
-    response.end()
+
+    let _id = request.url.split("/").pop()
+
+    negocioSeries
+        .buscarSeriePorId(_id)
+        .then(function(serie){
+            if(!serie){
+                //404
+                devolverError(404,"La serie no existe", response)  
+                return
+            }            
+            //200
+            response.setHeader('Content-type','application/json')
+            response.end(JSON.stringify(serie))
+        })
+        .catch(function(error){
+            //500
+            devolverError(500,"Fallo interno en el servidor", response)
+        })
 }
 
 function insertarSerie(request, response){
@@ -162,8 +180,31 @@ function modificarSerie(request, response){
     response.end()
 }
 
+//DELETE /series/123454qwerty
 function borrarSerie(request, response){
     console.log("Borrar serie")
-    response.end()
+
+    let _id = request.url.split("/").pop()
+
+    negocioSeries
+        .borrarSerie(_id)
+        .then(function(resultado){
+            if(resultado.deletedCount == 0){
+                //404
+                devolverError(404,"Fallo interno en el servidor", response)            
+                return
+            }
+            //200
+            response.end("Borrado")
+        })
+        .catch(function(error){
+            devolverError(500,"Fallo interno en el servidor", response)            
+        })
+
+
 }
+
+
+
+
 
