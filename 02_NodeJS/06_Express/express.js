@@ -76,6 +76,8 @@ function listarPeliculas(request, response){
 
 //Las partes variables en la url las indicaremos con ':'
 //Express se monta sus expresiones regulares para saber si la url coincide o no
+//GET /peliculas/5
+//GET /peliculas/25
 app.get("/peliculas/:id", buscarPeliculaPorId)
 
 function buscarPeliculaPorId(request, response){
@@ -86,6 +88,8 @@ function buscarPeliculaPorId(request, response){
 }
 
 //Podemos indicar más de un parámetro en la url
+//GET /movida/123/tocoto/abc
+//GET /movida/abc/tocoto/123
 app.get("/movida/:dato1/tocoto/:dato2", procesarMovida)
 
 function procesarMovida(request, response){
@@ -94,17 +98,34 @@ function procesarMovida(request, response){
 }
 
 //
+//Devolviendo un JSON
+//
+// ...
+
+
+
+//
 //Accediendo al body
 //
 
 //Si queremos que express lea el body debemos añadirle un objeto capaz de procesarlo
-//Esos objetos se llaman 'bodyParser'
-//De serie viene uno capaz de leer del body un JSON y entregarnoslo convertido en
-//objetos JS y otro que busca parámetros en el body (para1=valor1&param2=valor2&param3=valor3)
+//Esos objetos se llaman 'bodyParsers'
+//De serie vienen cuatro:
+//JSON bodyParser: 
+//      Lee del body un JSON y lo transforma en objetos JS
+//      Accedemos a él con request.body
+//Url encoded form body parser:
+//      Se usa cuando esperamos parámetros dentro del body.
+//      Luego accederemos a ellos con request.query
+//Text body parser:
+//      El más sencillo de todos. Lee el body y lo deja tal cual, como una cadena 
+//      de texto en request.body
+//
+//Se puede indicar más de un bodyParser y express usará el que corresponda dependiendo
+//del Content-type de la petición
 
-//Este módulo está ya incluido en express, no hace falta descargarlo con NPM
+//Tenemos que hacer el require. Este módulo está ya incluido en express, no hace falta descargarlo con NPM
 const bodyParser = require("body-parser")
-const { response } = require('express')
 
 //Añadimos los bodyParsers necesarios.
 //Si no añadimos un body parser express no leerá el body
@@ -160,3 +181,7 @@ function home(request, response){
 //Express añade por defecto a todas las respuestas el header 'X-Powered-By: Express'
 //Cuantas menos indicaciones demos a posibles atacantes MEJOR
 app.disable('x-powered-by')
+
+
+
+
