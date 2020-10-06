@@ -1,4 +1,3 @@
-const { SSL_OP_TLS_ROLLBACK_BUG } = require("constants");
 const http = require("http");
 const conexionBD = require("./conexionBD.js")
 const negocioSeries = require("./negocioSeries.js")
