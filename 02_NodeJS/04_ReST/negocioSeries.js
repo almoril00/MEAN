@@ -40,7 +40,33 @@ exports.insertarSerie = function(serie){
 
 }
 
-exports.modificarSerie = function(){    
+
+
+
+
+
+exports.modificarSerie = function(serie){ 
+    
+    //Validar los datos:
+    //-el objeto recibido tiene que incluir titulo, genero, year, creador y sinopsis
+    //-los valores para esas propiedades tienen que ser correctos
+    
+    return conexionBD
+        .esquema
+        .collection("series")
+        .findOneAndUpdate(
+            { _id : new mongodb.ObjectId(serie._id) },
+            {
+                $set : {
+                    titulo   : serie.titulo,
+                    genero   : serie.genero,
+                    year     : serie.year,
+                    creador  : serie.creador,
+                    sinopsis : serie.sinopsis
+                }
+            } 
+         )
+
 }
 
 exports.borrarSerie = function(_id){  

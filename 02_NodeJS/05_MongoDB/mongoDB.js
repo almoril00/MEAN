@@ -46,6 +46,8 @@ mongoDB.connect(url, { useUnifiedTopology: true }, function(error, dbs){
         sinopsis : "Un señor con posibilidades económicas infinitas acoge a un desastre de marciano en su casa"
     }
 
+    series.updateOne( { _id : new OID }, { ti : ge: ye: pais : cre})
+
     ////////////
     // INSERT //
     ////////////
