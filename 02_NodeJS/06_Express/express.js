@@ -1,13 +1,19 @@
 //npm install express
 const express = require('express')
 
-//Dentro del módulo express hacen el require de 'http'
-//const http = require('http')
 
 
 //Cuando invocamos la funcion express nos devueven un objeto del tipo función
 //Esa es la función que procesará todas las peticiones entrantes
 let app = express()
+
+//El objeto 'app' es la función que se le proporciona al servidor cuando se invoca 'createServer'
+//const http = require('http')
+//http.createServer( app )
+//    .listen(4000, function(){ 
+//        console.log("Esperando peticiones en el puerto 4000.") 
+//    })
+
 
 //
 //Indicando el puerto y arrancando el servidor:
