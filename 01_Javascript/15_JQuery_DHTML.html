@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    -->
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+
+$(pruebas)
+
+function pruebas(){    
+
+    //////////////
+    //Inner HTML//
+    //Inner TEXT//
+    //////////////
+    $("#span1").html('<font color="orange">HOLA</font><br/>')
+    $("#span2").text('<font color="orange">HOLA</font><br/>')
+
+    /////////////////
+    //Creando nodos//
+    /////////////////
+    //si le pasamos una cadena de texto con html la funcion jQuery devuelve
+    //un objeto jQuery con la jerarquía nodos generados
+
+    //Crea cuatro nodos y el array tiene una posición
+    let nodos = $("<table><tr><td>FISTRO</td></tr></table>")
+    console.log(nodos)
+
+    //crea 10 nodos y devuelve un array con 5
+    nodos = $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+    console.log(nodos)
+
+    //Lo mismo con dry stick javascript
+    let html = "<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>"
+    let div = document.createElement("div")
+    div.innerHTML = html
+    nodos = div.childNodes
+
+    
+    //Añadiendo los nodos al árbol:
+    //append y appendTo reciben un selector
+    $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+        .appendTo("#span3")
+
+    //Lo anterior es equivalente a:
+    nodos = $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+    for(let nodo of nodos){
+        document.getElementById("span3").appendChild(nodo)
+    }
+
+    //Añade los nodos a todos los espanes:
+    $("<h3>HOLA!<h3>").appendTo("span")
+
+    //Añadiendo en posiciones concretas
+    
+    //append y appendtTo añaden al final del array 'childNodes'
+    $("#lista").append("<li>List item 1</li>")
+    $("#lista").append("<li>List item 2</li>")
+    $("#lista").append("<li>List item 3</li>")
+    $("#lista").append("<li id='separador'>============</li>")
+
+    //prepend y prependTo añaden al principio
+    $("#lista").prepend("<li>PRIMERO</li>")
+
+    //antes o despues de un node concreto
+    $("#separador").before("<li>ANTES</li>")
+    $("#separador").after("<li>DESPUES</li>")
+
+}
+
+</script>
+
+<body>
+
+<h1>JQuery DHtml</h1>
+
+    <div id="div1">
+        <span id="span1">1</span>
+        <span id="span2">2</span>
+        <span id="span3">3</span>
+        <span id="span4">4</span>
+        <span id="span5">5</span>
+        <span id="span6" class="x">6</span>
+        <span id="span7">7</span>
+    </div>
+
+    <hr/>
+
+    <div id="div2">
+        <b>
+            Si todo está listo en la cara oculta de la luna,
+            vengan esas cinco notas
+        </b>
+    </div>
+
+    <hr/>
+
+    <div id="div3"></div>
+
+    <hr/>
+
+    <div id="div4">ALGO</div>
+
+    <hr/>
+
+    <div id="div5"></div>
+
+    <hr/>
+
+    <div id="div6"></div>
+
+    <hr/>
+
+    <div id="div7">
+        <ul id="lista"></ul>        
+    </div>
+
+    <hr/>
+
+    <div id="div8">
+        <b id="texto">ABCDEFG</b>        
+    </div>
+    
+</body>
+</html>

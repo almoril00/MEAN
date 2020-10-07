@@ -118,16 +118,16 @@ function rellenarTabla(){
     /*
     for(let persona of personas){
         let tr = `
-            <tr onclick='seleccionarPersona(persona._id)'>
-                <td>${persona.nombre}</td>
-                <td>${persona.direccion}</td>
-                <td>${persona.telefono}</td>
-                <td>${persona.correoE}</td>
+        <tr onclick='seleccionarPersona(persona._id)'>
+            <td>${persona.nombre}</td>
+            <td>${persona.direccion}</td>
+            <td>${persona.telefono}</td>
+            <td>${persona.correoE}</td>
             </tr>`;
-        tablaPersonas.innerHTML = tablaPersonas.innerHTML + tr
+            tablaPersonas.innerHTML = tablaPersonas.innerHTML + tr
     }
     */
-
+        
     personas.forEach(function(persona){
         let tr = `<tr>
                 <td>${persona.nombre}</td>
@@ -142,15 +142,12 @@ function rellenarTabla(){
         let nodoTR = tbody.childNodes[0]
 
         //Closure: una funcion que utiliza una variable declarada fuera de ella
-        nodoTR.onclick = function(){
-            
-            this.bgColor = "yellow"
-            
+        nodoTR.onclick = function(){            
+            this.bgColor = "yellow"            
             seleccionarPersona(persona._id)
         }
 
         tablaPersonas.append(nodoTR)
-
     })
 
 }
