@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+
+$(inicializar);
+
+function inicializar(){
+
+    $("h2")     //Todos los h2 de la página
+    $("h2[id]") //Todos los h2 que además tengan el atributo 'id'
+    $("h2[id^=color-]") //Todos los h2 que tengan el atributo id y su valor comience por 'color-'
+    
+    //Podemos recorrer nosotros mismos los nodos contenidos en el objeto JQuery
+    //y realizar la acción adecuada con cada uno de ellos
+    //let jqObj = $("h2[id^=color-]")
+    //for(let nodo of jqObj){
+    //    nodo.innerHTML = "123456"
+    //}
+
+    ////////////////
+    //Función EACH//
+    ////////////////
+
+    //
+    //Ejecuta la función que recibe por parámetro por cada uno de los nodos contenidos en el array
+    //
+    $("h2[id^=color-]").each( function(contador, nodo){
+        //Tentro de la funcion 'this' es el nodo
+        //Pero tambien nos lo pasan como segundo parámetro (el primero es el contador)
+        console.log(contador+", "+this+", "+nodo)
+    })
+
+    //
+    //Tambien nos sirve cuando estamos generando nodos
+    //
+    $("<p>Vamos</p><p>que</p><p>nos</p><p>vamos</p>").each( function(){
+        console.log(this)
+    })
+
+    /*
+    //MÉTODO 'GRAN FAJADOR'
+    $("h2[id^=color-]")
+        .each( function(){
+            //this es el nodo
+            //this.html("HOLA")       //Esto falla!
+            //this.innerHTML = "HOLA" //Así si
+
+            let texto = this.innerHTML
+            let color
+            switch(texto){
+                case "Rojo":  color = 'red' 
+                              break;
+                case "Verde": color = 'green'
+                              break;
+                case "Azul": color = 'blue'
+                              break;
+                case "Amarillo": color = 'yellow'
+                              break;
+                case "Fabada": color = '#FABADA'
+                              break;
+                case "Cocido": color = '#C0C1D0'
+                              break;
+            }
+
+            this.style = `color:${color}`
+        })  
+    */  
+
+    $("h2[id^=color-]")
+        .each( function(){
+            //this es el nodo
+            //this.html("HOLA")       //Esto falla!
+            //this.innerHTML = "HOLA" //Así si
+            //Si queremos utilizar las estupendas funciones de JQuery pero solo tenemos un nodo
+            //podemos hacer lo siguiente:
+            //Si a la función jQuery le pasamos un nodo devuelve un objeto jquery en cuyo array 
+            //está ese nodo y ya podemos utilizar las funciones fancy
+            let texto = $(this).html()            
+
+            let color
+            switch(texto){
+                case "Rojo":  color = 'red' 
+                              break;
+                case "Verde": color = 'green'
+                              break;
+                case "Azul":  color = 'blue'
+                              break;
+                case "Amarillo": color = 'yellow'
+                              break;
+                case "Fabada": color = '#FABADA'
+                              break;
+                case "Cocido": color = '#C0C1D0'
+                              break;
+            }
+
+            $(this).css('color', color)
+        })    
+
+
+        //METODO 'FINO ESTILISTA'
+        let colores = {
+            Rojo     : 'red',
+            Verde    : 'green',
+            Azul     : 'blue',
+            Amarillo : 'yellow',
+            Fabada   : '#FABADA',
+            Cocido   : '#C0C1D0'
+        }
+
+        $("h2[id^=color-]").each(function() {
+            $(this).css("color", colores[this.innerHTML])
+        });
+
+        //
+        //Tambien podemos pasarle un array cualquiera a jquery y el lo recorrerá
+        //
+        let palabras = [ 'uno', 'dos', 'tres', 'cuatro', 'cinco' ]
+        $(palabras)
+            .each(function(pos, elemento){
+                console.log(this)
+            })
+
+        //La idea de esto último es poder generar nodos a partir del contenido de ese array
+        //y luego concatenar llamadas a funciones para, por ejemplo, colocarlos en el árbol
+        $(palabras)
+            .each(function(){
+                $(`<h2>${this}</h2>`).appendTo("#div")
+            })
+
+}    
+
+</script>
+
+<body>
+
+<h2 id="titulo" style="color:aquamarine">17 JQuery for each</h2>
+
+<h2 id="color-1">Rojo</h2>
+<h2 id="color-2">Verde</h2>
+<h2 id="color-3">Azul</h2>
+<h2 id="color-4">Amarillo</h2>
+<h2 id="color-5">Fabada</h2>
+<h2 id="color-6">Cocido</h2>
+<h2 id="color-7">Rojo</h2>
+<h2 id="color-8">Verde</h2>
+<h2 id="color-9">Azul</h2>
+<h2 id="color-10">Amarillo</h2>
+<h2 id="color-11">Fabada</h2>
+<h2 id="color-12">Cocido</h2>
+
+<div id="div"></div>
+
+</body>
+</html>
