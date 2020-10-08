@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+
+function listarPublicaciones(){
+
+    //Con JavaScript a palo seco
+    /*
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.open("GET", "https://jsonplaceholder.typicode.com/posts", true)
+    xmlHttp.onload = function(){
+        rellenarPublicaciones(JSON.parse(this.responseText))
+    }
+    xmlHttp.onerror = function(){
+        console.log("ZASCA TARRASCA!")
+    }
+    xmlHttp.send()
+    */
+
+    /*Manera antígua*/
+    $.ajax({
+        type     : 'GET', //por defecto es get
+        url      : 'https://jsonplaceholder.typicode.com/posts',
+        async    : true, //por defecto es true
+        success  : rellenarPublicaciones,
+        error    : procesarError,
+        complete : fin
+    })
+    /*
+    */
+    
+    //Manera actual
+    /*
+    */
+    $.ajax({
+        type     : 'GET', //por defecto es get
+        url      : 'https://jsonplaceholder.typicode.com/posts',
+        async    : true, //por defecto es true
+    })
+    .done(rellenarPublicaciones)
+    .fail(procesarError)
+    .always(fin)
+
+    //Tambien disponemos de las funciones
+    //$.get
+    //$.post
+    //$.put
+    //$.delete
+
+}
+
+//JQUery invoca la función success pasando como primer parámetro
+//el contenido del body de la respuesta
+//Si ha sido Content-type:app/json hace el JSON.parse por nosotros
+function rellenarPublicaciones(publicaciones){
+    console.log(arguments)
+    console.log(publicaciones)
+
+    /*
+    for(let publicacion of publicaciones){
+        $(`
+        <div>
+            <h3>${publicacion.title}</h3>
+            ${publicacion.body}
+        </div>
+        <br/>`).appendTo("#publicaciones")        
+    }
+    */
+
+    $(publicaciones).each(function(){
+        $(`
+        <div>
+            <h3>${this.title}</h3>
+            ${this.body}
+        </div>
+        <br/>`).appendTo("#publicaciones")
+    })
+    
+
+}
+
+function procesarError(error){
+    console.log(error)
+}
+
+function fin(){
+    console.log("FIN")
+}
+
+$(inicializar);
+
+function inicializar(){
+
+    //btnListar.onclick = listarPublicaciones
+    $("#btnListar").click(listarPublicaciones)
+
+}
+    
+</script>
+
+<body>
+
+    <h1>Peticiones AJAX con jQuery</h1>
+
+    <button id="btnListar">Listar publicaciones</button>
+
+    <div id="publicaciones"></div>
+
+
+</body>
+
+</html>
