@@ -15,23 +15,50 @@ let personas = []
 let personaSel = null
 
 function vaciarFormulario(){
-    nombre.value    = ''
-    direccion.value = ''
-    telefono.value  = ''
-    correoE.value   = ''
+    //$("#nombre").val('')
+    //$("#direccion").val('')
+    //$("#telefono").val('')
+    //$("#correoE").val('')
 
+    //Esto solo vaciaría las cajas de texto
+    //$("#formulario input[type=text]").val('')
+
+    //Esto vacia cajas de texto, textAreas y desplegables
+    $("#formulario [campo]").val('')
+    
     modoInserccion()
+}
+
+function crearObjetoAPartirDeUnFormulario(idFormulario){
+
+    //Funciona para aquellos elementos de un formulario que tengan el atributo 'value'
+    let objeto = {}
+    $(`#${idFormulario} [campo]`).each(function(pos, nodo){
+            objeto[nodo.id] = nodo.value
+        })
+    return objeto
+    /*
+    <input type="text" campo="" name="nombre" id="nombre"/>
+    <input type="text" campo="" name="direccion" id="direccion"/>
+    <input type="text" campo="" name="telefono" id="telefono"/>
+    <input type="text" campo="" name="correoE" id="correoE"/>
+    */
 }
 
 function insertar(){
 
+    let persona = crearObjetoAPartirDeUnFormulario("formulario")
+    persona._id = Math.round(Math.random()*1000000)
+    
+    /*
     let persona = {
         _id       : Math.round(Math.random()*1000000),
-        nombre    : nombre.value,
-        direccion : direccion.value,
-        telefono  : telefono.value,
-        correoE   : correoE.value
+        nombre    : $("#nombre").val(),
+        direccion : $("#direccion").val(),
+        telefono  : $("#telefono").val(),
+        correoE   : $("#correoE").val()
     }
+    */
 
     personas.push(persona)
     console.log(personas)
@@ -42,15 +69,27 @@ function insertar(){
 
 function modificar(){
 
+    /*
+    //Buscando la persona en el array y cambiandole el valor a sus atributos
     for(let persona of personas){
         if(persona._id == personaSel._id){
-            persona.nombre    = nombre.value
-            persona.direccion = direccion.value
-            persona.telefono  = telefono.value
-            persona.correoE   = correoE.value
+            persona.nombre    = $("#nombre").val()
+            persona.direccion = $("#direccion").val()
+            persona.telefono  = $("#telefono").val()
+            persona.correoE   = $("#correoE").val()
             break
         }
-    }    
+    } 
+    */   
+
+    //Sustituyendo el objeto del array por uno nuevo con los datos del formulario
+    let nuevaPersona = crearObjetoAPartirDeUnFormulario("formulario")
+    nuevaPersona._id = personaSel._id
+    for(let a=0; a<personas.length; a++){
+        if(personas[a]._id == nuevaPersona._id){
+            personas[a] = nuevaPersona
+        }
+    } 
 
     vaciarFormulario()
     rellenarTabla()
@@ -71,17 +110,36 @@ function borrar(){
     personaSel = null
 }
 
+function rellenarUnFormularioAPartirDeUnObjeto(objeto, idFormulario){
+
+    
+
+    
+}
+
 function seleccionarPersona(_id){
+    /*
     for(let persona of personas){
         if(persona._id == _id){
-            nombre.value    = persona.nombre
-            direccion.value = persona.direccion
-            telefono.value  = persona.telefono
-            correoE.value   = persona.correoE
+            $("#nombre").val(persona.nombre)
+            $("#direccion").val(persona.direccion)
+            $("#telefono").val(persona.telefono)
+            $("#correoE").val(persona.correoE)
             //una vez encontrada la persona dentro del array la guardamos en la
             //variable 'global' personaSel
             personaSel = persona
             break
+        }
+    }
+    */
+
+    for(let persona of personas){
+        if(persona._id == _id){
+            rellenarUnFormularioAPartirDeUnObjeto(persona, "formulario")
+            //una vez encontrada la persona dentro del array la guardamos en la
+            //variable 'global' personaSel
+            personaSel = persona
+            break            
         }
     }
 
@@ -175,28 +233,28 @@ window.onload = function(){
             <tr>
                 <td>Nombre</td>
                 <td>
-                    <input type="text" name="nombre" id="nombre"/>
+                    <input type="text" campo="" name="nombre" id="nombre"/>
                 </td>  
                 <td id="msj_nombre"></td>              
             </tr>
             <tr>
                 <td>Dirección</td>
                 <td>
-                    <input type="text" name="direccion" id="direccion"/>
+                    <input type="text" campo="" name="direccion" id="direccion"/>
                 </td>                
                 <td id="msj_direccion"></td>              
             </tr>
             <tr>
                 <td>Telefono</td>
                 <td>
-                    <input type="text" name="telefono" id="telefono"/>
+                    <input type="text" campo="" name="telefono" id="telefono"/>
                 </td> 
                 <td id="msj_telefono"></td>              
             </tr>
             <tr>
                 <td>Correo E</td>
                 <td>
-                    <input type="text" name="correoE" id="correoE"/>
+                    <input type="text" campo="" name="correoE" id="correoE"/>
                 </td>                
                 <td id="msj_correoE"></td>              
             </tr>
@@ -218,4 +276,6 @@ window.onload = function(){
 </body>
 
 </html>
+
+
 
