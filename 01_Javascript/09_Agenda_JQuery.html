@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="application/javascript">
+
+//En este array guardamos las personas
+let personas = []
+//En esta variable referenciamos a la persona que ocupa el formulario
+let personaSel = null
+
+function vaciarFormulario(){
+    nombre.value    = ''
+    direccion.value = ''
+    telefono.value  = ''
+    correoE.value   = ''
+
+    modoInserccion()
+}
+
+function insertar(){
+
+    let persona = {
+        _id       : Math.round(Math.random()*1000000),
+        nombre    : nombre.value,
+        direccion : direccion.value,
+        telefono  : telefono.value,
+        correoE   : correoE.value
+    }
+
+    personas.push(persona)
+    console.log(personas)
+
+    vaciarFormulario()
+    rellenarTabla()
+}
+
+function modificar(){
+
+    for(let persona of personas){
+        if(persona._id == personaSel._id){
+            persona.nombre    = nombre.value
+            persona.direccion = direccion.value
+            persona.telefono  = telefono.value
+            persona.correoE   = correoE.value
+            break
+        }
+    }    
+
+    vaciarFormulario()
+    rellenarTabla()
+    personaSel = null
+}
+
+function borrar(){
+    for(let a=0; a<personas.length; a++){
+        let persona = personas[a]
+        if(persona._id == personaSel._id){
+            personas.splice(a, 1)
+            break;
+        }
+    }
+
+    vaciarFormulario()
+    rellenarTabla()
+    personaSel = null
+}
+
+function seleccionarPersona(_id){
+    for(let persona of personas){
+        if(persona._id == _id){
+            nombre.value    = persona.nombre
+            direccion.value = persona.direccion
+            telefono.value  = persona.telefono
+            correoE.value   = persona.correoE
+            //una vez encontrada la persona dentro del array la guardamos en la
+            //variable 'global' personaSel
+            personaSel = persona
+            break
+        }
+    }
+
+    modoSeleccion()    
+}
+
+function rellenarTabla(){
+
+    tablaPersonas.innerHTML = ""
+        
+    personas.forEach(function(persona){
+        let tr = `<tr>
+                <td>${persona.nombre}</td>
+                <td>${persona.direccion}</td>
+                <td>${persona.telefono}</td>
+                <td>${persona.correoE}</td>
+            </tr>`;
+
+        //ÑAPA
+        let tbody = document.createElement("tbody")
+        tbody.innerHTML = tr
+        let nodoTR = tbody.childNodes[0]
+
+        //Closure: una funcion que utiliza una variable declarada fuera de ella
+        nodoTR.onclick = function(){            
+            this.bgColor = "yellow"            
+            seleccionarPersona(persona._id)
+        }
+
+        tablaPersonas.append(nodoTR)
+    })
+}
+
+function guardarPersonas(){
+    localStorage.setItem("personas", JSON.stringify(personas))
+}
+
+function leerPersonas(){
+    let json = localStorage.getItem("personas")
+    if(json){
+        personas = JSON.parse(json)
+    }
+}
+
+function modoInserccion(){
+    btnBorrar.disabled    = true
+    btnModificar.disabled = true
+    btnInsertar.disabled  = false
+}
+
+function modoSeleccion(){
+    btnBorrar.disabled    = false
+    btnModificar.disabled = false
+    btnInsertar.disabled  = true
+}
+
+window.onload = function(){
+    btnVaciar.onclick    = vaciarFormulario
+    btnInsertar.onclick  = insertar
+    btnModificar.onclick = modificar
+    btnBorrar.onclick    = borrar
+    btnGuardar.onclick   = guardarPersonas
+
+    modoInserccion()
+    leerPersonas()
+    rellenarTabla()
+}
+
+</script>
+
+<body>
+
+    <h1 align="center">
+        <font color="lightGreen">
+            AgendaGest 3000, ahora con jQuery  
+        </font>
+    </h1>
+
+    <div align="center">
+        <input type="button" id="btnInsertar"  value="Insertar"/>
+        <input type="button" id="btnModificar" value="Modificar"/>
+        <input type="button" id="btnBorrar"    value="Borrar"/>
+        <input type="button" id="btnVaciar"    value="Vaciar"/>
+        <input type="button" id="btnGuardar"   value="GUARDAR"/>
+    </div>
+
+    <br/>
+
+    <form id="formulario">
+        <table align="center">
+            <tr>
+                <td>Nombre</td>
+                <td>
+                    <input type="text" name="nombre" id="nombre"/>
+                </td>  
+                <td id="msj_nombre"></td>              
+            </tr>
+            <tr>
+                <td>Dirección</td>
+                <td>
+                    <input type="text" name="direccion" id="direccion"/>
+                </td>                
+                <td id="msj_direccion"></td>              
+            </tr>
+            <tr>
+                <td>Telefono</td>
+                <td>
+                    <input type="text" name="telefono" id="telefono"/>
+                </td> 
+                <td id="msj_telefono"></td>              
+            </tr>
+            <tr>
+                <td>Correo E</td>
+                <td>
+                    <input type="text" name="correoE" id="correoE"/>
+                </td>                
+                <td id="msj_correoE"></td>              
+            </tr>
+        </table>        
+    </form>
+
+    <br/>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Correo E</th>
+        </tr>
+        <tbody id="tablaPersonas"></tbody>
+    </table>
+
+</body>
+
+</html>
+
