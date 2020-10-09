@@ -26,6 +26,7 @@ function listarPublicaciones(){
     */
 
     /*Manera antígua*/
+    /*
     $.ajax({
         type     : 'GET', //por defecto es get
         url      : 'https://jsonplaceholder.typicode.com/posts',
@@ -34,7 +35,6 @@ function listarPublicaciones(){
         error    : procesarError,
         complete : fin
     })
-    /*
     */
     
     //Manera actual
@@ -113,7 +113,6 @@ function inicializar(){
     <button id="btnListar">Listar publicaciones</button>
 
     <div id="publicaciones"></div>
-
 
 </body>
 
