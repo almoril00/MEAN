@@ -48,7 +48,6 @@ let servidor = http.createServer( function(request, response){
                         <th>Director</th>
                     </tr>`;
 
-    //PUT YOUR BLOODY CODE HERE
     let peliculas = listarPeliculas()
     for(let pelicula of peliculas){
         html += `

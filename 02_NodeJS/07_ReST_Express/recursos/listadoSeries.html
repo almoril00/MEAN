@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="/jquery.js" type="application/javascript"></script>
+    <link type="text/css" rel="styleSheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 </head>
 
-<script>
+<script tpye="application/javascript">
 
 $(inicializar)
 
@@ -20,6 +21,22 @@ function inicializar(){
 <body>
     
     <h1>Listado series</h1>
+
+    <div class="text-center mt-2 mb-2">
+        <button class="btn btn-primary">Nueva</button>
+    </div>
+    
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Fabricante</th>
+            <th>Precio</th>
+            <th>Existencias</th>
+          </tr>
+        </thead>
+        <tbody id="tablaSeries"></tbody>
+    </table>
 
 </body>
 </html>
