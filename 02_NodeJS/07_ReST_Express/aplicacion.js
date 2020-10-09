@@ -14,6 +14,7 @@ app.listen(6001, function(){
 })
 
 app.use(bodyParser.json())
+app.use(express.static("./recursos"))
 
 //Configuración específica para nuestro servicio rest
 
