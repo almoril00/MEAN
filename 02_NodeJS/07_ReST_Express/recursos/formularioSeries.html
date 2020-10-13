@@ -10,36 +10,75 @@
 
 <script tpye="application/javascript">
 
+function insertarSerie(){
+
+    /*
+    let serie = {
+        titulo   : $("#titulo"),
+        genero   : $("#genero"),
+        year     : $("#year"),
+        pais     : $("#pais"),
+        sinopsis : $("#sinopsis")
+    }
+    */
+
+    let serie = {}
+    $("#formulario [campo]")
+        .each(function(){
+            serie[this.id] = this.value
+        })
+
+    $.ajax({
+        type : 'post',
+        url  : '/series',
+        contentType : 'application/json',
+        data : JSON.stringify(serie)
+    })
+    .done(temporal)
+    .fail(procesarError)
+
+}
+
+function temporal(){
+    console.log(arguments)
+}
+
 function procesarError(error){
     console.log(error)
 }
 
+
+
+
+function vaciarFormulario(){
+    /*
+    $("#titulo").val("")
+    $("#genero").val("")
+    $("#year").val("")
+    $("#pais").val("")
+    $("#sinopsis").val("")
+    */
+
+    $("#formulario [campo]").val('')
+}
+
+function verListadoSeries(){
+    window.location = 'listadoSeries.html'
+}
+
+//////////////////
+//Inicialización//
+//////////////////
+
 $(inicializar)
 
-//que 'cancelar' vuelva al listado
-//que 'vaciar' vacíe el formulario
-//insertar:
-//-recoger los valores del formulario
-//-crear un objeto con los datos
-//-envíar la peticion AJAX adecuada
-
-//Para envíar una peticion POST con un JSON en el body
-//usando jQuery:
-/*
-$.ajax( {
-        type        : 'POST', 
-        url         : '...',
-        contentType : 'application/json'
-        data        : objeto,
-    })
-    .done( f )
-    .fail( f )
-
-*/
-
-
 function inicializar(){
-   
+   //Se añaden los eventos
+    $("#btnCancelar").click(verListadoSeries)
+    $("#btnVaciar").click(vaciarFormulario)
+    $("#btnInsertar").click(insertarSerie)
+
+   //Se envían las peticiones AJAX necesarias para cargar los datos
 }
 
 </script>
@@ -53,11 +92,11 @@ function inicializar(){
     </div>
     
     <div class="text-center mt-2 mb-2">
-        <button class="btn btn-primary mr-1">Insertar</button>
-        <button class="btn btn-primary mr-1">Modificar</button>
-        <button class="btn btn-danger  mr-1">Borrar</button>
-        <button class="btn btn-warning mr-1">Vaciar</button>
-        <button class="btn btn-warning mr-1">Cancelar</button>
+        <button class="btn btn-primary mr-1" id="btnInsertar">Insertar</button>
+        <button class="btn btn-primary mr-1" id="btnModificar">Modificar</button>
+        <button class="btn btn-danger  mr-1" id="btnBorrar">Borrar</button>
+        <button class="btn btn-warning mr-1" id="btnVaciar">Vaciar</button>
+        <button class="btn btn-warning mr-1" id="btnCancelar">Cancelar</button>
     </div>
 
     <div class="row">
@@ -66,40 +105,45 @@ function inicializar(){
 
         <div class="col-sm-12 col-lg-8"> 
 
-            <div class="row">  
+            <!--$("#formulario [campo]")-->
+            <div class="row" id="formulario">  
 
                 <div class="col-2 mt-1">
                     <label>Título</label>
                 </div>
                 <div class="col-10 mt-1">
-                    <input class="form-control">
+                    <input class="form-control" campo="" id="titulo"/>
                 </div>
 
                 <div class="col-2 mt-1">
                     <label>Genero</label>
                 </div>
                 <div class="col-10 mt-1">
-                    <input class="form-control" >
+                    <input class="form-control" campo="" id="genero"/>
                 </div>
 
                 <div class="col-2 mt-1">
                     <label>Año</label>
                 </div>
                 <div class="col-10 mt-1">
-                    <input class="form-control" >
+                    <input class="form-control" campo="" id="year"/>
                 </div>
              
                 <div class="col-2 mt-1">
                     <label>País</label>
                 </div>
                 <div class="col-10 mt-1">
-                    <input class="form-control" >
-                </div> 
-                
-            </div> 
-        
-        </div>
+                    <input class="form-control" campo="" id="pais"/>
+                </div>                 
 
+                <div class="col-2 mt-1">
+                    <label>Sinopsis</label>
+                </div>
+                <div class="col-10 mt-1">
+                    <textarea class="form-control" campo="" id="sinopsis"></textarea>
+                </div>                 
+            </div>         
+        </div>
     </div>
 
 </body>
