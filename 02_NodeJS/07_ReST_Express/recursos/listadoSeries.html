@@ -20,22 +20,41 @@ function getSeries(){
 
 }
 
+
+
+function seleccionarSerie(_id){
+ 
+    //Podemos guardar en una cookie el valor del _id seleccionado y acceder a él
+    //en la siguiente 'pantalla'
+
+    //Tambien podemos utilizar el sessionStorage
+    //sessionStorage.setItem("_id_serie", _id)
+    //window.location = "formularioSeries.html"
+
+    //Otra opción es pasar el valor por la url
+    window.location = "formularioSeries.html?_id="+_id
+
+}
+
 function rellenarTablaSeries(series){
 
     console.log(series)
 
     $(series).each(function(pos, serie){
-        console.log(this == serie) //True
-
+        //console.log(this == serie) //True
         $(`<tr>
-                <td>${this.titulo}</td>
-                <td>${this.genero}</td>
-                <td>${this.year}</td>
-                <td>${this.pais}</td>
-           </tr>`)   
+                <td>${serie.titulo}</td>
+                <td>${serie.genero}</td>
+                <td>${serie.year}</td>
+                <td>${serie.pais}</td>
+           </tr>`)
+           .click(function(){
+                //CUIDADO QUE ESTE THIS ES DE ESTA FUNCIÓN!
+                //console.log(this == serie) //FALSE
+                //seleccionarSerie(this._id)
+                seleccionarSerie(serie._id)
+           })
            .appendTo("#tablaSeries")
-
-        //generar el tr y enchufarselo a la tabla por donde le quf
     })
 
 }

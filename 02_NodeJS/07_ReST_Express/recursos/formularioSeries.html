@@ -41,14 +41,12 @@ function insertarSerie(){
 
 function temporal(){
     console.log(arguments)
+    //window.location = "listadoSeries.html"
 }
 
 function procesarError(error){
     console.log(error)
 }
-
-
-
 
 function vaciarFormulario(){
     /*
@@ -78,7 +76,38 @@ function inicializar(){
     $("#btnVaciar").click(vaciarFormulario)
     $("#btnInsertar").click(insertarSerie)
 
-   //Se envían las peticiones AJAX necesarias para cargar los datos
+    /*    
+    //
+    //Pasando el _id entre las páginas utilizando el sessionStorage
+    //
+    //Miramos en el sessionStorage si nos han dejado un _id
+    if(sessionStorage.getItem("_id_serie")){
+        //ya tenemos el id
+        //llamadita a cargar los datos de la serie
+        //Borramos el _id del storage porque es una información de un solo uso
+        sessionStorage.removeItem("_id_serie")
+    }
+    */
+
+    //
+    //Pasando el _id entre las páginas usando parámetros en la URL
+    //
+
+    /*
+    -averiguar si en la url hay un parámetro llamado '_id'
+        -troceando window.location (usaremos el '=' como atajo)
+        -http://localhost:6001/formularioSeries.html?_id=5f774aa3d0163906e430313b
+    -si no hay id pues nada, formulario vacío y botón modificar y borrar deshabilitados
+    -si hay _id cargar el formulario y deshabilitar el botón insertar
+        -petición AJAX al lugar adecuado
+        -rellenar las cajas de texto
+    */
+
+    
+
+
+    */
+
 }
 
 </script>
