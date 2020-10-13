@@ -44,15 +44,34 @@ function procesarError(error){
     console.log(error)
 }
 
+
+function verFormularioSeries(){
+
+    //Con todo
+    //window.location = 'http://localhost:6001/formularioSeries.html'
+    //Con ruta absoluta
+    //window.location = '/formularioSeries.html'
+    //Con ruta relativa
+    //window.location = './formularioSeries.html'
+    //No hace falta que la ruta relativa comience por ./
+    window.location = 'formularioSeries.html'
+
+    //Tambien funciona con
+    //document.location
+    //Y la clásica
+    //document.location.href
+}
+
+
 $(inicializar)
 
 function inicializar(){
     console.log("Inicializando...")
 
     //poner los eventooooooooooos...
+    $("#btnNueva").click(verFormularioSeries)
 
     getSeries()
-
 
 }
 
@@ -67,7 +86,7 @@ function inicializar(){
     </div>
 
     <div class="text-center mt-4 mb-4">
-        <button class="btn btn-primary">Nueva</button>
+        <button class="btn btn-primary" id="btnNueva">Nueva</button>
     </div>
 
     <!--
