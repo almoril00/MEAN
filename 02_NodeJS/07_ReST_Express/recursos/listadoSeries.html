@@ -18,18 +18,31 @@ function getSeries(){
     .done(rellenarTablaSeries)
     .fail(procesarError)
 
-
 }
 
 function rellenarTablaSeries(series){
 
-    $(series).each(function(){
-        generar el tr y enchufarselo a la tabla por donde le quf
-    })
+    console.log(series)
 
+    $(series).each(function(pos, serie){
+        console.log(this == serie) //True
+
+        $(`<tr>
+                <td>${this.titulo}</td>
+                <td>${this.genero}</td>
+                <td>${this.year}</td>
+                <td>${this.pais}</td>
+           </tr>`)   
+           .appendTo("#tablaSeries")
+
+        //generar el tr y enchufarselo a la tabla por donde le quf
+    })
 
 }
 
+function procesarError(error){
+    console.log(error)
+}
 
 $(inicializar)
 
