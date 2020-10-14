@@ -62,7 +62,7 @@ function listarPublicaciones(){
             type        : 'POST', 
             url         : '...',
             contentType : 'application/json'
-            data        : objeto,
+            data        : JSON.stringify(objeto),
         })
         .done( f )
         .fail( f )

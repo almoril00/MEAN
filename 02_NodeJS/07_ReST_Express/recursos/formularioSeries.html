@@ -10,6 +10,9 @@
 
 <script tpye="application/javascript">
 
+//Variables globales
+let _idSerie //aqui guardamos el id de la serie seleccionada
+
 function insertarSerie(){
 
     /*
@@ -49,6 +52,10 @@ function procesarError(error){
 }
 
 function vaciarFormulario(){
+
+    //Borramos el id de la serie que estaba seleccionada (si es que habia una)
+    _idSerie = null
+
     /*
     $("#titulo").val("")
     $("#genero").val("")
@@ -64,6 +71,46 @@ function verListadoSeries(){
     window.location = 'listadoSeries.html'
 }
 
+function getSerie(_id){
+
+    $.ajax({
+        url : '/series/'+_id,
+    })
+    .done(rellenarFormulario)
+    .fail(procesarError)
+
+}
+
+function rellenarFormulario(serie){
+
+    //Guardamos el id en una variable por si el usuario quiere modificar/borrar
+    _idSerie = serie._id
+
+    /*
+    $("#titulo").val(serie.titulo)
+    $("#genero").val(serie.genero)
+    $("#year").val(serie.year)
+    $("#pais").val(serie.pais)
+    $("#sinopsis").val(serie.sinopsis)
+    */
+
+    $("#formulario [campo]").each(function(){
+        this.value = serie[this.id] 
+    })
+}
+
+function modoInsercion(){
+    $("#btnInsertar").prop('disabled', false)
+    $("#btnModificar").prop('disabled', true)
+    $("#btnBorrar").prop('disabled', true)
+}
+
+function modoSeleccion(){
+    $("#btnInsertar").prop('disabled', true)
+    $("#btnModificar").prop('disabled', false)
+    $("#btnBorrar").prop('disabled', false)
+}
+
 //////////////////
 //Inicialización//
 //////////////////
@@ -75,6 +122,8 @@ function inicializar(){
     $("#btnCancelar").click(verListadoSeries)
     $("#btnVaciar").click(vaciarFormulario)
     $("#btnInsertar").click(insertarSerie)
+    $("#btnModificar").click(modificarSerie)
+    $("#btnBorrar").click(borrarSerie)
 
     /*    
     //
@@ -93,25 +142,19 @@ function inicializar(){
     //Pasando el _id entre las páginas usando parámetros en la URL
     //
 
-    /*
-    -averiguar si en la url hay un parámetro llamado '_id'
-        -troceando window.location (usaremos el '=' como atajo)
-        -http://localhost:6001/formularioSeries.html?_id=5f774aa3d0163906e430313b
-    -si no hay id pues nada, formulario vacío y botón modificar y borrar deshabilitados
-    -si hay _id cargar el formulario y deshabilitar el botón insertar
-        -petición AJAX al lugar adecuado
-         GET /series/_id
-        -rellenar las cajas de texto
-    */
-
-
+    //Simplificamos troceando por el igual (solo nos da el valor del último parametro, pero solo
+    //tendremos uno)
+    let trozos = window.location.href.split("=")
+    if(trozos.length == 2){
+        //seleccionar
+        getSerie(trozos[1])
+        modoSeleccion()
+    } else {
+        modoInsercion()
+    }
 
 
     
-
-
-    */
-
 }
 
 </script>
