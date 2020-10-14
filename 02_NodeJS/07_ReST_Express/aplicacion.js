@@ -109,7 +109,6 @@ function modificarSerie(request, response){
 
 //DELETE /series/123454qwerty
 function borrarSerie(request, response){
-    console.log("Borrar serie")
 
     let _id = request.params.id
 
@@ -118,7 +117,7 @@ function borrarSerie(request, response){
         .then(function(resultado){
             if(resultado.deletedCount == 0){
                 //404
-                devolverError(404,"Fallo interno en el servidor", response)            
+                devolverError(404,"La serie no existe", response)            
                 return
             }
             //200
@@ -128,16 +127,6 @@ function borrarSerie(request, response){
             devolverError(500,"Fallo interno en el servidor", response)            
         })
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

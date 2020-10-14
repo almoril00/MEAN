@@ -13,8 +13,16 @@
 //Variables globales
 let _idSerie //aqui guardamos el id de la serie seleccionada
 
-function insertarSerie(){
+//envía la peticion 'GET /series/:id' al servidor
+function getSerie(_id){
+    $.ajax({
+        url : '/series/'+_id,
+    })
+    .done(rellenarFormulario)
+    .fail(procesarError)
+}
 
+function insertarSerie(){
     /*
     let serie = {
         titulo   : $("#titulo"),
@@ -25,11 +33,7 @@ function insertarSerie(){
     }
     */
 
-    let serie = {}
-    $("#formulario [campo]")
-        .each(function(){
-            serie[this.id] = this.value
-        })
+    let serie = crearSerie("formulario")
 
     $.ajax({
         type : 'post',
@@ -37,22 +41,63 @@ function insertarSerie(){
         contentType : 'application/json',
         data : JSON.stringify(serie)
     })
-    .done(temporal)
+    .done(function(){
+        verListadoSeriesConMensaje("La serie se ha insertado correctamente")
+    })
+    .fail(procesarError)
+}
+
+//Crea un objeto a partir del contenido del formulario
+function crearSerie(idFormulario){
+    let serie = {}
+    $(`#${idFormulario} [campo]`)
+        .each(function(){
+            serie[this.id] = this.value
+        })
+    return serie
+}
+
+function modificarSerie(){
+    let serie = crearSerie("formulario")
+
+    $.ajax({
+        type : 'put',
+        url  : '/series/'+_idSerie,
+        contentType: 'application/json',
+        data : JSON.stringify(serie)
+    })
+    .done(function(){
+        verListadoSeriesConMensaje("La serie se ha modificado correctamente")
+    })
+    .fail(procesarError)
+}
+
+function borrarSerie(){
+    
+    //DELETE /series/:id
+    $.ajax({
+        type : 'delete',
+        url  : '/series/'+_idSerie
+    })
+    .done(function(){
+        verListadoSeriesConMensaje("La serie se ha borrado correctamente")
+    })
     .fail(procesarError)
 
 }
 
-function temporal(){
-    console.log(arguments)
-    //window.location = "listadoSeries.html"
+function verListadoSeriesConMensaje(mensaje){    
+    //guardamos el mensaje en el sessionStorage
+    sessionStorage.setItem("mensaje",mensaje)
+    window.location = "listadoSeries.html"
 }
 
 function procesarError(error){
     console.log(error)
 }
 
-function vaciarFormulario(){
 
+function vaciarFormulario(){
     //Borramos el id de la serie que estaba seleccionada (si es que habia una)
     _idSerie = null
 
@@ -69,16 +114,6 @@ function vaciarFormulario(){
 
 function verListadoSeries(){
     window.location = 'listadoSeries.html'
-}
-
-function getSerie(_id){
-
-    $.ajax({
-        url : '/series/'+_id,
-    })
-    .done(rellenarFormulario)
-    .fail(procesarError)
-
 }
 
 function rellenarFormulario(serie){
