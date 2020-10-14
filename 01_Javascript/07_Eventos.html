@@ -94,6 +94,9 @@ window.onload = function(){
         }
     }
 
+    //Si no hemos recibido el evento por parámetro y nos hace falta
+    //podemos usar window.event, que guarda una referencia al evento en curso
+
     //Podemos añadir más de una funcion a un evento concreto
 
     //btn4.onclick = funcion1
@@ -103,6 +106,9 @@ window.onload = function(){
     btn4.addEventListener('click', funcion2)
 
 }
+
+
+
 
 </script>
 
@@ -121,6 +127,7 @@ window.onload = function(){
     <button id="btnVaciar">Vaciar</button>
     <button id="btn3">Botón 3</button>
     <button id="btn4">Botón 4</button>
+    <button id="btn5">Botón 5</button>
     
     <hr/>
     
