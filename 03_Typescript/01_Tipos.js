@@ -68,9 +68,41 @@ console.log(suma1);
 //Esto no transpila:
 //let suma2:number = sumar2(true,"")
 //let suma3:boolean = sumar2(10,20)
+//
 //Disponemos de un tipo 'void' para las funciones que no devuelven nada
+//
 function saludar() {
     console.log("Hola!");
 }
 saludar();
+//
+//En typescript perdemos los 'parámetros variables'
+//
+function multiplicar(n1, n2) {
+    return n1 * n2;
+}
+//multiplicar(1) No transpila
+multiplicar(1, 2);
+//multiplicar(1,2,3) No transpila
+//Si queremos una función que reciba un numero indeterminado de parámetros
+//debemos indicarlo expresamente con los tresn puntos '...'
+//El tipo recibido será un array
+//Solo podrá haber un parámetro con los tres puntos
+//Y será el último
+function multiplicar2() {
+    var numeros = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        numeros[_i] = arguments[_i];
+    }
+    var total = 1;
+    for (var _a = 0, numeros_1 = numeros; _a < numeros_1.length; _a++) {
+        var numero_1 = numeros_1[_a];
+        total = total * numero_1;
+    }
+    return total;
+}
+console.log(multiplicar2(1));
+console.log(multiplicar2(1, 2));
+console.log(multiplicar2(1, 2, 3));
+console.log(multiplicar2(1, 2, 3, 4));
 console.log("FIN");

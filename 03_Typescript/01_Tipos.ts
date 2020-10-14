@@ -95,6 +95,36 @@ function saludar():void{
 
 saludar()
 
+//
+//En typescript perdemos los 'parámetros variables'
+//
+function multiplicar(n1:number, n2:number):number{
+    return n1*n2
+}
+
+//multiplicar(1) No transpila
+multiplicar(1,2)
+//multiplicar(1,2,3) No transpila
+
+//Si queremos una función que reciba un numero indeterminado de parámetros
+//debemos indicarlo expresamente con los tresn puntos '...'
+//El tipo recibido será un array
+//Solo podrá haber un parámetro con los tres puntos
+//Y será el último
+function multiplicar2(...numeros:number[]){
+    let total:number = 1
+    for(let numero of numeros){
+        total = total*numero
+    }
+    return total
+}
+
+console.log(multiplicar2(1))
+console.log(multiplicar2(1,2))
+console.log(multiplicar2(1,2,3))
+console.log(multiplicar2(1,2,3,4))
+
+
 
 
 console.log("FIN")
