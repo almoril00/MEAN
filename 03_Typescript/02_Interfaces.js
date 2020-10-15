@@ -1,27 +1,13 @@
 //////////////
 //Interfaces//
 //////////////
-
-//El nombre de la interfaz, por convenio, va en Pascal case (uppercamel case)
-//Una interfaz es un contrato que deben cumplir los objetos 
-
-//Definimos el tipo 'Avion'
-interface Avion {
-    id:number,
-    fabricante:string,
-    modelo:string,
-    year:number
-    //Tambien podemos definir firmas de funciones
-}
-
 //Si hemos definido un nuevo tipo ya podemos crear variables del tipo Avion
-let a1:Avion = {
-    id : 1,
-    fabricante : 'Mig',
-    modelo : '29',
-    year : 1979
-}
-
+var a1 = {
+    id: 1,
+    fabricante: 'Mig',
+    modelo: '29',
+    year: 1979
+};
 /*
 //No transpila:
 let a2:Avion = {
@@ -40,22 +26,17 @@ let a3:Avion = {
     movida : "???"
 }
 */
-
 //La variable a3 no es del tipo 'Avion' pero si tiene las características necesarias para serlo
-let a3 = {
-    id : 1,
-    fabricante : 'Mig',
-    modelo : '29',
-    year : 1979
-}
+var a3 = {
+    id: 1,
+    fabricante: 'Mig',
+    modelo: '29',
+    year: 1979
+};
 //Podemos asignarla a una variable del tipo 'Avion'
-let a4:Avion = a3;
-
+var a4 = a3;
 //Esto implica que podemos, por ejemplo, obtener un objeto del tipo Avion 
 //a partir de un JSON (en realidad nos están dando cuartelillo)
-let json = JSON.stringify(a3)
-let a5:Avion = JSON.parse(json)
-
-console.log("FIN")
-
-
+var json = JSON.stringify(a3);
+var a5 = JSON.parse(json);
+console.log("FIN");

@@ -8,29 +8,29 @@
 //-No se interpreta
 //-Se transpila a JS y eso es lo que se ejecuta
 //-Hay que instalar un transpilador:
-// npm intall -g typescript
+// npm install -g typescript
 //
 //Variables
 //
 //En typescript las variables pueden tener TIPO (no es obligatorio)
 //Es obligatorio declararlas con var, let o const
 //Variables sin tipo:
-var x;
-var y;
+let x;
+let y;
 var z;
-var movida = 5;
+const movida = 5;
 //Las variables sin tipo actuan como tales
 x = 5;
 x = "HOLA";
 x = false;
 //Tipos en JS
 //let nombre_variable:TIPO = valor
-var numero = 5;
-var texto = "OLA";
-var activo = true;
+let numero = 5;
+let texto = "OLA";
+let activo = true;
 //Tipo especial 'any'
 //Es exactamnte igual que declarar la variables sin indicar el tipo 
-var var1;
+let var1;
 var1 = true;
 var1 = "Pa ke hazes esto?";
 var1 = 10;
@@ -38,12 +38,12 @@ var1 = 10;
 //ARRAYS
 //
 //Declaramos una variable 'numeros' e indicamos que referenciará a un array no tipado
-var numeros;
+let numeros;
 //Declaramos una variable de tipo array de NUMEROS
-var numeros2;
+let numeros2;
 //numeros2.push(5) falla: el array no está inicializado!
 //Que no se nos olvide inicalizar el array!!!
-var numeros3 = [];
+let numeros3 = [];
 numeros3.push(1);
 numeros3.push(2);
 numeros3.push(3);
@@ -63,7 +63,7 @@ console.log(sumar1(10, 30));
 function sumar2(s1, s2) {
     return s1 + s2;
 }
-var suma1 = sumar2(25, 75);
+let suma1 = sumar2(25, 75);
 console.log(suma1);
 //Esto no transpila:
 //let suma2:number = sumar2(true,"")
@@ -89,15 +89,10 @@ multiplicar(1, 2);
 //El tipo recibido será un array
 //Solo podrá haber un parámetro con los tres puntos
 //Y será el último
-function multiplicar2() {
-    var numeros = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        numeros[_i] = arguments[_i];
-    }
-    var total = 1;
-    for (var _a = 0, numeros_1 = numeros; _a < numeros_1.length; _a++) {
-        var numero_1 = numeros_1[_a];
-        total = total * numero_1;
+function multiplicar2(...numeros) {
+    let total = 1;
+    for (let numero of numeros) {
+        total = total * numero;
     }
     return total;
 }

@@ -9,7 +9,7 @@
 //-No se interpreta
 //-Se transpila a JS y eso es lo que se ejecuta
 //-Hay que instalar un transpilador:
-// npm intall -g typescript
+// npm install -g typescript
 
 //
 //Variables
@@ -123,9 +123,6 @@ console.log(multiplicar2(1))
 console.log(multiplicar2(1,2))
 console.log(multiplicar2(1,2,3))
 console.log(multiplicar2(1,2,3,4))
-
-
-
 
 console.log("FIN")
 
