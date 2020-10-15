@@ -78,7 +78,30 @@ let l4:Libro = new Libro(null,null,"5678")
 //TypeScript tiene un atajo estupendísimo para definir clases y constructores
 //
 
-//Despues...
+class Empleado{
+
+    //public nombre:string
+
+    //Los parámetros del constructor que tienen modificador de acceso
+    //se convierten en atributos de la clase cuyo valor será
+    //el recibido
+    //
+    //Además en typescript (y acabo de leer que en ecmascript7 tambien aunque voy a fingir
+    //que ya lo sabía) los parametros de las funciones pueden tener un valor por defecto
+    public constructor(public nombre   :string  = '',
+                       public direccion:string  = '',
+                       public telefono :string  = '',
+                       public activo   :boolean = false,
+                       public dni      :string  = ''){
+        //this.nombre = nombre
+    }
+}
+
+let empleado1:Empleado = new Empleado("Bart","C/Evergreen Terrace","555",true,"123456")
+let empleado2:Empleado = new Empleado(null,null,null,null,null) //Horrible!
+let empleado3:Empleado = new Empleado() //!Horrible
+
+
 
 
 //
@@ -105,12 +128,13 @@ class Prueba {
     dato4:number
 }
 
-let p1:Prueba = new Prueba()
-p1.dato1 = 123 //
-p1.dato4 = 456 //Los dos son visibles
+let prueba1:Prueba = new Prueba()
+prueba1.dato1 = 123 //
+prueba1.dato4 = 456 //Los dos son visibles
 //p1.dato3 = 789 //No transpila: el atributo no es accesible desde el exterior del objeto
 
 
+///////////////////////////////////////////////////////////////////////////
 
 class Direccion {
     ciudad:string
@@ -167,12 +191,12 @@ class DetallePedido {
 }
 
 class Pedido {
-    _id:string
-    codigo:string
-    fecha:string
-    cliente:Cliente 
-    detalles:DetallePedido[]
-    total:number
+    public _id:string
+    public codigo:string
+    public fecha:string
+    public cliente:Cliente 
+    private detalles:DetallePedido[]
+    private total:number
 
     constructor(_id:string, codigo:string, fecha:string, cliente:Cliente){
         this._id = _id
@@ -182,6 +206,37 @@ class Pedido {
         this.detalles = []
         this.total = 0
     }
+
+    public addDetalle(detalle:DetallePedido):void{
+        //recorrer el array de detalles para ver si ya hay uno que tenga el producto
+        //si existe se suman las cantidades
+        //si no se añade el detalle:
+        this.detalles.push(detalle) 
+        this.calcularTotal()
+    }
+
+    public calcularTotal():void{
+        //recalcular el total
+        let aux:number = 0
+        for(let dp of this.detalles){
+            aux = aux + ( dp.cantidad * dp.precio )
+        }
+        this.total = aux
+    }
+
+    //Métodos accesores
+    //Se utilizan cuando algun atributo del objeto es privado y queremos proporcionar
+    //un acceso controlado al mismo
+
+    public getTotal():number{
+        return this.total
+    }
+
+    public getDetalles():DetallePedido[]{
+        //Aqui deberíamos devolver una copia para que nadie trastee con este array
+        return this.detalles
+    }
+
 }
 
 
@@ -192,7 +247,115 @@ let pedido:Pedido = new Pedido(null,"PED-0","HOY",cliente)
 console.log("===================================")
 console.log(pedido)
 
+let p1 = new Producto("123","Chintáfono","...","afoto",10)
+let detalle1 = new DetallePedido(p1,10,10,0)
+let p2 = new Producto("456","Imán de buscar voltios","...","afoto",20)
+let detalle2 = new DetallePedido(p2,10,20,0)
 
+/*
+//AQUI NO, santo tomás
+for 
+pedido.detalles.push(detalle1) 
+let total:number = 0
+for(let dp of pedido.detalles){
+    total = total + ( dp.cantidad * dp.precio )
+}
+pedido.total = total
+*/
+
+pedido.addDetalle(detalle1)
+pedido.addDetalle(detalle2)
+console.log(pedido)
+
+console.log("===================================")
+//console.log(pedido.total)
+//console.log(pedido.detalles)
+console.log(pedido.getTotal())
+console.log(pedido.getDetalles())
+
+
+
+///////////////////////////////////////////////////////////////////////////
+//Las clases de antes pero con el constructor 'atajo'
+///////////////////////////////////////////////////////////////////////////
+
+class Direccion_ {
+    constructor(public ciudad:string=null, 
+                public calle:string=null, 
+                public numero:string=null){
+    }
+}
+
+class Cliente_ {
+
+    direcciones:Direccion_[] = []
+
+    constructor(public _id:string=null,
+                public nombre:string=null,
+                direccion:Direccion_=null, //Este no lleva public porque no es un atributo. El atributo es un array de direcciones
+                public telefono:string=null){
+        if(direccion){
+            this.direcciones.push(direccion)
+        }
+    }
+}
+
+class Producto_ {
+    constructor(public _id:string=null, 
+                public nombre:string=null, 
+                public descripcion:string=null, 
+                public afoto:string=null, 
+                public precio:number=null){
+    }
+}
+
+class DetallePedido_ {
+    constructor(public producto:Producto_=null, 
+                public precio:number=null,
+                public cantidad:number=null, 
+                public descuento:number=null){
+    }
+}
+
+class Pedido_ {
+    private detalles:DetallePedido_[]
+    private total:number
+
+    constructor(public _id:string=null, 
+                public codigo:string=null, 
+                public fecha:string=null,
+                public cliente:Cliente=null){
+        this.detalles = []
+        this.total = 0
+    }
+
+    public addDetalle(detalle:DetallePedido_):void{
+        //recorrer el array de detalles para ver si ya hay uno que tenga el producto
+        //si existe se suman las cantidades
+        //si no se añade el detalle:
+        this.detalles.push(detalle) 
+        this.calcularTotal()
+    }
+
+    public calcularTotal():void{
+        //recalcular el total
+        let aux:number = 0
+        for(let dp of this.detalles){
+            aux = aux + ( dp.cantidad * dp.precio )
+        }
+        this.total = aux
+    }
+
+    public getTotal():number{
+        return this.total
+    }
+
+    public getDetalles():DetallePedido[]{
+        //Aqui deberíamos devolver una copia para que nadie trastee con este array
+        return this.detalles
+    }
+
+}
 
 
 
