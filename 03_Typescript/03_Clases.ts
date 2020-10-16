@@ -10,11 +10,11 @@
 class CuentaBancaria {
 
     //Atributos (identidad/estado)
-    IBAN:string
-    banco:number
-    sucursal:number
-    dc:number
-    libreta:number
+    IBAN     : string
+    banco    : number
+    sucursal : number
+    dc       : number
+    libreta  : number
 
     //Funcionalidad
     //No se escribe la palabra reservada 'function'
@@ -42,9 +42,9 @@ console.log(cb1.toString())
 //
 
 class Libro {
-    titulo:string
-    autor :string
-    ISBN  :string
+    titulo : string
+    autor  : string
+    ISBN   : string
 
     //El constructor es una función especial y se indica con
     //la palabra reservada 'constructor'
@@ -88,11 +88,11 @@ class Empleado{
     //
     //Además en typescript (y acabo de leer que en ecmascript7 tambien aunque voy a fingir
     //que ya lo sabía) los parametros de las funciones pueden tener un valor por defecto
-    public constructor(public nombre   :string  = '',
-                       public direccion:string  = '',
-                       public telefono :string  = '',
-                       public activo   :boolean = false,
-                       public dni      :string  = ''){
+    public constructor(public nombre    : string  = '',
+                       public direccion : string  = '',
+                       public telefono  : string  = '',
+                       public activo    : boolean = false,
+                       public dni       : string  = ''){
         //this.nombre = nombre
     }
 }
@@ -121,9 +121,9 @@ let empleado3:Empleado = new Empleado() //!Horrible
 //No puede colocarse en la clase
 
 class Prueba {
-    public    dato1:number //El atributo es accesible desde el exterior del objeto
-    protected dato2:number //El atributo es accesible desde las clases que hereden e invisible desde el exterior del objeto
-    private   dato3:number //El atributo no es visible
+    public    dato1 : number //El atributo es accesible desde el exterior del objeto
+    protected dato2 : number //El atributo es accesible desde las clases que hereden e invisible desde el exterior del objeto
+    private   dato3 : number //El atributo no es visible
     //Si no indicamos el modificador de acceso se toma como 'public'
     dato4:number
 }
@@ -137,9 +137,9 @@ prueba1.dato4 = 456 //Los dos son visibles
 ///////////////////////////////////////////////////////////////////////////
 
 class Direccion {
-    ciudad:string
-    calle:string
-    numero:string
+    ciudad : string
+    calle  : string
+    numero : string
     constructor(ciudad:string, calle:string, numero:string){
         this.ciudad = ciudad
         this.calle = calle
@@ -148,10 +148,10 @@ class Direccion {
 }
 
 class Cliente {
-    _id:string
-    nombre:string
-    direcciones:Direccion[] = []
-    telefono:string
+    _id         : string
+    nombre      : string
+    direcciones : Direccion[] = []
+    telefono    : string
 
     constructor(_id:string,nombre:string,direccion:Direccion,telefono:string){
         this._id = _id
@@ -162,10 +162,10 @@ class Cliente {
 }
 
 class Producto {
-    _id:string
-    nombre:string
-    descripcion:string
-    afoto:string
+    _id         : string
+    nombre      : string
+    descripcion : string
+    afoto       : string
     //Colocamos aqui el precio de catálogo como una simplificación
     precio:number 
     constructor(_id:string, nombre:string, descripcion:string, afoto:string, precio:number){
@@ -178,10 +178,10 @@ class Producto {
 }
 
 class DetallePedido {
-    producto:Producto
-    precio:number
-    cantidad:number
-    descuento:number
+    producto  : Producto
+    precio    : number
+    cantidad  : number
+    descuento : number
     constructor(producto:Producto, precio:number, cantidad:number, descuento:number){
         this.producto = producto
         this.precio = precio
@@ -191,20 +191,20 @@ class DetallePedido {
 }
 
 class Pedido {
-    public _id:string
-    public codigo:string
-    public fecha:string
-    public cliente:Cliente 
-    private detalles:DetallePedido[]
-    private total:number
+    public _id       : string
+    public codigo    : string
+    public fecha     : string
+    public cliente   : Cliente 
+    private detalles : DetallePedido[]
+    private total    : number
 
     constructor(_id:string, codigo:string, fecha:string, cliente:Cliente){
-        this._id = _id
-        this.codigo = codigo
-        this.fecha = fecha
-        this.cliente = cliente
+        this._id      = _id
+        this.codigo   = codigo
+        this.fecha    = fecha
+        this.cliente  = cliente
         this.detalles = []
-        this.total = 0
+        this.total    = 0
     }
 
     public addDetalle(detalle:DetallePedido):void{
@@ -239,7 +239,6 @@ class Pedido {
 
 }
 
-
 let direccion:Direccion = new Direccion("Escondido, CA","C/Falsa","123")
 let cliente:Cliente = new Cliente(null, "John Lewis",direccion,"555")
 let pedido:Pedido = new Pedido(null,"PED-0","HOY",cliente)
@@ -273,16 +272,14 @@ console.log("===================================")
 console.log(pedido.getTotal())
 console.log(pedido.getDetalles())
 
-
-
 ///////////////////////////////////////////////////////////////////////////
 //Las clases de antes pero con el constructor 'atajo'
 ///////////////////////////////////////////////////////////////////////////
 
 class Direccion_ {
-    constructor(public ciudad:string=null, 
-                public calle:string=null, 
-                public numero:string=null){
+    constructor(public ciudad : string = null, 
+                public calle  : string = null, 
+                public numero : string = null){
     }
 }
 
@@ -290,10 +287,10 @@ class Cliente_ {
 
     direcciones:Direccion_[] = []
 
-    constructor(public _id:string=null,
-                public nombre:string=null,
-                direccion:Direccion_=null, //Este no lleva public porque no es un atributo. El atributo es un array de direcciones
-                public telefono:string=null){
+    constructor(public _id      : string     = null,
+                public nombre   : string     = null,
+                direccion       : Direccion_ = null, //Este no lleva public porque no es un atributo. El atributo es un array de direcciones
+                public telefono : string     = null){
         if(direccion){
             this.direcciones.push(direccion)
         }
@@ -301,19 +298,19 @@ class Cliente_ {
 }
 
 class Producto_ {
-    constructor(public _id:string=null, 
-                public nombre:string=null, 
-                public descripcion:string=null, 
-                public afoto:string=null, 
-                public precio:number=null){
+    constructor(public _id         : string = null, 
+                public nombre      : string = null, 
+                public descripcion : string = null, 
+                public afoto       : string = null, 
+                public precio      : number = null){
     }
 }
 
 class DetallePedido_ {
-    constructor(public producto:Producto_=null, 
-                public precio:number=null,
-                public cantidad:number=null, 
-                public descuento:number=null){
+    constructor(public producto  : Producto_ = null, 
+                public precio    : number    = null,
+                public cantidad  : number    = null, 
+                public descuento : number    = null){
     }
 }
 
@@ -321,10 +318,10 @@ class Pedido_ {
     private detalles:DetallePedido_[]
     private total:number
 
-    constructor(public _id:string=null, 
-                public codigo:string=null, 
-                public fecha:string=null,
-                public cliente:Cliente=null){
+    constructor(public _id     : string  = null, 
+                public codigo  : string  = null, 
+                public fecha   : string  = null,
+                public cliente : Cliente = null){
         this.detalles = []
         this.total = 0
     }
