@@ -4,8 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 @NgModule({
+  //En declarations enumeramos cuantos componentes existen en la aplicacion
+
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule
