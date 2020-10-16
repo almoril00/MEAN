@@ -12,5 +12,108 @@
 <h3>
   Expresiones:
 </h3>
+<!--
+  
+Una expresión angular se marca con doble llave cuando está en un nodo de texto
+Una expresión es algo que se evalua y que da un resultado
+Las expresiones pueden ser aritméticas, booleanas, tareas con cadenas de texto...
+
+-->
+<h2>
+
+  {{ 100 + 200 }}
+  <br/>
+  {{ 100 < 200 }}
+  <br/>
+  {{ "pim "+"pam "+" que"+" nieva."}}
+  <br/>
+  <!-- 
+  Lo verdaderamente interesante de las expresiones es que incluyan VARIABLES 
+  Identificaremos las variables dentro de una extresión porque son palabras que no están
+  entre comillas
+  -->
+  {{ mensaje }}
+  <br/>
+  Resultado: {{ numero1*numero2 }}
+
+</h2>
+
+<hr/>
+
+<table>
+  <tr>
+    <td>Título:</td>
+    <td>
+      {{disco.titulo}}
+    </td>
+  </tr>
+  <tr>
+    <td>Autor:</td>
+    <td>
+      {{disco.autor}}
+    </td>
+  </tr>
+  <tr>
+    <td>Año:</td>
+    <td>
+      {{disco.year}}
+    </td>
+  </tr>
+  <tr>
+    <td>Genero:</td>
+    <td>
+      {{disco.genero}}
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>Título</td>
+    <td>
+      <!-- Esto funciona pero no tiene 'bidirectional binding'
+      <input type="text" value="{{disco.titulo}}"/>
+      
+      BIDIRECTIONAL BINDING
+
+      Para que esté activo es necesario dar de alta el módulo 'FormModule' en la sección 'imports'
+      de AppModule
+
+      [(ngModel)]="expresion"    
+      -->
+      <input type="text" [(ngModel)]="disco.titulo"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Autor</td>
+    <td>
+      <input type="text" [(ngModel)]="disco.autor"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Año</td>
+    <td>
+      <input type="text" [(ngModel)]="disco.year"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Genero</td>
+    <td>
+      <input type="text" [(ngModel)]="disco.genero"/>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <!-- 
+      ACCIONES 
+      (evento)="expresion que identifica a la funcion que debe invocarse"
+      -->
+      <button (click)="insertarDisco()">Insertar</button>
+    </td>
+  </tr>
+</table>
+
+
 
 
