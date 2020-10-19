@@ -114,6 +114,24 @@ Las expresiones pueden ser aritméticas, booleanas, tareas con cadenas de texto.
   </tr>
 </table>
 
-
-
+<table border="1">
+  <tr>
+    <th>Título</th>
+    <th>Autor</th>
+    <th>Año</th>
+    <th>Genero</th>
+  </tr>
+  
+  <!--
+  Si queremos repetir un elemento tantas veces como valores haya en un array
+  usamos *ngFor y en la expresión asociada referenciamos al array
+  -->
+  <tr *ngFor="let d of discos">
+    <td>{{d.titulo}}</td>
+    <td>{{d.autor}}</td>
+    <td>{{d.year}}</td>
+    <td>{{d.genero}}</td>
+  </tr>
+  
+</table>
 

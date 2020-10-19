@@ -31,13 +31,16 @@ export class AppComponent {
 
   //Si no inicializamos el disco dará error al intentar
   //evaluar la expresión {{disco.titulo}}
-  public disco:Disco = new Disco("The dark side of the moon")
+  public disco:Disco = new Disco()
+  public discos:Disco[] = []
 
+  
   public insertarDisco():void{
     console.log("Insertando el disco")
-    //
-    //
     
+    this.discos.push(this.disco)
+    //Creamos un nuevo disco para que se utilice en el formulario
+    this.disco = new Disco()    
 
   }
 
