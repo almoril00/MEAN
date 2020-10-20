@@ -32,6 +32,8 @@ let rutas = [
   { path      : 'componente1',
     component : Componente1Component },
   { path      : 'componente2',
+    component : Componente2Component },
+  { path      : 'componente2/:dato1/:dato2',
     component : Componente2Component }
 ]
 
