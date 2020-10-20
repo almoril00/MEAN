@@ -54,6 +54,12 @@
             <td>{{d.year}}</td>
             <td>{{d.genero}}</td>
         </tr>
+        <!--
+        *ngIf se coloca en una etiqueta y tiene asociada una expresión booleana
+        Si la expresión se resuelve a true la etiqueta aparece
+        Si se resuelve a false, no
+        NO TIENE ELSE
+        -->
         <tr *ngIf="discos.length==0">
             <td colspan="4">No hay discos en la bb.dd.</td>
         </tr>

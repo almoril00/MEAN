@@ -6,6 +6,34 @@ import { CabeceraComponent } from './componentes/cabecera/cabecera.component';
 import { Componente1Component } from './componentes/componente1/componente1.component';
 import { Componente2Component } from './componentes/componente2/componente2.component';
 import { MenuComponent } from './componentes/menu/menu.component';
+import { RouterModule } from '@angular/router';
+
+/*
+Para indicar a Angular que queremos colocar en un <router-outlet> usaremos
+la barra del navegador
+
+Se definirán una serie de 'reglas de navegacion' o rutas que asocien una ruta a un componente
+que se colocará en el <router-outlet>
+
+las rutas son así:
+
+{
+ path      : '/movida, //Se admiten rutas absolutas y relativas
+ component : Componente
+}
+
+Las rutas estarán en un bonito array
+*/
+
+//Nos permitimos la licencia de declarar como global el array de rutas
+let rutas = [
+  { path      : '',
+    component : Componente1Component },
+  { path      : 'componente1',
+    component : Componente1Component },
+  { path      : 'componente2',
+    component : Componente2Component }
+]
 
 @NgModule({
   declarations: [
@@ -16,7 +44,9 @@ import { MenuComponent } from './componentes/menu/menu.component';
     MenuComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    //Damos de alta las rutas en la aplicacion:
+    RouterModule.forRoot(rutas)
   ],
   providers: [],
   bootstrap: [AppComponent]

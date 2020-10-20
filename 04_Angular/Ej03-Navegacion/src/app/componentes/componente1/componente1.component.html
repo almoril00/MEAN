@@ -1,1 +1,35 @@
-<p>componente1 works!</p>
+
+<br/>
+
+<h2>Componente 1</h2>
+
+<br/>
+
+<!--Navegando desde la vista (declarativo)-->
+<button class="btn btn-primary" routerLink="/componente2">Componente 2</button>
+Navegando desde la vista
+<br/>
+<br/>
+
+<!--Navegando desde la vista pasando parámetros con los valores 'a fuego'-->
+<!--
+<button class="btn btn-primary" routerLink="/componente2/111/222">Componente 2</button>
+Pasando parametros
+<br/>
+<br/>
+-->
+
+<!--Navegando desde la vista con parámetros que dependen de una expresión-->
+<!--
+<button class="btn btn-primary" [routerLink]="[ '/componente2', '333', '444' ]">Componente 2</button>
+Pasando parametros
+<br/>
+<br/>
+-->
+
+
+<!--Navegando desde el código (programático)-->
+<button class="btn btn-primary" (click)="navegacionProgramatica()">Componente 2</button>
+Navegando desde el código del componente
+<br/>
+<br/>
