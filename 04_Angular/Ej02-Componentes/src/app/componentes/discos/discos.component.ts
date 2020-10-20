@@ -14,7 +14,7 @@ export class DiscosComponent implements OnInit {
   constructor() {
     this.disco = new Disco()
     this.discos = []
-  }
+  }  
 
   ngOnInit(): void {
   }
@@ -32,6 +32,25 @@ export class DiscosComponent implements OnInit {
   public insertar():void{
     this.discos.push(this.disco)
     this.vaciarFormulario()
+  }
+
+  public seleccionar(titulo:string):void{
+   
+    console.log("Seleccionar:"+titulo)
+
+    for(let disco of this.discos){
+      if(disco.titulo == titulo){
+        //this.disco = disco
+        this.disco.titulo = disco.titulo
+        this.disco.autor  = disco.autor
+        this.disco.year   = disco.year
+        this.disco.genero = disco.genero
+        break
+      }
+    }
+
+
+
   }
 
 }

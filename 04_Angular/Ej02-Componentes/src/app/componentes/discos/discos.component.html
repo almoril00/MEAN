@@ -48,15 +48,24 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let d of discos">
+        <tr *ngFor="let d of discos" (click)="seleccionar(d.titulo)">
             <td>{{d.titulo}}</td>
             <td>{{d.autor}}</td>
             <td>{{d.year}}</td>
             <td>{{d.genero}}</td>
         </tr>
+        <tr *ngIf="discos.length==0">
+            <td colspan="4">No hay discos en la bb.dd.</td>
+        </tr>
     </tbody>
 </table>
 
-
+<!--
+Discos: 
+<select>
+    <option>Seleccione...</option>
+    <option *ngFor="let d of discos">{{d.titulo}}</option>
+</select>
+-->
 
 
