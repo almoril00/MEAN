@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let d of discos">
+        <tr *ngFor="let d of discos" [routerLink]="[ '/formularioDiscos', d.id ]">
             <td>{{d.titulo}}</td>
             <td>{{d.autor}}</td>
             <td>{{d.year}}</td>

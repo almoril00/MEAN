@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Disco } from 'src/app/entidades/disco';
 import { DiscosService } from 'src/app/servicios/discos.service';
 
@@ -11,7 +12,16 @@ export class FormularioDiscosComponent implements OnInit {
 
   public disco:Disco = new Disco() //undefined
 
-  constructor(private discosService:DiscosService) { 
+  constructor(private discosService:DiscosService,
+              private router:Router,
+              private ruta:ActivatedRoute) { 
+
+    if(ruta.snapshot.params.idDisco){
+      this.disco = discosService.buscar(ruta.snapshot.params.idDisco)
+
+    }
+
+
     console.log("Constructor de FormularioDiscosComponent")
   }
   
@@ -21,7 +31,7 @@ export class FormularioDiscosComponent implements OnInit {
 
   public insertar():void{
     this.discosService.insertar(this.disco)
-    //navegar
+    this.router.navigate( [ '/listadoDiscos'] )
   }
 
 }

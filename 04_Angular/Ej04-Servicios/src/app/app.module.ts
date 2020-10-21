@@ -23,6 +23,10 @@ let rutas:Routes = [
   {
     path : 'formularioDiscos',
     component : FormularioDiscosComponent
+  },
+  {
+    path : 'formularioDiscos/:idDisco',
+    component : FormularioDiscosComponent
   }
 ]
 
