@@ -1,1 +1,36 @@
-<p>listado-discos works!</p>
+
+<br/>
+
+<div class="text-center">
+    <button class="btn btn-primary mr-1" routerLink="/formularioDiscos">Nuevo</button>
+</div>
+
+<br/>
+
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Autor</th>
+        <th>Año</th>
+        <th>Genero</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of discos">
+            <td>{{d.titulo}}</td>
+            <td>{{d.autor}}</td>
+            <td>{{d.year}}</td>
+            <td>{{d.genero}}</td>
+        </tr>
+        <!--
+        *ngIf se coloca en una etiqueta y tiene asociada una expresión booleana
+        Si la expresión se resuelve a true la etiqueta aparece
+        Si se resuelve a false, no
+        NO TIENE ELSE
+        -->
+        <tr *ngIf="discos.length==0">
+            <td colspan="4">No hay discos en la bb.dd.</td>
+        </tr>
+    </tbody>
+</table>

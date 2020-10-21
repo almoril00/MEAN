@@ -1,1 +1,42 @@
-<p>formulario-discos works!</p>
+<br/>
+
+<div class="text-center">
+    <button class="btn btn-primary mr-1" (click)="insertar()">Insertar</button>
+    <button class="btn btn-primary mr-1">Modificar</button>
+    <button class="btn btn-danger  mr-1">Borrar</button>
+    <button class="btn btn-warning mr-1">Vaciar</button>
+    <button class="btn btn-warning mr-1" routerLink="/listadoDiscos">Volver</button>
+</div>
+
+<br/>
+
+<div class="row">  
+
+    <div class="col-2 mt-1">
+        <label>Título</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" [(ngModel)]="disco.titulo"/>
+    </div>
+    
+    <div class="col-2 mt-1">
+        <label>Autor</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" [(ngModel)]="disco.autor"/>
+    </div>                 
+    
+    <div class="col-2 mt-1">
+        <label>Año</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" [(ngModel)]="disco.year"/>
+    </div>
+    
+    <div class="col-2 mt-1">
+        <label>Genero</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" [(ngModel)]="disco.genero"/>
+    </div>
+</div>  

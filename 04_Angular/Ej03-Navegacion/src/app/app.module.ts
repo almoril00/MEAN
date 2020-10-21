@@ -6,7 +6,7 @@ import { CabeceraComponent } from './componentes/cabecera/cabecera.component';
 import { Componente1Component } from './componentes/componente1/componente1.component';
 import { Componente2Component } from './componentes/componente2/componente2.component';
 import { MenuComponent } from './componentes/menu/menu.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 /*
 Para indicar a Angular que queremos colocar en un <router-outlet> usaremos
@@ -26,7 +26,7 @@ Las rutas estarán en un bonito array
 */
 
 //Nos permitimos la licencia de declarar como global el array de rutas
-let rutas = [
+let rutas:Routes = [
   { path      : '',
     component : Componente1Component },
   { path      : 'componente1',

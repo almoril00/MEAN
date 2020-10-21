@@ -14,7 +14,7 @@ export class Componente1Component implements OnInit {
   //o hay que colocarlos edn un router-outlet por un cambio en la barra de navegación
   
   //Inyección de dependencias en Angular
-  //Si el constructor de un componente (o un servicios) recibe parámetros Angular intentará proporcionarlos
+  //Si el constructor de un componente (o un servicio) recibe parámetros Angular intentará proporcionarlos
   //Hay una lista concreta de cosas que podemos pedir
   //y si no incamos el tipo angular no sabrá qué pedimos
   //-Router: objeto que sirve para 'navegar'

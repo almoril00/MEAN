@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Disco } from 'src/app/entidades/disco';
+import { DiscosService } from 'src/app/servicios/discos.service';
 
 @Component({
   selector: 'app-formulario-discos',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormularioDiscosComponent implements OnInit {
 
-  constructor() { }
+  public disco:Disco = new Disco() //undefined
 
+  constructor(private discosService:DiscosService) { 
+    console.log("Constructor de FormularioDiscosComponent")
+  }
+  
   ngOnInit(): void {
+    console.log("ngOnInit de FormularioDiscosComponent")
+  }
+
+  public insertar():void{
+    this.discosService.insertar(this.disco)
+    //navegar
   }
 
 }
