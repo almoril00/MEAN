@@ -1,1 +1,33 @@
-<p>listado-usuarios works!</p>
+
+
+
+<br/>
+
+<div class="text-center">
+    <button class="btn btn-primary mr-1">Refrescar</button>
+</div>
+
+<br/>
+
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Correo E</th>
+        <th>Afoto</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of users">
+            <td>{{u.first_name}}</td>
+            <td>{{u.last_name}}</td>
+            <td>{{u.email}}</td>
+            <img src="{{u.avatar}}" height="150"/>
+        </tr>
+        <tr *ngIf="users.length==0">
+            <td colspan="4">No hay usuarios en la bb.dd.</td>
+        </tr>
+    </tbody>
+</table>
+
