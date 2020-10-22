@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListadoUsuariosComponent implements OnInit {
 
-  constructor() { }
+  //Un componente JAMAS utilizará el objeto HttpClient
+  constructor(private httpClient:HttpClient) { 
+
+    this.listarUsuarios()
+
+  }
 
   ngOnInit(): void {
   }
+
+  private listarUsuarios():void{
+
+    this
+      .httpClient
+      .get("https://reqres.in/api/users/87?delay=1")
+      .subscribe(
+        function(data) { console.log(data) },
+        function(error) { console.log(error) }
+      )
+
+  }
+
 
 }
