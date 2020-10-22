@@ -6,11 +6,12 @@ import { DiscosService } from 'src/app/servicios/discos.service';
 @Component({
   selector: 'app-formulario-discos',
   templateUrl: './formulario-discos.component.html',
-  styleUrls: ['./formulario-discos.component.css']
+  styleUrls: ['./formulario-discos.component.css'],
+  providers: [ ]
 })
 export class FormularioDiscosComponent implements OnInit {
 
-  public disco:Disco = new Disco() //undefined
+  public disco:Disco = new Disco() 
 
   constructor(private discosService:DiscosService,
               private router:Router,
@@ -18,9 +19,7 @@ export class FormularioDiscosComponent implements OnInit {
 
     if(ruta.snapshot.params.idDisco){
       this.disco = discosService.buscar(ruta.snapshot.params.idDisco)
-
     }
-
 
     console.log("Constructor de FormularioDiscosComponent")
   }
