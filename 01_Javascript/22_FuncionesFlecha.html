@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+console.log("=====================================")
+let f1_a = function(){
+    console.log("Hola")
+}
+
+//en javascript las expresiones lambda se llaman 'funciones flecha'
+
+//una función flecha no incñuye la palabra reservada 'function'
+//Cuando la función no recibe parametros debemos colocar los parénsis 
+//antes de la flecha
+//Cuando el cuerpo de la función solo tiene una línea podemos ahorrarnos las llaves 
+let f1_b = () => console.log("Hola")
+
+f1_a()
+f1_b()
+
+console.log("=====================================")
+let f2_a = function(numero) {
+    console.log(numero*numero)
+}
+
+//Cuando la funcion flecha recibe un único parámetro podemos ahorrarnos los parentesis
+let f2_b = numero => console.log(numero*numero)
+
+f2_a(25)
+f2_b(25)
+
+console.log("=====================================")
+let f3_a = function(n1,n2){
+    console.log(n1+n2)
+}
+
+//Si la función flecha tiene más de un parámetro los parentesis son obligatorios
+let f3_b = (n1,n2) => console.log(n1+n2)
+
+f3_a(20,140)
+f3_b(20,140)
+
+console.log("=====================================")
+let f4_a  = function(texto){
+    return texto.toUpperCase()
+}
+
+//Las funciones flecha de una sola línea sin las llaves llevan implícito un return que devuelven
+//la última expresion calculada
+//Si no hay nada que devolver devuelve undefined
+let f4_b = texto => texto.toUpperCase()
+
+console.log(f4_a("alfredo landa"))
+console.log(f4_b("alfredo landa"))
+
+
+let f4_bis = () => console.log("HOLA")
+let x = f4_bis()
+console.log(x)
+
+
+
+console.log("=====================================")
+let f5_a = function() {
+    let numero = Math.random()
+    return numero
+}
+
+//Si la funcion flecha tiene más de una linea las llaves son obligatorias
+//y si hay un return nos toca ponerlo 
+let f5_b = () => {
+    let numero = Math.random()
+    return numero
+}
+
+console.log(f5_a())
+console.log(f5_b())
+
+
+//This dentro de una funcion flecha
+console.log("=====================================")
+let avion_a = {
+    nombre     : "F-4 Phantom",
+    fabricante : "McDonell Douglas",
+    toString : function() {
+
+        //Dentro de una funcion anidada o closure this no es lo mismo
+        //que en la funcion nido
+        let that = this
+        let x = function(){
+            //return this.nombre+", "+this.fabricante //'undefined, undefined'
+            return that.nombre+", "+that.fabricante
+        }
+
+        return x()
+    }
+
+}
+
+let avion_b = {
+    nombre     : "F-4 Phantom",
+    fabricante : "McDonell Douglas",
+    toString : function() {
+
+        //Dentro de una funcion flecha 'anidada' this tiene el mismo valor
+        //en en el nido
+        let x = () => this.nombre+", "+this.fabricante 
+
+        return x()
+    }
+
+}
+
+console.log(avion_a.toString())
+console.log(avion_b.toString())
+
+
+
+
+
+
+
+
+
+</script>
+
+<body>
+    
+    <h1>22 Funciones flecha</h1>
+
+</body>
+</html>

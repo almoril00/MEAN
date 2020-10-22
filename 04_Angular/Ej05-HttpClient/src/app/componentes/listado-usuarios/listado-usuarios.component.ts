@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { UsersService } from 'src/app/servicios/users.service';
+import { User } from 'src/app/entidades/user';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -11,10 +13,12 @@ export class ListadoUsuariosComponent implements OnInit {
 
   //Inicializamos el array para que tenga algo mientras llega la respuesta a la petición AJAX
   //si no fallará el *ngIf que tenemos en la tabla
-  public users:any[] = []
+  public users:User[] = []
 
   //Un componente JAMAS utilizará el objeto HttpClient
-  constructor(private httpClient:HttpClient) { 
+  //Lo9 que hará será invocar una función de un servicio que envíe la peticion AJAX por él
+  constructor(/*private httpClient:HttpClient*/
+              private usersService:UsersService) { 
 
     this.listarUsuarios()
 
@@ -23,7 +27,7 @@ export class ListadoUsuariosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private listarUsuarios():void{
+  public listarUsuarios():void{
 
     //INSISTIMOS: Un componente jamás debería usar el objeto HttpClient
 
@@ -34,27 +38,56 @@ export class ListadoUsuariosComponent implements OnInit {
       .httpClient
       .get("https://reqres.in/api/users?delay=1")
     observable.subscribe(
-        function(data) { console.log(data) },
-        function(error) { console.log(error) }
+        function(data) { 
+          console.log(data) 
+        },
+        function(error) { 
+          console.log(error) 
+        }
+      )
+    */
+
+    /*
+    //Ñapa jocosa:
+    let that = this
+    this
+      .httpClient
+      .get("https://reqres.in/api/users?delay=5")
+      .subscribe(
+        //Esta funcion es un closure
+        function(data:any) { 
+          that.users = data.data
+        },
+        function(error) { 
+          console.log(error) 
+        }
       )
     */
 
     /*
     let that = this
     this
-      .httpClient
-      .get("https://reqres.in/api/users?delay=5")
+      .usersService
+      .listarUsuarios()
       .subscribe(
-        //Esta funcion es un 
         function(data:any) { 
           that.users = data.data
         },
-        function(error) { console.log(error) }
-      )
-    */  
+        function(error) { 
+          console.log(error) 
+        }
+      ) 
+    */
+
+    this
+      .usersService
+      .listarUsuarios()
+      .subscribe(
+        data => this.users = data.data,
+        error => console.log(error) 
+      )       
 
   }
-
 
 }
 
