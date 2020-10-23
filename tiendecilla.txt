@@ -1,0 +1,120 @@
+/////////////////////////////////////////////////////////////////////////////////
+FUNCIONALIDADES:
+
+PRODUCTOS
+
+control de acceso usuarios
+	-clientes
+	-empleados
+
+	
+catalogo de productos
+	-listar
+	-busquedas de productos por un criterio 
+	
+
+PEDIDOS
+	
+guardar un pedido
+listar los pedidos
+aceptar un pedido
+
+
+FACTURAS
+	
+	
+listar facturas
+
+
+modificar los datos de usuario
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+REST
+
+
+Recursos:
+
+productos
+pedidos
+detallePedido
+facturas
+detalleFactura
+usuarios
+clientes
+empleados
+
+
+METODO	RUTA		PARAMETROS 	BODY		RESPUESTA
+		
+GET 	/usuarios	criterio	-		[ { json } ]	
+GET	/usuarios/:id	-		-		{ json }
+POST	/usuarios	-		{ json }	{ json }
+PUT 	/usuarios/:id	-		{ json }	{ json }
+DELETE  /usuarios/:id	-		-		-
+
+
+
+
+
+alta pedido
+modificar pedido
+borrar pedido
+listar pedidos
+buscar pedido por id
+aceptar un pedido
+
+insertar producto
+modificar producto
+borrar producto
+buscar un producto por id
+listar por un criterio
+
+X insertar factura
+X modificar factura
+X borrar factura
+abonar factura
+listar facturas
+buscar una factura por id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
