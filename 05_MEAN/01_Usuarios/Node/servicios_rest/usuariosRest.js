@@ -35,8 +35,17 @@ function buscarUsuario(request, response){
 function insertarUsuario(request, response){
     //obtener del request el usuario, que está en el body
     let usuario = request.body
-    negocioUsuarios.insertarUsuario(usuario)
-    response.end()
+    negocioUsuarios
+        .insertarUsuario(usuario)
+        .then( function(id){
+            console.log("TODO BIEN")
+            response.end("Se ha insertado el usuario con el id:"+id)
+        })
+        .catch( function(error){
+            console.log("FALLO!!!!")
+            response.statusCode = 400
+            response.end("AYAYAY:"+error)
+        })
 }
 
 function modificarUsuario(request, response){

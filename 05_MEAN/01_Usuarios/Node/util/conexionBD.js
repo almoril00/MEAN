@@ -17,6 +17,7 @@ exports.conectarBBDD = function(callback){
         console.log("Conexión con la base de datos establecida.")
         exports.conexion = dbs
         exports.esquema = dbs.db("usuariosBD")
+
         //Como hemos podido conectar ejecutamos la función que nos han pasado (callback)
         callback()
     })
