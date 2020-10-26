@@ -32,18 +32,11 @@ exports.buscarSeriePorId = function(_id){
 
 //La lógica de negocio trabaja con OBJETOS
 exports.insertarSerie = function(serie){
-
     //validaciones
     //autorización (seguridad)
     //...
     return conexionBD.esquema.collection("series").insertOne(serie)
-
 }
-
-
-
-
-
 
 exports.modificarSerie = function(serie){ 
     

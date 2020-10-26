@@ -1,3 +1,4 @@
+const mongoDB = require("mongodb")
 const conexionBD  = require("../util/conexionBD")
 
 exports.insertarUsuario = function(usuario){
@@ -103,29 +104,98 @@ exports.insertarUsuario = function(usuario){
 
     return new Promise(
         function(resolve, reject){
-
-            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
+            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")            
             coleccionUsuarios
-                .findOne( { login : usuario.login })
+                .findOne( { login : usuario.login } )
                 .then( function(data){
                     if(data){
-                        //MAL, login duplicado
-                        reject("ERROR: LOGIN DUPLICADO")
+                        //MAL: 400, Ya hay un usuario con ese login
+                        reject({ codigo:400, descripcion:"Ya existe un usuario con ese login"})
                         return
                     }
-                    return coleccionUsuarios.insertOne(usuario)
+
+                    return coleccionUsuarios.insertOne( usuario )
                 })
-                .then( function(resultado){
-                    //BIEN, se insertó y entregamos el id
+                .then(function(resultado){
+                    //BIEN: Se ha insertado
                     resolve(resultado.insertedId)
                 })
-                .catch( function(error){
-                    //MAL, zambombazo en la bb.dd
-                    reject("FALLO EN EL SERVIDOR")
+                .catch(function(error){
+                    //MAL : 500
+                    reject({ codigo:500, descripcion:"Ay mamá, que nos hemos matao"})
                 })
+        })
+}
 
+exports.borrarUsuario = function(_id){
+
+    return new Promise( 
+        function(resolve, reject){
+            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
+
+            //Debemos convertir el string recibido en un ObjectID
+            _id = new mongoDB .ObjectId(_id)
+
+            coleccionUsuarios
+                .deleteOne( { _id : _id }) 
+                .then(function(resultado){
+                    if(resultado.deletedCount == 0){
+                        //MAL : 404
+                        reject({ codigo : 404, descripcion: "El usuario no existe "})
+                        return 
+                    }
+                    //BIEN!
+                    resolve() //Aqui no tenenemos nada que pasar!
+                })
+                .catch(function(error){
+                    //MAL : 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
         })
 }
 
 
+exports.modificarUsuario = function(usuario){
 
+    return new Promise(function(resolve, reject){
+
+        //VALIDAR!
+            //si va mal -> REJECT("400") y RETURN
+
+        let coleccionUsuarios = conexionBD.esquema.collection("usuarios")  
+        
+        //Creamos un ObjectId a partir del string que hemos recibido
+        let _id = new mongoDB.ObjectId(usuario._id)
+
+        console.log(_id)
+
+        coleccionUsuarios
+            .findOneAndUpdate(
+                { "_id" : _id },             
+                {
+                    $set : {
+                        login    : usuario.login,
+                        pw       : usuario.pw,
+                        rol      : usuario.rol,
+                        correoE  : usuario.correoE
+                    }
+                })
+            .then(function(resultado){
+
+                console.log(resultado)
+
+                if(!resultado.value){
+                    //MAL: 404
+                    reject({ codigo : 404, descripcion: "El usuario no existe"})
+                    return
+                }
+
+                //BIEN!
+                resolve(resultado.value) //
+            })
+            .catch(function(error){
+                //MAL: 500
+                reject({ codigo: 500, descripcion: "Error en la base de datos"})
+            })
+    })
+}
