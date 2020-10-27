@@ -56,7 +56,6 @@ function pruebasDOM(){
     //Mola
     //Array.from(document.getElementsByTagName("input")).filter(n => n.type == "submit")
 
-
     //
     //Buscando nodos por nombre
     //
@@ -76,6 +75,20 @@ function pruebasDOM(){
     //Devuelve un array
     nodos = document.getElementsByClassName("xXx")
     console.log(nodos)
+    
+    //
+    //Utilizando selectores
+    //
+    console.log("================================")
+    let nodoFormulario = document.querySelector("#formulario")
+    console.log(nodoFormulario)
+
+    let arrayNodos = document.querySelectorAll("#formulario input[type=text]")
+    for(let nodo of arrayNodos){
+        console.log(nodo)
+    }
+
+
 
     //document tiene una función específica para buscar nodos en un
     //XML
@@ -265,7 +278,6 @@ Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
             </tr>
         </table>
     </form>
-
 
 </body>
 </html>

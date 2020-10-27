@@ -199,3 +199,13 @@ exports.modificarUsuario = function(usuario){
             })
     })
 }
+
+exports.listarUsuarios = function(){
+
+    
+
+}
+
+exports.buscarUsuario = function(_id){
+
+}

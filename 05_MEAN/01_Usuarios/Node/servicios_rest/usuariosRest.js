@@ -23,6 +23,7 @@ function listarUsuarios(request, response){
     //let x = request.query.x
 }
 
+//GET /usuarfios/:id
 function buscarUsuario(request, response){
     //obtener del request el valor del id
     let id = request.params.id
