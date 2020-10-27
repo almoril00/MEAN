@@ -21,12 +21,32 @@ exports.router = router
 function listarUsuarios(request, response){
     //obtener del request el criterio de busqueda
     //let x = request.query.x
+
+    negocioUsuarios
+        .listarUsuarios()
+        .then(function(usuarios){
+            response.json(usuarios)
+        })
+        .catch(function(error){
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 //GET /usuarfios/:id
 function buscarUsuario(request, response){
     //obtener del request el valor del id
     let id = request.params.id
+
+    negocioUsuarios
+        .buscarUsuario(id)
+        .then(function(usuario){
+            response.json(usuario)
+        })
+        .catch(function(error){
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 function insertarUsuario(request, response){

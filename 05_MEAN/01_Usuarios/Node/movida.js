@@ -1,25 +1,29 @@
 //npm install validatorjs
 
 let Validator = require('validatorjs');
+Validator.useLang("es")
 
 let usuario = {
     "login"   : "terencehill",
     "pw"      : "terencehill",
     "rol"     : "CLIENTE",
-    "correoE" : "terencehill@gmail.it"
+    "correoE" : "terencehill@gmailit"
 }
 
-let rules = {
-    login   : 'required|min:5|max:15',
-    pw      : 'required|min:5|max:15',
+let reglas = {
+    login   : 'required|min:5|max:10',
+    pw      : 'required|min:5|max:10',
     correoE : 'required|email'
-};
+}
 
-let validation = new Validator(usuario, rules);
+let validation = new Validator(usuario, reglas);
 
-console.log(validation.passes()) 
-console.log(validation.fails()) 
+
+console.log(validation.passes()) //true
+console.log(validation.fails())  //false
 
 console.log(validation.errors)
+
+
 
 

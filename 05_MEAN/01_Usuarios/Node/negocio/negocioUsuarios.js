@@ -1,5 +1,17 @@
+//npm install validatorjs
+let Validator = require('validatorjs');
+Validator.useLang("es")
+
 const mongoDB = require("mongodb")
 const conexionBD  = require("../util/conexionBD")
+
+//Reglas de validación para los objetos usuario
+let reglas = {
+    login   : 'required|min:5|max:15',
+    pw      : 'required|min:5|max:15',
+    correoE : 'required|email',
+    rol     : ['required', 'regex:/(CLIENTE|EMPLEADO|ADMIN)/'],
+}
 
 exports.insertarUsuario = function(usuario){
     //
@@ -104,6 +116,15 @@ exports.insertarUsuario = function(usuario){
 
     return new Promise(
         function(resolve, reject){
+
+            //VALIDAR (falta comprobar que el usuario no tenga más propiedades de las que esperamos)
+            //Hay que crear un validador nuevo cada vez que queramos validar!
+            let validador = new Validator(usuario, reglas)
+            if(validador.fails()){
+                reject({ codigo:400, descripcion:validador.errors.errors})
+                return
+            }
+
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")            
             coleccionUsuarios
                 .findOne( { login : usuario.login } )
@@ -157,55 +178,95 @@ exports.borrarUsuario = function(_id){
 
 exports.modificarUsuario = function(usuario){
 
-    return new Promise(function(resolve, reject){
+    return new Promise(
+        function(resolve, reject){
 
-        //VALIDAR!
-            //si va mal -> REJECT("400") y RETURN
+            //VALIDAR!
+                //si va mal -> REJECT("400") y RETURN
 
-        let coleccionUsuarios = conexionBD.esquema.collection("usuarios")  
-        
-        //Creamos un ObjectId a partir del string que hemos recibido
-        let _id = new mongoDB.ObjectId(usuario._id)
+            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")  
+            
+            //Creamos un ObjectId a partir del string que hemos recibido
+            let _id = new mongoDB.ObjectId(usuario._id)
 
-        console.log(_id)
+            console.log(_id)
 
-        coleccionUsuarios
-            .findOneAndUpdate(
-                { "_id" : _id },             
-                {
-                    $set : {
-                        login    : usuario.login,
-                        pw       : usuario.pw,
-                        rol      : usuario.rol,
-                        correoE  : usuario.correoE
+            coleccionUsuarios
+                .findOneAndUpdate(
+                    { "_id" : _id },             
+                    {
+                        $set : {
+                            login    : usuario.login,
+                            pw       : usuario.pw,
+                            rol      : usuario.rol,
+                            correoE  : usuario.correoE
+                        }
+                    })
+                .then(function(resultado){
+
+                    console.log(resultado)
+
+                    if(!resultado.value){
+                        //MAL: 404
+                        reject({ codigo : 404, descripcion: "El usuario no existe"})
+                        return
                     }
+
+                    //BIEN!
+                    resolve(resultado.value) //
                 })
-            .then(function(resultado){
-
-                console.log(resultado)
-
-                if(!resultado.value){
-                    //MAL: 404
-                    reject({ codigo : 404, descripcion: "El usuario no existe"})
-                    return
-                }
-
-                //BIEN!
-                resolve(resultado.value) //
-            })
-            .catch(function(error){
-                //MAL: 500
-                reject({ codigo: 500, descripcion: "Error en la base de datos"})
-            })
-    })
+                .catch(function(error){
+                    //MAL: 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
+        })
 }
 
 exports.listarUsuarios = function(){
 
-    
+    return new Promise(
+        function(resolve, reject){
 
+            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
+            //Find es síncrono y devuelve un cursor
+            let cursor = coleccionUsuarios.find()
+            //Trabajar con el cursos ya es asíncrono
+            cursor
+                .toArray()
+                .then( function(documentos){
+                    //BIEN. 
+                    resolve(documentos)
+                })
+                .catch( function(error){
+                    //MAL: 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
+        })
 }
 
 exports.buscarUsuario = function(_id){
 
+    return new Promise(
+        function(resolve, reject){
+        
+            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
+
+            _id = new mongoDB.ObjectId(_id)
+
+            coleccionUsuarios
+                .findOne( { _id : _id } )
+                .then(function(documento){
+                    if(!documento){
+                        //MAL: 404
+                        reject({ codigo: 404, descripcion: "No existe un usuario con ese id"})
+                        return
+                    }
+                    //BIEN!
+                    resolve(documento)
+                })
+                .catch(function(error){
+                    //MAL: 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
+        })
 }
