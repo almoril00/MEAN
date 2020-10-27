@@ -157,7 +157,7 @@ exports.insertarUsuario = function(usuario){
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")            
             coleccionUsuarios
                 .findOne( { login : usuario.login } )
-                .then( data => {
+                .then( function(data){
                     if(data){
                         //MAL: 400, Ya hay un usuario con ese login
                         reject({ codigo:400, descripcion:"Ya existe un usuario con ese login"})
@@ -166,15 +166,21 @@ exports.insertarUsuario = function(usuario){
 
                     return coleccionUsuarios.insertOne( usuario )
                 })
-                .then( resultado => resolve(resultado.insertedId) )//BIEN: Se ha insertado
-                .catch( error => reject({ codigo:500, descripcion:"Ay mamá, que nos hemos matao"}) ) //MAL: 500
+                .then(function(resultado){
+                    //BIEN: Se ha insertado
+                    resolve(resultado.insertedId)
+                })
+                .catch(function(error){
+                    //MAL : 500
+                    reject({ codigo:500, descripcion:"Ay mamá, que nos hemos matao"})
+                })
         })
 }
 
 exports.borrarUsuario = function(_id){
 
     return new Promise( 
-        (resolve, reject) => {
+        function(resolve, reject){
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
 
             //Debemos convertir el string recibido en un ObjectID
@@ -182,10 +188,7 @@ exports.borrarUsuario = function(_id){
 
             coleccionUsuarios
                 .deleteOne( { _id : _id }) 
-                .then( resultado => {
-                    //Con el operador ternario:
-                    //(resultado.deletedCount==0) ? reject({ codigo : 404, descripcion: "El usuario no existe "}) : resolve()
-
+                .then(function(resultado){
                     if(resultado.deletedCount == 0){
                         //MAL : 404
                         reject({ codigo : 404, descripcion: "El usuario no existe "})
@@ -194,9 +197,13 @@ exports.borrarUsuario = function(_id){
                     //BIEN!
                     resolve() //Aqui no tenenemos nada que pasar!
                 })
-                .catch( error => reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL : 500
+                .catch(function(error){
+                    //MAL : 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
         })
 }
+
 
 exports.modificarUsuario = function(usuario){
 
@@ -228,16 +235,23 @@ exports.modificarUsuario = function(usuario){
                             correoE  : usuario.correoE
                         }
                     })
-                .then( resultado => {
+                .then(function(resultado){
+
+                    console.log(resultado)
+
                     if(!resultado.value){
                         //MAL: 404
                         reject({ codigo : 404, descripcion: "El usuario no existe"})
                         return
                     }
+
                     //BIEN!
                     resolve(resultado.value) //
                 })
-                .catch( error =>  reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
+                .catch(function(error){
+                    //MAL: 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
         })
 }
 
@@ -245,14 +259,21 @@ exports.listarUsuarios = function(){
 
     return new Promise(
         function(resolve, reject){
+
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
             //Find es síncrono y devuelve un cursor
             let cursor = coleccionUsuarios.find()
             //Trabajar con el cursos ya es asíncrono
             cursor
                 .toArray()
-                .then( documentos => resolve(documentos) )//BIEN
-                .catch( error => reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
+                .then( function(documentos){
+                    //BIEN. 
+                    resolve(documentos)
+                })
+                .catch( function(error){
+                    //MAL: 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
         })
 }
 
@@ -267,11 +288,7 @@ exports.buscarUsuario = function(_id){
 
             coleccionUsuarios
                 .findOne( { _id : _id } )
-                .then( documento => {
-
-                    //Con el operador ternario:
-                    //(!documento) ? reject( { codigo: 404, descripcion: "No existe un usuario con ese id" }) : resolve(documento)
-
+                .then(function(documento){
                     if(!documento){
                         //MAL: 404
                         reject({ codigo: 404, descripcion: "No existe un usuario con ese id"})
@@ -280,17 +297,11 @@ exports.buscarUsuario = function(_id){
                     //BIEN!
                     resolve(documento)
                 })
-                .catch( error => reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
+                .catch(function(error){
+                    //MAL: 500
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
         })
 }
-
-
-
-
-
-
-
-
-
 
 

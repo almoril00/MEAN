@@ -24,8 +24,13 @@ function listarUsuarios(request, response){
 
     negocioUsuarios
         .listarUsuarios()
-        .then( usuarios => response.json(usuarios) )
-        .catch( error => response.status(error.codigo).json(error))
+        .then(function(usuarios){
+            response.json(usuarios)
+        })
+        .catch(function(error){
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 //GET /usuarfios/:id
@@ -35,8 +40,13 @@ function buscarUsuario(request, response){
 
     negocioUsuarios
         .buscarUsuario(id)
-        .then( usuario => response.json(usuario) )
-        .catch( error => response.status(error.codigo).json(error) )
+        .then(function(usuario){
+            response.json(usuario)
+        })
+        .catch(function(error){
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 function insertarUsuario(request, response){
@@ -45,11 +55,16 @@ function insertarUsuario(request, response){
 
     negocioUsuarios
         .insertarUsuario(usuario)
-        .then( id => response.json({ _id : id }) )
-        .catch( error => response.status(error.codigo).json(error) )
+        .then( function(id){
+            response.json({ _id : id })
+        })
+        .catch( function(error){
+            //500, error en la base de datos
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
-//PUT /usuarios/:id
 function modificarUsuario(request, response){
     //obtener del request el usuario, que está en el body y el id que está en la ruta
 
@@ -61,8 +76,14 @@ function modificarUsuario(request, response){
 
     negocioUsuarios
         .modificarUsuario(usuario)
-        .then( usuarioModificado => response.json(usuarioModificado) )
-        .catch( error => response.status(error.codigo).json(error) )
+        .then( function(usuarioModificado){
+            response.json(usuarioModificado)
+        } )
+        .catch( function(error){
+            response.statusCode = error.codigo
+            response.json(error)
+        })
+
 }
 
 //DELETE /usuarios/:id
@@ -72,14 +93,17 @@ function borrarUsuario(request, response){
 
     negocioUsuarios
         .borrarUsuario(_id)
-        .then( () => response.json({ codigo:200, descripcion:"El usuario se ha borrado correctamente"}) )
-        .catch( error => {
-            //404, el usuario no existe
+        .then( function(){
+            response.json({ codigo:200, descripcion:"El usuario se ha borrado correctamente"})
+        })
+        .catch( function(error){
+            //404, el usuario no exdiste
             //500, error en la base de datos
-            response.status(error.codigo).json(error)
+            response.statusCode = error.codigo
+            response.json(error)
         })
 
-} //106
+}
 
 /*
 404 NOT FOUND

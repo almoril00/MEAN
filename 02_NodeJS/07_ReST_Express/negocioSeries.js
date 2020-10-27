@@ -9,7 +9,6 @@ const mongodb = require("mongodb")
 //const negocioSeries = require("ruta a negocioSeries.js")
 
 exports.listarSeries = function(criterioBusqueda){
-    
     //comprobar 
     let coleccionSeries = conexionBD.esquema.collection("series")
     let cursor = coleccionSeries.find( criterioBusqueda )
@@ -17,8 +16,6 @@ exports.listarSeries = function(criterioBusqueda){
     //el que decida que hay que hacer a continuacion
     return cursor.toArray()    
 }
-
-
 
 exports.buscarSeriePorId = function(_id){
 
