@@ -27,5 +27,5 @@ export class ListadoUsuariosComponent implements OnInit {
         error => console.log(error) 
       )  
   }
-
 }
+

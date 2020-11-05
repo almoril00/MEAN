@@ -10,9 +10,28 @@ router.post  ('/usuarios', insertarUsuario)
 router.put   ('/usuarios/:id', modificarUsuario)
 router.delete('/usuarios/:id', borrarUsuario)
 
+/*
+router.options(prueba)
+
+function prueba(request, response){
+    console.log("OPTIONS!")
+    response.end()
+}
+
+
+    //Incluye configuraciÃ³n para BASIC AUTHENTICATION
+    response.header("Access-Control-Allow-Origin", "*")
+    response.header('Access-Control-Allow-Methods', 
+                    'GET,PUT,POST,DELETE,PATCH,OPTIONS')
+    response.header("Access-Control-Allow-Headers", 
+                    "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+    
+*/
+
 //Solo necesitamos exportar el router porque ya sabe a qué
 //funciones hay que llamar
 exports.router = router
+
 
 //                                              //
 //LÓGICA DE CONTROL PARA EL API REST DE USUARIOS//
@@ -26,6 +45,7 @@ function listarUsuarios(request, response){
         .listarUsuarios()
         .then( usuarios => response.json(usuarios) )
         .catch( error => response.status(error.codigo).json(error))
+
 }
 
 //GET /usuarfios/:id
@@ -37,6 +57,7 @@ function buscarUsuario(request, response){
         .buscarUsuario(id)
         .then( usuario => response.json(usuario) )
         .catch( error => response.status(error.codigo).json(error) )
+
 }
 
 function insertarUsuario(request, response){
@@ -47,6 +68,7 @@ function insertarUsuario(request, response){
         .insertarUsuario(usuario)
         .then( id => response.json({ _id : id }) )
         .catch( error => response.status(error.codigo).json(error) )
+
 }
 
 //PUT /usuarios/:id
@@ -63,6 +85,7 @@ function modificarUsuario(request, response){
         .modificarUsuario(usuario)
         .then( usuarioModificado => response.json(usuarioModificado) )
         .catch( error => response.status(error.codigo).json(error) )
+
 }
 
 //DELETE /usuarios/:id
