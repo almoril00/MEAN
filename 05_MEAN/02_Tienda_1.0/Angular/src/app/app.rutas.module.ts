@@ -1,9 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@Angular/common/http'
 
-
-import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegistroComponent } from './componentes/usuarios/registro/registro.component';
 import { AceptacionTerminosComponent } from './componentes/usuarios/aceptacion-terminos/aceptacion-terminos.component';
@@ -13,27 +9,43 @@ import { CatalogoComponent } from './componentes/tienda/catalogo/catalogo.compon
 import { MaquetacionLoginComponent } from './componentes/usuarios/maquetacion-login/maquetacion-login.component';
 import { MaquetacionTiendaComponent } from './componentes/tienda/maquetacion-tienda/maquetacion-tienda.component';
 import { FormsModule } from '@angular/forms';
-import { AppRutasModule } from './app.rutas.module';
+import { RouterModule } from '@angular/router';
+
+//Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
+const rutasMaquetacionLogin = [
+  {
+    path : 'login',
+    component : LoginComponent
+  },
+  {
+    path : 'registro',
+    component : RegistroComponent
+  },
+  {
+    path : 'aceptacion',
+    component : AceptacionTerminosComponent
+  }
+]
+
+//Estas rutas son para el router-outlet que hay en AppComponent.html
+const rutas = [
+  {
+    path      : 'usuarios',
+    component : MaquetacionLoginComponent,
+    children  : rutasMaquetacionLogin
+  }
+]
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegistroComponent,
-    AceptacionTerminosComponent,
-    CabeceraComponent,
-    PieComponent,
-    CatalogoComponent,
-    MaquetacionLoginComponent,
-    MaquetacionTiendaComponent
-  ],
+  declarations: [],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    AppRutasModule
+    RouterModule.forRoot(rutas)
   ],
+  exports: [ RouterModule ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
-export class AppModule { }
+export class AppRutasModule { }
+
