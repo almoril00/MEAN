@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AceptacionTerminosComponent implements OnInit {
 
+
+  public acepta:boolean = false
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public registrar(){
+    console.log("REGISTRAR")
+
+    //id(this.aceptar)
+      //llamar al servicio...
+
+
   }
 
 }
