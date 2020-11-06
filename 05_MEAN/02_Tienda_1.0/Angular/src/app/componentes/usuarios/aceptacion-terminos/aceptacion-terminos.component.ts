@@ -19,8 +19,9 @@ export class AceptacionTerminosComponent implements OnInit {
     console.log("REGISTRAR")
 
     //id(this.aceptar)
-      //llamar al servicio...
-
+      //llamar al servicio...(console.log)
+    //else
+      //mostrar el error
 
   }
 

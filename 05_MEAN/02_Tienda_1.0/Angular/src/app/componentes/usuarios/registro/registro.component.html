@@ -28,7 +28,7 @@
     <div class="col-xs-8">
       <input type="text" 
              class="form-control"
-             [(ngModel)]="usuario.nombre"/>
+             [(ngModel)]="usuario.pw"/>
     </div>
   </div>
   <div class="form-group">
@@ -58,7 +58,12 @@
   </div>
 </div>
 
-<div class="alert alert-danger"></div>
+<!--Preguntar por la existencia de algo en angular implica que devuelve false si:
+    -es undefined
+    -es null
+    -es una cadena de texto vacía en caso de tratarse de un string
+-->
+<div *ngIf="mensaje" class="alert alert-danger">{{mensaje}}</div>
 
 <div class="text-center">
   <input type="button" 
@@ -72,6 +77,4 @@
          style="width:110px"
          routerLink="/" />
 </div>
-
-
 
