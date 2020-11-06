@@ -14,15 +14,15 @@ import { RouterModule } from '@angular/router';
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
   {
-    path : 'login',
+    path      : '',
     component : LoginComponent
   },
   {
-    path : 'registro',
+    path      : 'registro',
     component : RegistroComponent
   },
   {
-    path : 'aceptacion',
+    path      : 'aceptacion',
     component : AceptacionTerminosComponent
   }
 ]
@@ -30,10 +30,16 @@ const rutasMaquetacionLogin = [
 //Estas rutas son para el router-outlet que hay en AppComponent.html
 const rutas = [
   {
+    path      : '',
+    component : MaquetacionLoginComponent,
+    children  : rutasMaquetacionLogin
+  },
+  {
     path      : 'usuarios',
     component : MaquetacionLoginComponent,
     children  : rutasMaquetacionLogin
-  }
+  },
+
 ]
 
 
@@ -41,6 +47,7 @@ const rutas = [
 @NgModule({
   declarations: [],
   imports: [
+    //Estas son las rutas que se asociarán a la primera carpeta de la url
     RouterModule.forRoot(rutas)
   ],
   exports: [ RouterModule ],
