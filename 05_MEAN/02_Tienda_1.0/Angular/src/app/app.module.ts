@@ -8,6 +8,8 @@ import { AceptacionTerminosComponent } from './componentes/usuarios/aceptacion-t
 import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
 import { PieComponent } from './componentes/maquetacion/pie/pie.component';
 import { CatalogoComponent } from './componentes/tienda/catalogo/catalogo.component';
+import { MaquetacionLoginComponent } from './componentes/usuarios/maquetacion-login/maquetacion-login.component';
+import { MaquetacionTiendaComponent } from './componentes/tienda/maquetacion-tienda/maquetacion-tienda.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CatalogoComponent } from './componentes/tienda/catalogo/catalogo.compon
     AceptacionTerminosComponent,
     CabeceraComponent,
     PieComponent,
-    CatalogoComponent
+    CatalogoComponent,
+    MaquetacionLoginComponent,
+    MaquetacionTiendaComponent
   ],
   imports: [
     BrowserModule
