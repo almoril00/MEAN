@@ -10,8 +10,11 @@ let reglas = {
     nombre  : 'required|min:3|max:40',
     login   : 'required|min:5|max:15',
     pw      : 'required|min:5|max:15',
-    correoE : 'required|email',
+    correoE : 'required|email'
+    /*
+    ,
     rol     : ['required', 'regex:/(CLIENTE|EMPLEADO|ADMIN)/'],
+    */
 }
 //Propiedades admitidas en los objetos usuario
 let propiedadesUsuario = [ '_id', 'nombre', 'login', 'pw', 'rol', 'correoE', 'idioma' ]
@@ -53,6 +56,9 @@ exports.insertarUsuario = function(usuario){
                 reject({ codigo:400, descripcion:errores})
                 return
             }
+
+            //Por defecto los nuevos usuario son CLIENTES
+            usuario.rol = "CLIENTE"
 
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")            
             coleccionUsuarios
