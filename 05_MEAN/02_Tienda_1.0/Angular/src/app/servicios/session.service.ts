@@ -12,11 +12,6 @@ export class SessionService {
     }
 
     public setItem(clave:string, valor:any):void{
-
-        console.log("---------------------------------")
-        let numero:number = 500
-        console.log(JSON.stringify(numero))
-
         //Guardamos las cosas EN MEMORIA!
         this.valores[clave] = valor
     }
@@ -25,9 +20,9 @@ export class SessionService {
         return this.valores[clave]
     }
 
-    public removeItem(clave:string):boolean{
-        //
-        return false
+    public removeItem(clave:string):void{
+        //Pra borrar una entrada en un array asociativo
+        delete this.valores[clave]
     }
 
 }

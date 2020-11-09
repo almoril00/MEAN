@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
   selector: 'app-aceptacion-terminos',
@@ -7,21 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AceptacionTerminosComponent implements OnInit {
 
-
   public acepta:boolean = false
+  public mensaje:string = ""
 
-  constructor() { }
+  constructor(private sessionService:SessionService) { 
+  }
 
   ngOnInit(): void {
   }
 
   public registrar(){
-    console.log("REGISTRAR")
+    console.log("REGISTRAR:")
 
-    //id(this.aceptar)
-      //llamar al servicio...(console.log)
-    //else
-      //mostrar el error
+    if(!this.acepta){
+      this.mensaje = "Debe aceptar los terminos"
+      return
+    }
+
+    let usuarioARegistrar = this.sessionService.getItem("usuario")
+    console.log(usuarioARegistrar)
+
+    //llamar al servicio para que envíe la peticion AJAX al servidor
+    //Si todo ha ido bien navegar a login
+    //Si ha habido un fallo mostrarlo
+
 
   }
 

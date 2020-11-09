@@ -1,0 +1,138 @@
+
+Con una única colección podría ser, pero NO
+
+
+USUARIOS
+
+[
+	{
+		_id       :
+		nombre    :
+		login     : 
+		pw        :
+		rol       :
+		correoE   :
+		idioma    :
+		direcciones : [ ] //solo tendremos una
+
+		pedidos : [
+			fecha :
+			dirEntrega :
+			detalles : [
+				{
+					cantidad : 1,
+					precio   : 10,
+					producto : {
+						referencia : "FJ-000"
+						nombre : "Fleje",
+						fabricante : "Española de Flejes S.A.
+					}
+				}
+			]
+		],
+		facturas : [
+		]
+	}
+]
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+USUARIOS
+
+{
+	_id         :
+	nombre      :
+	login       : 
+	pw          :
+	rol         :
+	correoE     :
+	idioma      :
+	//LAS DIRECCIONES NO SON NADA SIN SUS DUEÑOS, NO MERECEN COLECCION PROPIA
+	direcciones : [ 
+		{
+			ciudad :
+			calle :
+			numero :
+		}
+	] 
+}
+
+PRODUCTOS
+
+[
+{
+	_id         : 
+	referencia  : "FJ-000"
+	nombre      : "Fleje",
+	fabricante  : "Española de Flejes S.A."
+	//NOS PERMITIMOS ESTA LICENCIA:
+	existencias : 
+	precio      :
+	descripcion :
+}
+]
+
+
+PEDIDOS 
+
+
+TOTAL??
+
+[
+	{
+		_id        : ObjectId
+
+		USUARIO	   : {
+				     Subconjunto de las propiedades del usuario que interesan en el pedido
+				     _id
+				     nombre
+				     ...
+		             }
+		fecha      :
+		formaPago  :
+		dirEntrega :
+		estado     :
+		TOTAL      : 500 
+		detalles   : [
+			{
+				cantidad :
+				precio   :
+				producto :
+				
+					//Opcion 1
+					_id_producto : Muy costoso en consultas
+					
+					//Opcion 2 <-------
+					un documento con un subconjunto (subset) de las propiedades del producto
+					solo aquellas que tienen que ver con el detalle
+					-nombre
+					-referencia
+					-descripcion
+					
+					//Opcion 3
+					el producto entero 					
+			}
+		]
+	}
+]
+
+
+FACTURAS
+
+Va a ser de mentirijilla
+
+[
+{
+	_id
+	_id_pedido
+	_total
+	...
+}
+]
+
+
+
+
+USUARIOS:
+	-clientes
+	-empleados

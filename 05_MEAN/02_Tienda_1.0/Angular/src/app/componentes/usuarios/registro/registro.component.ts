@@ -27,6 +27,12 @@ export class RegistroComponent implements OnInit {
       sessionStorage.removeItem("usuario")
     }*/
 
+    let usr = sessionService.getItem("usuario")
+    if(usr){
+      this.usuario = usr
+      sessionService.removeItem("usuario")
+    }
+
   }
 
   ngOnInit(): void {
@@ -46,6 +52,9 @@ export class RegistroComponent implements OnInit {
 
     //Guardamos el usuario en el session storage antes de navegar
     //sessionStorage.setItem("usuario",JSON.stringify(this.usuario))
+
+    //Antes de navegar guardamos el usuario en el sessionService
+    this.sessionService.setItem("usuario", this.usuario)
 
     //this.router.navigate(['/usuarios/aceptacion'])
     this.router.navigateByUrl('/usuarios/aceptacion') 
