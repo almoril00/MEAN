@@ -32,6 +32,9 @@ export class AceptacionTerminosComponent implements OnInit {
     //Si todo ha ido bien navegar a login
     //Si ha habido un fallo mostrarlo
 
+    
+
+
 
   }
 
