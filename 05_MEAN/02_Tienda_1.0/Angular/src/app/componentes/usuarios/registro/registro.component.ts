@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
+import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
   selector: 'app-registro',
@@ -13,14 +14,25 @@ export class RegistroComponent implements OnInit {
   public confirmacionPw:string
   public mensaje:String = ""
 
-  constructor(private router:Router) { 
+  constructor(private router:Router,
+              private sessionService:SessionService) { 
+
+    console.log("Creando RegistroComponent")
+
+    //Podemos usar el sessionStorage
+    /*
+    let usrJSON = sessionStorage.getItem("usuario")
+    if(usrJSON){
+      this.usuario = JSON.parse(usrJSON)
+      sessionStorage.removeItem("usuario")
+    }*/
+
   }
 
   ngOnInit(): void {
   }
 
   public siguiente():void{
-    console.log("SIGUIENTE")
 
     if(this.usuario.pw==null || this.usuario.pw.trim().length<10){      
       this.mensaje = "El pasword debe contener al menos 10 caracteres"
@@ -31,6 +43,9 @@ export class RegistroComponent implements OnInit {
       this.mensaje = "El password y la confirmación no coinciden"
       return
     }
+
+    //Guardamos el usuario en el session storage antes de navegar
+    //sessionStorage.setItem("usuario",JSON.stringify(this.usuario))
 
     //this.router.navigate(['/usuarios/aceptacion'])
     this.router.navigateByUrl('/usuarios/aceptacion') 
