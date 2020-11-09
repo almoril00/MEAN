@@ -10,28 +10,9 @@ router.post  ('/usuarios', insertarUsuario)
 router.put   ('/usuarios/:id', modificarUsuario)
 router.delete('/usuarios/:id', borrarUsuario)
 
-/*
-router.options(prueba)
-
-function prueba(request, response){
-    console.log("OPTIONS!")
-    response.end()
-}
-
-
-    //Incluye configuraciÃ³n para BASIC AUTHENTICATION
-    response.header("Access-Control-Allow-Origin", "*")
-    response.header('Access-Control-Allow-Methods', 
-                    'GET,PUT,POST,DELETE,PATCH,OPTIONS')
-    response.header("Access-Control-Allow-Headers", 
-                    "Origin, X-Requested-With, Content-Type, Accept, Authorization")
-    
-*/
-
 //Solo necesitamos exportar el router porque ya sabe a qué
 //funciones hay que llamar
 exports.router = router
-
 
 //                                              //
 //LÓGICA DE CONTROL PARA EL API REST DE USUARIOS//
@@ -102,17 +83,7 @@ function borrarUsuario(request, response){
             response.status(error.codigo).json(error)
         })
 
-} //106
-
-/*
-404 NOT FOUND
-Content-Type: application/json
-------------------------------
-{
-    "codigo" : 404,
-    "descripcion" : "No existe un usuario con ese id"
-}
-*/
+} 
 
 
 

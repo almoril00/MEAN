@@ -1,7 +1,7 @@
 const mongoDB = require("mongodb")
 
 exports.conexion = null
-exports.esquema = null;
+exports.esquema = null
 
 exports.conectarBBDD = function(callback){
 
@@ -16,7 +16,7 @@ exports.conectarBBDD = function(callback){
 
         console.log("Conexión con la base de datos establecida.")
         exports.conexion = dbs
-        exports.esquema = dbs.db("usuariosBD")
+        exports.esquema = dbs.db("tienda")
 
         //Como hemos podido conectar ejecutamos la función que nos han pasado (callback)
         callback()
