@@ -191,6 +191,27 @@ exports.buscarUsuario = function(_id){
         })
 }
 
+exports.buscarPorCredenciales = function(login, pw){
+    return new Promise(function(resolve, reject){
+        conexionBD
+            .esquema
+            .collection("usuarios")
+            .findOne( { login:login, pw:pw } )
+            .then( usuario => {                
+                if(!usuario){
+                    reject({ codigo: 401, descripcion: "No hay un usuario con esas credenciales"})
+                    return
+                }
+
+                resolve(usuario)
+            })
+            .catch( error => reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
+    })
+}
+
+
+
+
 
 
 

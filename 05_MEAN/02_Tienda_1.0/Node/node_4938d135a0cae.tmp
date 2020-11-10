@@ -2,6 +2,17 @@ const express = require('express')
 const bodyParser = require("body-parser")
 const conexionBD = require('./util/conexionBD')
 const usuarios = require("./servicios_rest/usuariosRest")
+const login = require("./seguridad/login.js")
+
+//EL JOSE
+//https://www.npmjs.com/package/jose
+//https://www.npmjs.com/package/jsonwebtoken
+/*
+Codificamos el token a partir del user id de la db y el nombre del usuario.
+const body = { _id: user._id, name: user.name };
+Firmamos el payload con nuestra superclave
+const token = jwt.sign({ user: body }, 'top_secret');
+*/
 
 console.log("Arrancando...")
 
@@ -23,6 +34,7 @@ function arrancarServidor(){
 
     //Le indicamos a express que utilice los router que hemos definido
     app.use(usuarios.router)
+    app.use(login.router)
 
     //Arrancamos el servidor
     app.listen(8000, function(){

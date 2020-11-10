@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SessionService } from 'src/app/servicios/session.service';
 import { UsuariosService } from 'src/app/servicios/usuarios.service';
 
@@ -13,14 +14,14 @@ export class AceptacionTerminosComponent implements OnInit {
   public mensaje:string = ""
 
   constructor(private sessionService:SessionService,
-              private usuariosService:UsuariosService) { 
+              private usuariosService:UsuariosService,
+              private router:Router) { 
   }
 
   ngOnInit(): void {
   }
 
   public registrar(){
-    console.log("REGISTRAR:")
 
     if(!this.acepta){
       this.mensaje = "Debe aceptar los terminos"
@@ -28,15 +29,14 @@ export class AceptacionTerminosComponent implements OnInit {
     }
 
     let usuarioARegistrar = this.sessionService.getItem("usuario")
-    console.log(usuarioARegistrar)
 
     this
       .usuariosService
       .registrarUsuario(usuarioARegistrar)
       .subscribe(
         //function(data){ console.log(data) }
-        data => console.log(data),
-        error => console.log(error)
+        data => this.router.navigateByUrl("/"),
+        error => this.mensaje = "DATOS INCORRECTOS"
       )
   }
 }
