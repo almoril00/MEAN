@@ -28,6 +28,24 @@ listar facturas
 
 modificar los datos de usuario
 
+/////////////////////////////////////////////////////////////////////////////////
+
+LOGIN
+
+POST /login
+-------------------------
+{
+	"login" : "aaa",
+	"pw"    : "bbb"
+}
+
+200 OK
+Content-type: application/json
+Authorization: Bearer nbdh2h847ry87gfh8734.jgjgui9r3f398fh9rgfh.ghjpoisfugpt98gufoidgheruipth
+---------------------------------------------------------------------------------------------
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////

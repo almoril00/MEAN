@@ -10,6 +10,7 @@ import { MaquetacionLoginComponent } from './componentes/usuarios/maquetacion-lo
 import { MaquetacionTiendaComponent } from './componentes/tienda/maquetacion-tienda/maquetacion-tienda.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
@@ -27,6 +28,22 @@ const rutasMaquetacionLogin = [
   }
 ]
 
+//Estas rutas son para el router-outlet que hay en MaquetacionTienda.html
+const rutasMaquetacionTienda = [
+  {
+    path      : 'catalogo',
+    component : CatalogoComponent
+  },
+  {
+    path      : 'perfil',
+    component : PerfilComponent
+  },
+  /*{
+    path      : 'pedidos',
+    component : PedidosComponent
+  }*/
+]
+
 //Estas rutas son para el router-outlet que hay en AppComponent.html
 const rutas = [
   {
@@ -39,6 +56,11 @@ const rutas = [
     component : MaquetacionLoginComponent,
     children  : rutasMaquetacionLogin
   },
+  {
+    path      : 'tienda',
+    component : MaquetacionTiendaComponent,
+    children  : rutasMaquetacionTienda
+  }
 
 ]
 

@@ -19,7 +19,8 @@
         </div>
         </div>  
         
-        <div class="alert alert-danger"></div>
+        <div *ngIf="mensaje" class="alert alert-danger">{{mensaje}}</div>
+
     </div> <!--formulario-->
 
     <div class="text-center">

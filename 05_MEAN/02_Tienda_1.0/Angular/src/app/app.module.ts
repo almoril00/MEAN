@@ -14,6 +14,8 @@ import { MaquetacionLoginComponent } from './componentes/usuarios/maquetacion-lo
 import { MaquetacionTiendaComponent } from './componentes/tienda/maquetacion-tienda/maquetacion-tienda.component';
 import { FormsModule } from '@angular/forms';
 import { AppRutasModule } from './app.rutas.module';
+import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
+import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AppRutasModule } from './app.rutas.module';
     PieComponent,
     CatalogoComponent,
     MaquetacionLoginComponent,
-    MaquetacionTiendaComponent
+    MaquetacionTiendaComponent,
+    MenuComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
