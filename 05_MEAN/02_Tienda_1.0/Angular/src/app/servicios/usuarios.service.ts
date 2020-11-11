@@ -16,4 +16,13 @@ export class UsuariosService {
         return this.httpClient.post(this.configuracion.url_servidor+"/usuarios", usuario)
     }
 
+    //borrarUsuario (un usuario solo podrá darse de baja a si mismo)
+    //DELETE /usuarios/:id
+
+    //listarUsuarios NO
+
+    //modificarUsuario (un usuario solo podrá modificarse a si mismo)
+
+    //buscarUsuario por id  NO
+
 }

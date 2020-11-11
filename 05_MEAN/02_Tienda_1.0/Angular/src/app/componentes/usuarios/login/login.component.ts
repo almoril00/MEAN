@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   //public login:string
   //public pw:string
 
-  //PEro esto es más mejor del mundo mundial
+  //Pero esto es más mejor del mundo mundial
   public usuario:Usuario /*= new Usuario()*/
 
   constructor() { 
@@ -28,6 +28,13 @@ export class LoginComponent implements OnInit {
     //coger el login y el pw
     //llamar a un servicio!
     console.log("ENTRAR::::"+this.usuario.login+", "+this.usuario.pw)
+
+    //Si el usuario no existe
+    //-mostrar error "Credenciales incorrectas"
+
+    //Si el usuario existe
+    //console.log("YA")
+    //navegar al catálogo
 
   }
 
