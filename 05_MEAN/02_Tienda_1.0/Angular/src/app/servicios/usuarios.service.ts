@@ -18,11 +18,12 @@ export class UsuariosService {
 
     //borrarUsuario (un usuario solo podrá darse de baja a si mismo)
     //DELETE /usuarios/:id
-
-    //listarUsuarios NO
-
+    
     //modificarUsuario (un usuario solo podrá modificarse a si mismo)
 
+    
+    //Solo para los empleados, y los empleados no utilizan esta aplicacion
+    //listarUsuarios NO
     //buscarUsuario por id  NO
 
 }

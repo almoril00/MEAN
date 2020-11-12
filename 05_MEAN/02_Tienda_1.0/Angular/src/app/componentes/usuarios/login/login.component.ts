@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         respuesta => {
           this.sessionService.setItem("JWT", respuesta.JWT)
           this.sessionService.setItem("usuario",respuesta.usuario)
-          this.router.navigateByUrl("/tienda/catalogo")
+          this.router.navigateByUrl("/tienda/perfil")
         },
         (error) => this.mensaje = "Credenciales incorrectas"
       )
