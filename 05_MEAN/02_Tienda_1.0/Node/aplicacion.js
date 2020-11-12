@@ -57,6 +57,3 @@ function interceptorCors(request, response, next){
     next()
 }
 
-
-
-

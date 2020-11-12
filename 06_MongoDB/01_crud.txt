@@ -439,7 +439,6 @@ db.peliculas.find()
 • $pullAll: Removes all elements in the array that match any of the speciﬁed values.
 • $addToSet: Appends an element to the array if not already present
 
-
 db.peliculas.insertOne( { title: "Batman", category : [ "action" ] }) 
 db.peliculas.updateOne( { "title" : "Batman" }, { $push: { "category" : "superhero" }}) 
 db.peliculas.updateOne( { "title" : "Batman" }, { $pop: { "category" : 1 }}) 
@@ -466,4 +465,5 @@ db.peliculas.replaceOne( { "title" : "Rio Bravo", "category" : [ "western" ] }, 
 //
 //Eliminar documentos
 //
+
 

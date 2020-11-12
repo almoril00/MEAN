@@ -6,16 +6,32 @@ const mongoDB = require("mongodb")
 const conexionBD  = require("../util/conexionBD")
 
 //Reglas de validación para los objetos usuario
-let reglas = {
+/*
+let reglasInsercion = {
     nombre  : 'required|min:3|max:40',
     login   : 'required|min:5|max:15',
     pw      : 'required|min:5|max:15',
-    correoE : 'required|email'
-    /*
-    ,
-    rol     : ['required', 'regex:/(CLIENTE|EMPLEADO|ADMIN)/'],
-    */
+    correoE : 'required|email',
 }
+
+let reglasModificacion = {
+    nombre    : 'required|min:3|max:40',
+    direccion : 'required|min:10|max:200',
+    telefono  : 'required|min:9|max:40',
+    login     : 'required|min:5|max:15',
+    correoE   : 'required|email',
+}
+*/
+
+let reglas = {
+    nombre    : 'required|min:3|max:40',
+    login     : 'required|min:5|max:15',
+    pw        : 'min:5|max:15',
+    correoE   : 'required|email',
+    direccion : 'min:10|max:200',
+    telefono  : 'min:9|max:40',
+}
+
 //Propiedades admitidas en los objetos usuario
 let propiedadesUsuario = [ '_id', 'nombre', 'login', 'pw', 'rol', 'correoE', 'idioma', 'telefono', 'direccion' ]
 
@@ -133,12 +149,17 @@ exports.modificarUsuario = function(usuario){
                             //rol       : usuario.rol,
                             correoE   : usuario.correoE,
                             direccion : usuario.direccion,
-                            telefono  : usuario.telefono
+                            telefono  : usuario.telefono,
+                            idioma    : usuario.idioma
                         }
-                        //
-                        //MOVIDILLA
-                        //
-                    })
+                    },
+                    {
+                        //Con este parámetro opcional le pedimos a MongoDB
+                        //que en la respuesta entregue el documento tal cual ha quedado
+                        //despues del update
+                        returnOriginal : false
+                    }
+                    )
                 .then( resultado => {
                     if(!resultado.value){
                         //MAL: 404
@@ -151,6 +172,11 @@ exports.modificarUsuario = function(usuario){
                 .catch( error =>  reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
         })
 }
+
+
+
+
+
 
 exports.listarUsuarios = function(){
 
@@ -207,7 +233,7 @@ exports.buscarPorCredenciales = function(login, pw){
                     return
                 }
                 //Le quitamos el password al usuario por seguridad
-                usuasio.pw = null
+                usuario.pw = null
                 resolve(usuario)
             })
             .catch( error => {
