@@ -17,7 +17,7 @@ let reglas = {
     */
 }
 //Propiedades admitidas en los objetos usuario
-let propiedadesUsuario = [ '_id', 'nombre', 'login', 'pw', 'rol', 'correoE', 'idioma' ]
+let propiedadesUsuario = [ '_id', 'nombre', 'login', 'pw', 'rol', 'correoE', 'idioma', 'telefono', 'direccion' ]
 
 //Función guarrindonga para comprobar que un objeto tiene unicamente propiedades permitidas
 //y los valores adecuados
@@ -117,23 +117,27 @@ exports.modificarUsuario = function(usuario){
             }
 
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")  
-            
             //Creamos un ObjectId a partir del string que hemos recibido
             let _id = new mongoDB.ObjectId(usuario._id)
-
-            console.log(_id)
-
             coleccionUsuarios
                 .findOneAndUpdate(
                     { "_id" : _id },             
                     {
                         $set : {
-                            nombre   : usuario.nombre,
-                            login    : usuario.login,
-                            pw       : usuario.pw,
-                            rol      : usuario.rol,
-                            correoE  : usuario.correoE
+                            nombre    : usuario.nombre,
+                            //Esto no se puede cambiar
+                            //login     : usuario.login,
+                            //Para cambiar esto haríamos una función específica
+                            //pw        : usuario.pw,
+                            //Esto no se puede cambiar
+                            //rol       : usuario.rol,
+                            correoE   : usuario.correoE,
+                            direccion : usuario.direccion,
+                            telefono  : usuario.telefono
                         }
+                        //
+                        //MOVIDILLA
+                        //
                     })
                 .then( resultado => {
                     if(!resultado.value){
@@ -199,10 +203,11 @@ exports.buscarPorCredenciales = function(login, pw){
             .findOne( { login:login, pw:pw } )
             .then( usuario => {                
                 if(!usuario){
-                    reject({ codigo: 401, descripcion: "No hay un usuario con esas credenciales"})
+                    reject({ codigo: 404, descripcion: "No hay un usuario con esas credenciales"})
                     return
                 }
-
+                //Le quitamos el password al usuario por seguridad
+                usuasio.pw = null
                 resolve(usuario)
             })
             .catch( error => {
