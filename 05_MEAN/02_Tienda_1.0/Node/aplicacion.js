@@ -57,6 +57,14 @@ function interceptorCors(request, response, next){
                     'GET,PUT,POST,DELETE,PATCH,OPTIONS')
     response.header("Access-Control-Allow-Headers", 
                     "Origin, X-Requested-With, Content-Type, Accept, Authorization")  
+
+    //Si ha sido un OPTIONS no tiene sentido que continuemos procesando
+    //la peticion
+    if(request.method.toUpperCase() == "OPTIONS"){
+        response.end()
+        return
+    }
+    
     next()
 }
 
