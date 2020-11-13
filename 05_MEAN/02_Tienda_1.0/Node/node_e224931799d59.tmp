@@ -2,12 +2,15 @@ const express = require('express')
 const bodyParser = require("body-parser")
 const conexionBD = require('./util/conexionBD')
 const usuarios = require("./servicios_rest/usuariosRest")
-const seguridad = require("./seguridad/seguridad.js")
+const JWTUtil = require("./seguridad/JWTUtil.js")
+const routerLogin = require("./seguridad/routerLogin.js")
+
+const interceptorAutenticacion = require("./seguridad/interceptorAutenticacion").interceptorAutenticacion
 
 console.log("Arrancando...")
 
 //Creamos la clave para los JWT
-seguridad.crearClaveJWT()
+JWTUtil.crearClaveJWT()
 //Conectamos con la base de datos
 conexionBD.conectarBBDD(arrancarServidor)
 
@@ -22,12 +25,12 @@ function arrancarServidor(){
     //Si se la asignamos a un router (router.use(funcion)) se aplicará solo a las peticiones 
     //relacionadas con él
     app.use(interceptorLog, 
-            interceptorCors)
-            //interceptor autenticacion
+            interceptorCors,
+            interceptorAutenticacion)
 
     //Le indicamos a express que utilice los router que hemos definido
+    app.use(routerLogin.router)
     app.use(usuarios.router)
-    app.use(seguridad.router)
 
     //Arrancamos el servidor
     app.listen(8000, function(){

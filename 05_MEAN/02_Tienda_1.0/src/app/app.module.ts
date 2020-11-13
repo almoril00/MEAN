@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@Angular/common/http'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegistroComponent } from './componentes/usuarios/registro/registro.component';
@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRutasModule } from './app.rutas.module';
 import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
-import { InterceptorAutenticacion } from './interceptores/interceptor.autenticacion';
 
 @NgModule({
   declarations: [
@@ -32,19 +31,11 @@ import { InterceptorAutenticacion } from './interceptores/interceptor.autenticac
   ],
   imports: [
     BrowserModule,
-    FormsModule, //Para el bidirectional binding [(ngModel)]
-    HttpClientModule, //Para enviar peticiones ajax con el objeto HttpClient
+    FormsModule,
+    HttpClientModule,
     AppRutasModule
   ],
-  providers: [
-    //Los interceptores de httpClient se registran aqui
-    //'multi: true' indica que pueden haber más de uno formando una cadena
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorAutenticacion, 
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

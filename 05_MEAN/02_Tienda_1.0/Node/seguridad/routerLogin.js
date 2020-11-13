@@ -2,16 +2,7 @@
 const express = require("express")
 const negocioUsuarios = require("../negocio/negocioUsuarios")
 const jwt = require("jsonwebtoken")
-const fs = require("fs")
-
-//En esta variable guardamos la clave para firmar y validar los JWT
-let privateKey = null
-
-//Esta función se invoca desde aplicacion.js al arrancar 
-exports.crearClaveJWT = function(){
-    console.log("Creando la clave para JWT...")
-    privateKey = fs.readFileSync("./seguridad/jwtRS256.key")
-}
+const JWTUtil = require("../seguridad/JWTUtil.js")
 
 //Creamos un router para que guarde la petición de login
 const router = express.Router()
@@ -35,7 +26,7 @@ function login(request, response){
 
             let token = jwt.sign(
                 { login: usuario.login, roles: usuario.rol }, 
-                privateKey, 
+                JWTUtil.privateKey, 
                 { algorithm: 'RS256'}
             )
             /*
@@ -64,10 +55,13 @@ function login(request, response){
             response.json(body) 
         })
         .catch( error => {
+            console.log("ERROR:")
+            console.log(error)
             response.statusCode = error.codigo
             response.json(error) 
         })
 
 }
+
 
 

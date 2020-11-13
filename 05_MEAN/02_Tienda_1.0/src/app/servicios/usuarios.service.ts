@@ -22,25 +22,14 @@ export class UsuariosService {
 
     //PUT /usuarios/:id
     //Content-type: application/json
-    //Authorization: Bearer fuywggfgfew.ghfjkhgkjshg.hfjkdahfsjkdfh=
     //------------------------------
     //{ usuario }
-    public modificarUsuario(usuario:Usuario):Observable<any>{        
-        //De esto se encarga el IterceptorAutenticacion
-        //let opciones = {
-        //    headers : {
-        //        Authorization : 'Bearer asereje.ja.deje'
-        //    }
-        //}
-        return this.httpClient.put(this.configuracion.url_servidor+"/usuarios/"+usuario._id, usuario /*, opciones*/)
+    public modificarUsuario(usuario:Usuario):Observable<any>{
+        return this.httpClient.put(this.configuracion.url_servidor+"/usuarios/"+usuario._id, usuario)
     }
-    
+
     //borrarUsuario (un usuario solo podrá darse de baja a si mismo)
     //DELETE /usuarios/:id
-    //Authorization: Bearer fuywggfgfew.ghfjkhgkjshg.hfjkdahfsjkdfh=
-    public borrarUsuario(usuario:Usuario):Observable<any>{
-        return this.httpClient.delete(this.configuracion.url_servidor+"/usuarios/"+usuario._id)
-    }
     
     //Solo para los empleados, y los empleados no utilizan esta aplicacion
     //listarUsuarios NO

@@ -11,15 +11,15 @@ export class SessionService {
         console.log("Creando SessionService")
     }
 
-    public setItem(clave:string, valor:any):void{
-        //Guardamos las cosas EN MEMORIA!
-        this.valores[clave] = valor
-    }
-    
     public setItemCopia(clave:string, valor:any):void{
         //Guardamos una copia
         let copia = JSON.parse(JSON.stringify(valor))
         Object.setPrototypeOf(copia, valor)
+        this.valores[clave] = valor
+    }
+
+    public setItem(clave:string, valor:any):void{
+        //Guardamos las cosas EN MEMORIA!
         this.valores[clave] = valor
     }
 
@@ -37,10 +37,6 @@ export class SessionService {
     public removeItem(clave:string):void{
         //Para borrar una entrada en un array asociativo
         delete this.valores[clave]
-    }
-
-    public vaciar():void{
-        this.valores = []
     }
 
     public saludar():void{

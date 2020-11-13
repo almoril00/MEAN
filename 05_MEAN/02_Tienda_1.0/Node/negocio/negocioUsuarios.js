@@ -94,7 +94,6 @@ exports.insertarUsuario = function(usuario){
 }
 
 exports.borrarUsuario = function(_id){
-
     return new Promise( 
         (resolve, reject) => {
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
@@ -107,7 +106,6 @@ exports.borrarUsuario = function(_id){
                 .then( resultado => {
                     //Con el operador ternario:
                     //(resultado.deletedCount==0) ? reject({ codigo : 404, descripcion: "El usuario no existe "}) : resolve()
-
                     if(resultado.deletedCount == 0){
                         //MAL : 404
                         reject({ codigo : 404, descripcion: "El usuario no existe "})
@@ -173,13 +171,7 @@ exports.modificarUsuario = function(usuario){
         })
 }
 
-
-
-
-
-
 exports.listarUsuarios = function(){
-
     return new Promise(
         function(resolve, reject){
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
@@ -194,7 +186,6 @@ exports.listarUsuarios = function(){
 }
 
 exports.buscarUsuario = function(_id){
-
     return new Promise(
         function(resolve, reject){
         

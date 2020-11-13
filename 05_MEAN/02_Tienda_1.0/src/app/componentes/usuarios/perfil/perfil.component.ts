@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
 import { SessionService } from 'src/app/servicios/session.service';
 import { UsuariosService } from 'src/app/servicios/usuarios.service';
@@ -12,12 +11,13 @@ import { UsuariosService } from 'src/app/servicios/usuarios.service';
 export class PerfilComponent implements OnInit {
 
   public mensaje:string
+
   public estiloLogin:string //ESTO QUE ES????
+
   public usuario:Usuario
 
   constructor(private sessionService:SessionService,
-              private usuariosService:UsuariosService,
-              private router:Router) {
+              private usuariosService:UsuariosService) {
     
     //usr es el usuario que está en la sesión
     let usr = sessionService.getItem("usuario")
@@ -56,7 +56,6 @@ export class PerfilComponent implements OnInit {
           //Tambien podemos utilizar el objeto que nos ha devuelto el servicio ReST
           this.sessionService.setItem("usuario", usuarioModificado)
           this.usuario = usuarioModificado
-          this.mensaje = ""
         },
         error => { 
           console.log(error) 
@@ -67,19 +66,6 @@ export class PerfilComponent implements OnInit {
   }
 
   public baja():void{
-
-    this
-      .usuariosService
-      .borrarUsuario(this.usuario)
-      .subscribe(
-        respuesta => {
-          //this.sessionService.removeItem("usuario")
-          //this.sessionService.removeItem("JWT")
-          this.sessionService.vaciar()
-          this.router.navigateByUrl("/")
-        },
-        error => console.log(error)
-      )
 
   }
 
