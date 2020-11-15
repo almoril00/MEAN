@@ -64,7 +64,7 @@ function interceptorCors(request, response, next){
         response.end()
         return
     }
-
+    
     next()
 }
 

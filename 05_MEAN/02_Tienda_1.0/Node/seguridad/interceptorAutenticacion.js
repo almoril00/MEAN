@@ -6,6 +6,11 @@ exports.interceptorAutenticacion = function(request, response, next){
     console.log("---------------------------------------------------")
     console.log("Interceptor autenticacion")
 
+    if(request.url == "/login" || (request.method.toUpperCase()=="POST" && request.url == "/usuarios")){
+        next()
+        return
+    }
+
     //Accedemos al header Authorization
     let authorization = request.headers.authorization
     
@@ -25,10 +30,12 @@ exports.interceptorAutenticacion = function(request, response, next){
     let jwtString = trozos[1]
     console.log("JWT:"+jwtString)
 
-    var token = jwt.verify(jwtString, "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDr/DqOMElRxRX/hr4f2GjLyFy85boVkhiMHQrmlAFotFkJOwHxxjeM63vUXUD/lXWBYMdZ40LA4dtaEqYGi2TFlQSHB/lJ7EUZ9K+8/Xa0UCSxz9FHB+dFoQI+L1m7/HIZECVUab66eod7uKkCDGjTdJIZWNhIFIsYwoKWO/XFi1ZuIZ2COI9YCYrQKUyoFhrgaU8cxIzQ9EFx5pLJXa1wZJtNVwYkr8blW1/tZCh1aWRjNM4DbbBlywLolGeZVUMruXcezOL8e3SK+YcioEVXzKzgp3AmSehoLVRVh55BaBeNE9YUlqrGfOaoolFrBNcPlR6w4LVZT7d/J6wMjoGR uno@DESKTOP-OB4CSQL" )
-    console.log(token) // bar    
-
-
+    try{
+        var token = jwt.verify(jwtString, JWTUtil.privateKey, {algorithm: 'HS512'}  );
+        console.log(token) // bar    
+    } catch(error){
+        console.log(error)
+    }
 
     next()
 

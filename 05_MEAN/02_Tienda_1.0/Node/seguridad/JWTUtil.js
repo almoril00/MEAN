@@ -7,5 +7,5 @@ exports.privateKey = null
 //Esta función se invoca desde aplicacion.js al arrancar 
 exports.crearClaveJWT = function(){
     console.log("Creando la clave para JWT...")
-    exports.privateKey = fs.readFileSync("./seguridad/jwtRS256.key")
+    exports.privateKey = fs.readFileSync("./seguridad/clave.key")
 }

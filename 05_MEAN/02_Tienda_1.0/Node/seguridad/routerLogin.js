@@ -27,11 +27,11 @@ function login(request, response){
             let token = jwt.sign(
                 { login: usuario.login, roles: usuario.rol }, 
                 JWTUtil.privateKey, 
-                { algorithm: 'RS256'}
+                { algorithm: 'HS512'}
             )
             /*
             {
-                "alg": "RS256",
+                "alg": "HS512",
                 "typ": "JWT"
             }
             .
