@@ -1,9 +1,6 @@
-//npm install validatorjs
-let Validator = require('validatorjs');
-Validator.useLang("es")
-
 const mongoDB = require("mongodb")
 const conexionBD  = require("../util/conexionBD")
+const validar = require("../util/validacionUtil").validar
 
 //Reglas de validación para los objetos usuario
 /*
@@ -34,33 +31,6 @@ let reglas = {
 
 //Propiedades admitidas en los objetos usuario
 let propiedadesUsuario = [ '_id', 'nombre', 'login', 'pw', 'rol', 'correoE', 'idioma', 'telefono', 'direccion' ]
-
-//Función guarrindonga para comprobar que un objeto tiene unicamente propiedades permitidas
-//y los valores adecuados
-//
-//DEBERÍAMOS COLOCARLA EN UN FICHERO APARTE
-//
-function validar(objeto, propiedades, reglas){
-    
-    //Comprobamos que el objeto tenga solo propiedades admitidas
-    for(let propiedad in objeto){
-        let encontrado = false
-        for(let propiedadAdmitida of propiedades){
-            if(propiedadAdmitida == propiedad){
-                encontrado = true
-                break
-            }
-        }
-        if(!encontrado){
-            return { propiedadInvalida : propiedad }
-        }
-    }
-
-    let validador = new Validator(objeto, reglas)
-    if(validador.fails()){
-        return validador.errors.errors
-    }
-}
 
 exports.insertarUsuario = function(usuario){
     return new Promise(
@@ -93,12 +63,25 @@ exports.insertarUsuario = function(usuario){
         })
 }
 
-exports.borrarUsuario = function(_id){
+exports.borrarUsuario = function(_id, autoridad){
     return new Promise( 
         (resolve, reject) => {
+
+            //Autorizacion:
+            //Empleados: pueden hacer y deshacer a su antojo con los usuarios
+            //Clientes: Un cliente solo puede modificarse a si mismo
+            if(autoridad.rol == "CLIENTE" && autoridad._id!=_id){
+                reject({ 
+                    codigo : 403, 
+                    descripcion : "Los usuarios de tipo cliente solo pueden borrarse a si mismos"
+                })
+                return
+            } 
+
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
 
             //Debemos convertir el string recibido en un ObjectID
+            //Aqui iria un try/catch
             _id = new mongoDB .ObjectId(_id)
 
             coleccionUsuarios
@@ -118,7 +101,8 @@ exports.borrarUsuario = function(_id){
         })
 }
 
-exports.modificarUsuario = function(usuario){
+exports.modificarUsuario = function(usuario,  //Usuario a modificar
+                                    autoridad){ //Usuario que ordena la modificacion. _ID, ROL, login
 
     return new Promise(
         function(resolve, reject){
@@ -130,9 +114,30 @@ exports.modificarUsuario = function(usuario){
                 return
             }
 
+            //Autorizacion:
+            //Empleados: pueden hacer y deshacer a su antojo con los usuarios
+            //Clientes: Un cliente solo puede modificarse a si mismo
+            if(autoridad.rol == "CLIENTE" && autoridad._id!=usuario._id){
+                reject({ 
+                    codigo : 403, 
+                    descripcion : "Los usuarios de tipo cliente solo pueden modificarse a si mismos"
+                })
+                return
+            }
+
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")  
             //Creamos un ObjectId a partir del string que hemos recibido
-            let _id = new mongoDB.ObjectId(usuario._id)
+            let _id
+            try {
+                _id = new mongoDB.ObjectId(usuario._id)
+            } catch( e ){
+                reject({
+                    codigo : 400,
+                    descripcion : "Sintaxis incorrecta en el _id"
+                })
+                return
+            }
+
             coleccionUsuarios
                 .findOneAndUpdate(
                     { "_id" : _id },             
@@ -171,9 +176,18 @@ exports.modificarUsuario = function(usuario){
         })
 }
 
-exports.listarUsuarios = function(){
+exports.listarUsuarios = function(autoridad){
     return new Promise(
         function(resolve, reject){
+
+            if(autoridad.rol != "EMPLEADO"){
+                reject({ 
+                    codigo : 403, 
+                    descripcion : "Solo los empleados pueden listar"
+                })
+                return
+            }
+            
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
             //Find es síncrono y devuelve un cursor
             let cursor = coleccionUsuarios.find()
@@ -185,12 +199,21 @@ exports.listarUsuarios = function(){
         })
 }
 
-exports.buscarUsuario = function(_id){
+exports.buscarUsuario = function(_id, autoridad){
     return new Promise(
         function(resolve, reject){
         
+            if(autoridad.rol != "EMPLEADO"){
+                reject({ 
+                    codigo : 403, 
+                    descripcion : "Solo los empleados pueden buscar por id"
+                })
+                return
+            }
+
             let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
 
+            //Aqui falta el try y el catch
             _id = new mongoDB.ObjectId(_id)
 
             coleccionUsuarios
@@ -233,17 +256,3 @@ exports.buscarPorCredenciales = function(login, pw){
             }) //MAL: 500
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

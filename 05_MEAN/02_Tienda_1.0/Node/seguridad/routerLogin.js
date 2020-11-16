@@ -25,7 +25,7 @@ function login(request, response){
         .then( usuario => {
 
             let token = jwt.sign(
-                { login: usuario.login, roles: usuario.rol }, 
+                { _id: usuario._id, login: usuario.login, rol: usuario.rol }, 
                 JWTUtil.privateKey, 
                 { algorithm: 'HS512'}
             )
@@ -36,6 +36,7 @@ function login(request, response){
             }
             .
             {
+                "_id"   : "5f97004ad6ea7202303089f6"
                 "login" : "venancia",
                 "roles" : "CLIENTE",
                 "iat"   : FECHA_CREACION 

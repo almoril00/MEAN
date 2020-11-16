@@ -4,7 +4,6 @@ const conexionBD = require('./util/conexionBD')
 const usuarios = require("./servicios_rest/usuariosRest")
 const JWTUtil = require("./seguridad/JWTUtil.js")
 const routerLogin = require("./seguridad/routerLogin.js")
-
 const interceptorAutenticacion = require("./seguridad/interceptorAutenticacion").interceptorAutenticacion
 
 console.log("Arrancando...")

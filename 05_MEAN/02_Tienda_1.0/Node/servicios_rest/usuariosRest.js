@@ -23,7 +23,7 @@ function listarUsuarios(request, response){
     //let x = request.query.x
 
     negocioUsuarios
-        .listarUsuarios()
+        .listarUsuarios(request.autoridad)
         .then( usuarios => response.json(usuarios) )
         .catch( error => response.status(error.codigo).json(error))
 
@@ -35,7 +35,7 @@ function buscarUsuario(request, response){
     let id = request.params.id
 
     negocioUsuarios
-        .buscarUsuario(id)
+        .buscarUsuario(id, request.autoridad)
         .then( usuario => response.json(usuario) )
         .catch( error => response.status(error.codigo).json(error) )
 
@@ -53,6 +53,9 @@ function insertarUsuario(request, response){
 }
 
 //PUT /usuarios/:id
+//Content-type: application/json
+//-------------------------------
+//{ Usuario }
 function modificarUsuario(request, response){
     //obtener del request el usuario, que está en el body y el id que está en la ruta
 
@@ -63,7 +66,7 @@ function modificarUsuario(request, response){
     usuario._id = _id
 
     negocioUsuarios
-        .modificarUsuario(usuario)
+        .modificarUsuario(usuario, request.autoridad)
         .then( usuarioModificado => response.json(usuarioModificado) )
         .catch( error => response.status(error.codigo).json(error) )
 
@@ -75,7 +78,7 @@ function borrarUsuario(request, response){
     let _id = request.params.id //Aqui recogemos el _id como un string
 
     negocioUsuarios
-        .borrarUsuario(_id)
+        .borrarUsuario(_id, request.autoridad)
         .then( () => response.json({ codigo:200, descripcion:"El usuario se ha borrado correctamente"}) )
         .catch( error => {
             //404, el usuario no existe

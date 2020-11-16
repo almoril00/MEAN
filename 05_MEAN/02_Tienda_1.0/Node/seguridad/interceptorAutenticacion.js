@@ -1,3 +1,4 @@
+const { defaultCoreCipherList } = require("constants")
 const jwt = require("jsonwebtoken")
 const JWTUtil = require("../seguridad/JWTUtil.js")
 
@@ -6,6 +7,7 @@ exports.interceptorAutenticacion = function(request, response, next){
     console.log("---------------------------------------------------")
     console.log("Interceptor autenticacion")
 
+    //Temporal
     if(request.url == "/login" || (request.method.toUpperCase()=="POST" && request.url == "/usuarios")){
         next()
         return
@@ -32,13 +34,32 @@ exports.interceptorAutenticacion = function(request, response, next){
 
     try{
         var token = jwt.verify(jwtString, JWTUtil.privateKey, {algorithm: 'HS512'}  );
-        console.log(token) // bar    
-    } catch(error){
-        console.log(error)
+        console.log(token)  
+    } catch(e){
+        console.log(e)
+        let error = {
+            codigo : 400,
+            descripcion : "Error con el JWT: "+e.message
+        }
+        response.statusCode = 400
+        response.json(error)
+        return
     }
+    
+    //Creamos un objeto autoridad con la informacion extraida del token
+    let autoridad = {
+        _id   : token._id,
+        login : token.login,
+        rol   : token.rol
+    }
+    //Y lo añadimos al request para que llegue hasta la logica de control
+    //es un espectacular momento mágico de ilusión y fantasía
+    request.autoridad = autoridad
 
+    //Dejamos que la peticion continue hacia la lógica de control
     next()
 
 }
+
 
 
