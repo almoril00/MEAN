@@ -12,7 +12,6 @@ mongoose
     .then(pruebas)
     .catch( error => console.log(error))
 
-
 function pruebas(){
 
     //Aqui ya tenemos la conexión pero ni la catamos
@@ -161,13 +160,14 @@ function pruebas(){
     //MODIFICAR//
     /////////////
 
+    
     Usuario
         .findById("5faab6050b717134e0010d8a")
         .then( usuarioEncontrado => {
             console.log("=======================================================")
             console.log(usuarioEncontrado)
             usuarioEncontrado.telefono = "987 654 321"
-            return usuarioEncontrado.updateOne()
+            return usuarioEncontrado.update()
         })
         .then(x => {
             console.log("Usuario modificado")
