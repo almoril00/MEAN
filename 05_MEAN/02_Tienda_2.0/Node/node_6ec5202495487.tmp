@@ -31,8 +31,6 @@ function arrancarServidor(){
     app.use(routerLogin.router)
     app.use(usuarios.router)
 
-    app.disable('x-powered-by')
-
     //Arrancamos el servidor
     app.listen(8000, function(){
         console.log("Esperando peticiones en el puerto 8000")

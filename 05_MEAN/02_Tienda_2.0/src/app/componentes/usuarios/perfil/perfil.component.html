@@ -1,0 +1,76 @@
+<div class="text-center">
+    <h2>Perfil de usuario</h2>
+</div>
+        
+<div class="form-horizontal" id="formulario">
+    <div class="form-group">
+        <label class="control-label col-xs-2" for="nombre">Nombre</label>
+        <div class="col-xs-8">
+            <input type="text" id="nombre" class="form-control" required="required" [(ngModel)]="usuario.nombre"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2" for="direccion">Dirección</label>
+        <div class="col-xs-8">
+            <input type="text" [ngClass]="'form-control '+estiloLogin" class="form-control" id="direccion" [(ngModel)]="usuario.direccion"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2" for="telefono" >Teléfono</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" required="required"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2" for="correoE">Correo E</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="correoE" [(ngModel)]="usuario.correoE"/>
+        </div>
+    </div>                              
+    <div class="form-group">
+    <label class="control-label col-xs-2" for="idioma">Idioma</label>
+    <div class="col-xs-8">
+        <select class="form-control" id="idioma" [(ngModel)]="usuario.idioma">
+            <option>ES</option>
+            <option>EN</option>
+        </select>
+    </div>
+    </div>                              
+</div>
+
+<div *ngIf="mensaje" class="alert alert-danger">{{mensaje}}</div>
+
+<div class="text-center">
+    <input type="button" value="Guardar" class="btn mr-1 btn-primary" style="width:110px" (click)="guardar()"/>
+    <input type="button" value="Baja"    class="btn mr-1 btn-danger"  style="width:110px" data-toggle="modal" data-target="#myModal"/>
+</div>   
+    
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">            
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Borrar usuario</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                ¿Está seguro de querer darse de baja?
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="baja()">Baja</button>
+            </div>        
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
