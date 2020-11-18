@@ -34,6 +34,7 @@ function buscarProducto(request, response){
 
 }
 
+
 function insertarProducto(request, response){
 
     console.log("INSERTAR PRODUCTO, LC")
