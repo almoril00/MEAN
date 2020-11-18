@@ -1,4 +1,5 @@
 const express = require("express")
+const negocioProductos = require("../negocio/negocioProductos")
 
 let router = express.Router()
 
@@ -11,22 +12,6 @@ router.delete("/productos/:id", borrarProducto)
 exports.router = router
 
 function listarProductos(request, response){
-    
-    let nombre = request.query.nombre
-    let categoria = request.query.categoria
-    let precioMin = request.query.precioMin
-    let precioMax = request.query.precioMax
-
-    console.log(request.query)
-
-    let x = {
-        nombre : fgffgfh,
-        categoria : vfdjdhgfkjsh,
-        precioMin: 123,
-        precioMax: 567
-    }
-
-
 
 }
 
@@ -34,11 +19,18 @@ function buscarProducto(request, response){
 
 }
 
-
 function insertarProducto(request, response){
 
-    console.log("INSERTAR PRODUCTO, LC")
-    response.end("QUITAME")
+    let producto = request.body
+    negocioProductos
+        .insertarProducto(producto,request.autoridad)
+        .then( productoInsertado => {
+            response.json(productoInsertado)
+        })
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 
 }
 

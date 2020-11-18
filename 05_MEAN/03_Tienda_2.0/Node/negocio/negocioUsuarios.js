@@ -62,7 +62,10 @@ exports.insertarUsuario = function(usuario){
                     console.log(resultado)
                     resolve(resultado._id) 
                 })
-                .catch( error =>reject({ codigo:500, descripcion:"Ay mamá, que nos hemos matao"}) ) //MAL: 500
+                .catch( error => {
+                    console.log(error)
+                    reject({ codigo:500, descripcion:"Error en la base de datos"})//MAL: 500
+                }) 
         })
 }
 
@@ -103,13 +106,6 @@ exports.modificarUsuario = function(usuario,  //Usuario a modificar
     return new Promise(
         function(resolve, reject){
 
-            //VALIDAR            
-            let errores = validar(usuario, reglas)
-            if(errores){
-                reject({ codigo:400, descripcion:errores})
-                return
-            }
-
             //Autorizacion:
             //Empleados: pueden hacer y deshacer a su antojo con los usuarios
             //Clientes: Un cliente solo puede modificarse a si mismo
@@ -120,6 +116,14 @@ exports.modificarUsuario = function(usuario,  //Usuario a modificar
                 })
                 return
             }
+            
+            //VALIDAR            
+            let errores = validar(usuario, reglas)
+            if(errores){
+                reject({ codigo:400, descripcion:errores})
+                return
+            }
+
 
             //El usuario recibido puede contener propiedades que no deben cambiar:
             //-pw
