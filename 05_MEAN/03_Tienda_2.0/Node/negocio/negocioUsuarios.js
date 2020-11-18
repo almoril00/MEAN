@@ -28,6 +28,7 @@ let reglas = {
     telefono  : 'min:9|max:40',
 }
 
+//EL usuario que recibimos ha salido del body de la peticion HTTP
 exports.insertarUsuario = function(usuario){
 
     return new Promise(
@@ -107,7 +108,7 @@ exports.modificarUsuario = function(usuario,  //Usuario a modificar
         function(resolve, reject){
 
             //VALIDAR            
-            let errores = validar(usuario, propiedadesUsuario, reglas)
+            let errores = validar(usuario, reglas)
             if(errores){
                 reject({ codigo:400, descripcion:errores})
                 return
@@ -124,54 +125,28 @@ exports.modificarUsuario = function(usuario,  //Usuario a modificar
                 return
             }
 
-            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")  
-            //Creamos un ObjectId a partir del string que hemos recibido
-            let _id
-            try {
-                _id = new mongoDB.ObjectId(usuario._id)
-            } catch( e ){
-                reject({
-                    codigo : 400,
-                    descripcion : "Sintaxis incorrecta en el _id"
-                })
-                return
-            }
+            //El usuario recibido puede contener propiedades que no deben cambiar:
+            //-pw
+            //-rol
+            //-login
+            delete usuario.pw
+            delete usuario.rol
+            delete usuario.login
 
-            coleccionUsuarios
-                .findOneAndUpdate(
-                    { "_id" : _id },             
-                    {
-                        $set : {
-                            nombre    : usuario.nombre,
-                            //Esto no se puede cambiar
-                            //login     : usuario.login,
-                            //Para cambiar esto haríamos una función específica
-                            //pw        : usuario.pw,
-                            //Esto no se puede cambiar
-                            //rol       : usuario.rol,
-                            correoE   : usuario.correoE,
-                            direccion : usuario.direccion,
-                            telefono  : usuario.telefono,
-                            idioma    : usuario.idioma
-                        }
-                    },
-                    {
-                        //Con este parámetro opcional le pedimos a MongoDB
-                        //que en la respuesta entregue el documento tal cual ha quedado
-                        //despues del update
-                        returnOriginal : false
-                    }
-                    )
-                .then( resultado => {
-                    if(!resultado.value){
-                        //MAL: 404
-                        reject({ codigo : 404, descripcion: "El usuario no existe"})
+            //mongoose.set('returnOriginal', false);
+            Usuario
+                .findByIdAndUpdate( usuario._id, usuario, { new : true } )
+                .then( usuarioModificado => {
+                    if(!usuarioModificado){
+                        reject({ codigo: 404, descripcion: "El usuario no existe"}) 
                         return
                     }
-                    //BIEN!
-                    resolve(resultado.value) //
+                    resolve(usuarioModificado)
                 })
-                .catch( error =>  reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
+                .catch( error => {
+                    console.log(error)
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})                       
+                })
         })
 }
 
@@ -236,22 +211,22 @@ exports.buscarUsuario = function(_id, autoridad){
 
 exports.buscarPorCredenciales = function(login, pw){
     return new Promise(function(resolve, reject){
-        conexionBD
-            .esquema
-            .collection("usuarios")
-            .findOne( { login:login, pw:pw } )
-            .then( usuario => {                
+        
+        Usuario
+            .findOne( { login:login, pw:pw })
+            .then( usuario => {
                 if(!usuario){
                     reject({ codigo: 404, descripcion: "No hay un usuario con esas credenciales"})
                     return
                 }
                 //Le quitamos el password al usuario por seguridad
                 usuario.pw = null
-                resolve(usuario)
+                resolve(usuario)                
             })
             .catch( error => {
                 console.log(error)
-                reject({ codigo: 500, descripcion: "Error en la base de datos"})
-            }) //MAL: 500
+                reject({ codigo: 500, descripcion: "Error en la base de datos"})                
+            })
+
     })
 }

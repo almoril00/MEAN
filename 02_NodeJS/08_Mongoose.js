@@ -112,9 +112,11 @@ function pruebas(){
     //    .then( usuarioInsertado => console.log(usuarioInsertado))
     //    .catch( error => console.log(error)) 
 
+
     /////////////////
     //BUSCAR POR ID//
     /////////////////
+
     Usuario
         .findById("5fb3ff7245ce7e15e08e3057")
         .then( usuarioEncontrado => {
@@ -159,7 +161,6 @@ function pruebas(){
     /////////////
     //MODIFICAR//
     /////////////
-
     
     Usuario
         .findById("5faab6050b717134e0010d8a")
@@ -175,14 +176,6 @@ function pruebas(){
         .catch( error => console.log(error) )
 
     //Usuario.findByIdAndUpdate
-
-
-
-
-
-
-
-
 
 
 }
