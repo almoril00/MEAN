@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const mongooseUtil = require('./util/mongooseUtil')
 const bodyParser = require("body-parser")
 const usuarios = require("./servicios_rest/usuariosRest")
+const productos = require("./servicios_rest/productosRest")
 const JWTUtil = require("./seguridad/JWTUtil.js")
 const routerLogin = require("./seguridad/routerLogin.js")
 const interceptorAutenticacion = require("./seguridad/interceptorAutenticacion").interceptorAutenticacion
@@ -32,6 +33,7 @@ function arrancarServidor(){
     //Le indicamos a express que utilice los router que hemos definido
     app.use(routerLogin.router)
     app.use(usuarios.router)
+    app.use(productos.router)
 
     app.disable('x-powered-by')
 

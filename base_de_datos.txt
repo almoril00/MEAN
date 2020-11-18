@@ -40,37 +40,34 @@ USUARIOS
 USUARIOS
 
 {
-	_id         :
-	nombre      :
-	login       : 
-	pw          :
-	rol         :
-	correoE     :
-	idioma      :
+	_id         : ObjectId
+	nombre      : ""
+	login       : "" 
+	pw          : ""
+	rol         : ""
+	correoE     : ""
+	idioma      : ""
 	//LAS DIRECCIONES NO SON NADA SIN SUS DUEÑOS, NO MERECEN COLECCION PROPIA
-	direcciones : [ 
-		{
-			ciudad :
-			calle :
-			numero :
-		}
-	] 
+	direccion   : ""
+	telefono    : ""
 }
 
 PRODUCTOS
 
-[
+
 {
-	_id         : 
+	_id         : ObjectId
 	referencia  : "FJ-000"
+	categoria   : ""
 	nombre      : "Fleje",
 	fabricante  : "Española de Flejes S.A."
+	descripcion : ""
+	imagen      : "/imagenes/fleje.jpg"
 	//NOS PERMITIMOS ESTA LICENCIA:
-	existencias : 
-	precio      :
-	descripcion :
+	existencias : 0
+	precio      : 0
 }
-]
+
 
 
 PEDIDOS 

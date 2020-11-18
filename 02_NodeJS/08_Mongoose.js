@@ -154,7 +154,7 @@ function pruebas(){
     //el find, código y la crueldad innecesaria
     Usuario
         .findByIdAndRemove("5fb40eaf35cdd828ccdb03c6")
-        .then( x => console.log("Usuario borrado"))
+        .then( documentoQueSeHaBorrado => console.log("Usuario borrado"))
         .catch( error => console.log(error))
 
 

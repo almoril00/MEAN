@@ -58,7 +58,10 @@ exports.insertarUsuario = function(usuario){
                     let usuarioMG = new Usuario(usuario)
                     return usuarioMG.save()
                 })
-                .then( resultado => resolve(resultado.insertedId) )//BIEN: Se ha insertado
+                .then( resultado => {
+                    console.log(resultado)
+                    resolve(resultado._id) 
+                })
                 .catch( error =>reject({ codigo:500, descripcion:"Ay mamá, que nos hemos matao"}) ) //MAL: 500
         })
 }
@@ -78,18 +81,11 @@ exports.borrarUsuario = function(_id, autoridad){
                 return
             } 
 
-            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
-
-            //Debemos convertir el string recibido en un ObjectID
-            //Aqui iria un try/catch
-            _id = new mongoDB.ObjectId(_id)
-
-            coleccionUsuarios
-                .deleteOne( { _id : _id }) 
-                .then( resultado => {
-                    //Con el operador ternario:
-                    //(resultado.deletedCount==0) ? reject({ codigo : 404, descripcion: "El usuario no existe "}) : resolve()
-                    if(resultado.deletedCount == 0){
+            Usuario
+                .findByIdAndRemove( _id )
+                .then( usuarioBorrado => {
+                    console.log(usuarioBorrado)
+                    if(!usuarioBorrado){
                         //MAL : 404
                         reject({ codigo : 404, descripcion: "El usuario no existe "})
                         return 
@@ -162,14 +158,13 @@ exports.listarUsuarios = function(autoridad){
                 return
             }
             
-            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
-            //Find es síncrono y devuelve un cursor
-            let cursor = coleccionUsuarios.find()
-            //Trabajar con el cursos ya es asíncrono
-            cursor
-                .toArray()
-                .then( documentos => resolve(documentos) )//BIEN
-                .catch( error => reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
+            Usuario
+                .find()
+                .then( usuarios => resolve(usuarios) )
+                .catch( error => {
+                    console.log(error)
+                    reject({ codigo: 500, descripcion: "Error en la base de datos"})
+                })
         })
 }
 
@@ -185,25 +180,16 @@ exports.buscarUsuario = function(_id, autoridad){
                 return
             }
 
-            let coleccionUsuarios = conexionBD.esquema.collection("usuarios")
-
-            //Aqui falta el try y el catch
-            _id = new mongoDB.ObjectId(_id)
-
-            coleccionUsuarios
-                .findOne( { _id : _id } )
-                .then( documento => {
-
-                    //Con el operador ternario:
-                    //(!documento) ? reject( { codigo: 404, descripcion: "No existe un usuario con ese id" }) : resolve(documento)
-
-                    if(!documento){
+            Usuario
+                .findById( _id )
+                .then( usuario => {
+                    if(!usuario){
                         //MAL: 404
                         reject({ codigo: 404, descripcion: "No existe un usuario con ese id"})
                         return
                     }
                     //BIEN!
-                    resolve(documento)
+                    resolve(usuario)
                 })
                 .catch( error => reject({ codigo: 500, descripcion: "Error en la base de datos"}) ) //MAL: 500
         })
@@ -230,3 +216,7 @@ exports.buscarPorCredenciales = function(login, pw){
 
     })
 }
+
+
+
+
