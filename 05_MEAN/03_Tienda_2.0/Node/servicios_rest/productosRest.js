@@ -13,10 +13,31 @@ exports.router = router
 
 function listarProductos(request, response){
 
+    //Obtener el criterio del request
+    let criterio = null;
+    negocioProductos
+        .listarProductos(criterio)
+        .then( listadoProductos => {
+            response.json(listadoProductos)
+        })
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 function buscarProducto(request, response){
 
+    let _id = request.params.id
+    negocioProductos
+        .buscarProducto(_id)
+        .then( producto => {
+            response.json(producto)
+        })
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 function insertarProducto(request, response){
