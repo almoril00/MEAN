@@ -44,6 +44,7 @@ exports.insertarProducto = function(producto, autoridad){
     return new Promise(function(resolve, reject){
 
         //AUTORIZACIÓN
+        /*
         if(autoridad.rol != "EMPLEADO"){
             reject({ 
                 codigo : 403, 
@@ -51,6 +52,7 @@ exports.insertarProducto = function(producto, autoridad){
             })
             return
         }
+        */
         
         //VALIDACION
         //->reject

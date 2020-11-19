@@ -15,6 +15,7 @@ import { AppRutasModule } from './app.rutas.module';
 import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 import { InterceptorAutenticacion } from './interceptores/interceptor.autenticacion';
+import { ProductoComponent } from './componentes/tienda/producto/producto.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InterceptorAutenticacion } from './interceptores/interceptor.autenticac
     MaquetacionLoginComponent,
     MaquetacionTiendaComponent,
     MenuComponent,
-    PerfilComponent
+    PerfilComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,
