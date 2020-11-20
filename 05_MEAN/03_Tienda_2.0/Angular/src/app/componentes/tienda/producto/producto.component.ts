@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DetallePedido } from 'src/app/entidades/detallePedido';
+import { Pedido } from 'src/app/entidades/pedido';
 import { Producto } from 'src/app/entidades/producto';
 import { ProductosService } from 'src/app/servicios/productos.service';
+import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
   selector: 'app-producto',
@@ -14,10 +17,19 @@ export class ProductoComponent implements OnInit {
   @Input()
   public producto:Producto
 
-  constructor() { 
+  constructor(private sessionService:SessionService) { 
   }
 
   ngOnInit(): void {
   }
+
+  public comprar():void {
+
+      let cesta:Pedido = this.sessionService.getItem("cesta")
+      let detalle:DetallePedido = new DetallePedido(1,this.producto.precio,0,this.producto)
+      cesta.addDetalle(detalle)
+
+  }
+
 
 }

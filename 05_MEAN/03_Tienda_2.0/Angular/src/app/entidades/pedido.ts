@@ -1,4 +1,3 @@
-import { totalmem } from 'os';
 import { DetallePedido } from './detallePedido';
 import { Usuario } from './usuario';
 
@@ -13,14 +12,16 @@ export class Pedido {
         public dirEntrega : string  = null,
         public estado     : string  = null,
         public total      : number  = null,
-        private detalles  : DetallePedido[] = null){
+        private detalles  : DetallePedido[] = []){
     }
 
+    //
     public addDetalle(detalle:DetallePedido){
         this.detalles.push(detalle)
         //
         //
         //
+        console.log(this.detalles)
     }
 
     public calcularTotal(){

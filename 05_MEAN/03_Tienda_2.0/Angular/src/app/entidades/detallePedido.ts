@@ -5,7 +5,7 @@ export class DetallePedido {
     public constructor(
         public cantidad   : number   = null,
         public precio     : number   = null,
-        public descuento  : string   = null,
+        public descuento  : number   = null,
         public producto   : Producto = null){
     }   
 
