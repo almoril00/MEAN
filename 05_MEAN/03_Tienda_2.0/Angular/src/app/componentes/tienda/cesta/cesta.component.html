@@ -1,12 +1,26 @@
 
 <!-- Formulario de búsqueda -->
 
-<div class="row">
+CESTA COMPONENT
 
-    <div *ngFor="let p of productos" class="col-4">
-        <app-producto [producto]="p"></app-producto>
-    </div>
-   
+
+<table border="1" align="center">
+
+    <tr *ngFor="let dp of cesta.getDetalles()">
+        <td>
+            <img class="card-img-top" src="https://picsum.photos/300/200?random={{dp.producto._id}}" alt="Card image">
+        </td>
+        <td>{{dp.producto.nombre}}</td>
+        <td>{{dp.cantidad}}</td>
+        <td>{{dp.precio}}</td>
+    </tr>
+
+</table>
+
+<hr/>
+
+<div *ngFor="let dp of cesta.getDetalles()">
+    <app-detallePedido [detalle]="dp"></app-detallePedido>
 </div>
 
 

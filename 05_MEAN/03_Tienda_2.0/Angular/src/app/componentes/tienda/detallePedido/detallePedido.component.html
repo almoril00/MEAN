@@ -1,0 +1,29 @@
+
+HOLA KE TAL
+
+
+<div class="card mt-4">
+
+  <div class="row">
+    <div class="col-3">
+      <img class="card-img-top" src="https://picsum.photos/300/200?random={{detalle.producto._id}}" alt="Card image">
+    </div>
+
+    <div class="col-9"> 
+
+      <h4 class="card-title">{{detalle.producto.nombre}}</h4>
+      <h6 class="card-title">{{detalle.producto.fabricante}}</h6>
+      <p class="card-text">{{ detalle.producto.descripcion.substring(0,200)}}...</p>
+      
+      <div class="row">
+        <h4 class="col-4">{{detalle.precio}} €</h4>
+        <h4 class="col-4">{{detalle.cantidad}} </h4>
+        <button class="btn btn-primary col-4">Comprar</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

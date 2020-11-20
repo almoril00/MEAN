@@ -16,6 +16,8 @@ import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 import { InterceptorAutenticacion } from './interceptores/interceptor.autenticacion';
 import { ProductoComponent } from './componentes/tienda/producto/producto.component';
+import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
+import { DetallePedidoComponent } from './componentes/tienda/detallePedido/detallePedido.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ProductoComponent } from './componentes/tienda/producto/producto.compon
     MaquetacionTiendaComponent,
     MenuComponent,
     PerfilComponent,
-    ProductoComponent
+    ProductoComponent,
+    CestaComponent,
+    DetallePedidoComponent
   ],
   imports: [
     BrowserModule,

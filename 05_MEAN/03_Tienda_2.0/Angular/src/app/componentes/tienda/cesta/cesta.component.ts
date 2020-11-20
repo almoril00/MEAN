@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Producto } from 'src/app/entidades/producto';
-import { ProductosService } from 'src/app/servicios/productos.service';
+import { DetallePedido } from 'src/app/entidades/detallePedido';
+import { Pedido } from 'src/app/entidades/pedido';
+import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
   selector: 'app-cesta',
@@ -9,25 +10,14 @@ import { ProductosService } from 'src/app/servicios/productos.service';
 })
 export class CestaComponent implements OnInit {
 
-  public productos:Producto[] //Undefined
+  public cesta:Pedido
 
-  constructor(private productosService:ProductosService) { 
-    this.listarProductos()
+  constructor(private sessionService:SessionService) { 
+    sessionService.saludar()
+    this.cesta = sessionService.getItem("cesta")
   }
 
   ngOnInit(): void {
-  }
-
-  public listarProductos():void{
-    this
-      .productosService
-      .listarProductos()
-      .subscribe(
-        productos => this.productos = productos,
-        error => {
-          console.log(error)
-        }
-      )
   }
 
 }
