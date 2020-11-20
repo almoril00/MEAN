@@ -128,8 +128,42 @@ Va a ser de mentirijilla
 ]
 
 
+////////////////////////////////////////////////////
 
 
-USUARIOS:
-	-clientes
-	-empleados
+pedidos
+
+[
+	{
+		codigo : "PED-1"
+		usuario : { _id },
+		fecha : "5/5/2020"	
+	},
+	{
+		codigo : "PED-1"
+		usuario : { _id },
+		fecha : "5/5/2020"	
+	},
+	{
+		codigo : "PED-1"
+		usuario : { _id },
+		fecha : "5/5/2020"	
+	}
+]
+
+
+detalles_pedido
+
+[
+	{
+		_id :
+		cantidad :
+		precio :
+		descuento :
+		producto : 
+		pedido : _id
+	}
+
+]
+
+

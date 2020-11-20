@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Pedido } from 'src/app/entidades/pedido';
 import { Usuario } from 'src/app/entidades/usuario';
 import { AutenticacionService } from 'src/app/servicios/autenticacion.service';
 import { SessionService } from 'src/app/servicios/session.service';
@@ -44,7 +45,12 @@ export class LoginComponent implements OnInit {
         respuesta => {
           this.sessionService.setItem("JWT", respuesta.JWT)
           this.sessionService.setItem("usuario",respuesta.usuario)
-          this.router.navigateByUrl("/tienda/perfil")
+
+          //Si descrubrimos que inicializar la tienda es algo más que esta simple 
+          //línea nos lo llevariamos a otra parte
+          this.sessionService.setItem("cesta", new Pedido())
+
+          this.router.navigateByUrl("/tienda/catalogo")
         },
         (error) => this.mensaje = "Credenciales incorrectas"
       )

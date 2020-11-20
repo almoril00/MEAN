@@ -7,6 +7,17 @@ exports.interceptorAutenticacion = function(request, response, next){
     console.log("---------------------------------------------------")
     console.log("Interceptor autenticacion")
 
+    /*
+    console.log("AUTENTICACION DESHABILITADA")
+    request.autoridad = {
+        _id   : "5faab8180b717134e0010d8b",
+        login : "venancia",
+        rol   : "CLIENTE"
+    }   
+    next()
+    return
+    */
+
     //Temporal
     if(request.url == "/login" || (request.method.toUpperCase()=="POST" && request.url == "/usuarios")){
         next()

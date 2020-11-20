@@ -1,7 +1,9 @@
-<p>catalogo works!</p>
 
 
-<div *ngFor="let producto of productos">
-    <app-producto [producto]="producto"></app-producto>
+<div class="row">
+
+    <div class="col-4" *ngFor="let p of productos">
+        <app-producto [producto]="p"></app-producto>
+    </div>
+    
 </div>
-
