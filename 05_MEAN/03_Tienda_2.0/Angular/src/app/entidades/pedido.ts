@@ -15,7 +15,8 @@ export class Pedido {
         private detalles  : DetallePedido[] = []){
     }
 
-    //
+    //Añade un detalle al pedido
+    //Si el pedido cuenta ya con un detalle que incñuye el producto recibido los suma
     public addDetalle(nuevoDetalle:DetallePedido){
         
         let encontrado:boolean = false
@@ -35,10 +36,40 @@ export class Pedido {
         this.calcularTotal()
     }
 
+    //Aumenta la cantidad del detalle que tiene el producto indicado en 1
+    public aumentarCantidadDetalle(idProducto:string){
+        for(let dp of this.detalles){
+            if(dp.producto._id == idProducto){
+                dp.cantidad++
+                break
+            }
+        }
+        this.calcularTotal()
+    }
+
+    //Disminuye la cantidad del detalle que tiene el producto indicado en 1
+    //La cantidad nunca llegará a 0
+    public reducirCantidadDetalle(idProducto:string){
+        for(let dp of this.detalles){
+            if(dp.producto._id == idProducto && dp.cantidad>1){
+                dp.cantidad--
+                break
+            }
+        }
+        this.calcularTotal()        
+    }
+
+    //Elimina el detalle que contiene el producto indicado
+    public eliminarDetalle(idProducto:string){
+        //
+    }
+
     public calcularTotal(){
-        //
-        //
-        //
+        let total:number = 0
+        for(let dp of this.detalles){
+            total += dp.cantidad*dp.precio
+        }
+        this.total = total
     }
 
     public getDetalles():DetallePedido[]{
@@ -61,8 +92,6 @@ PROD   DESC            CANT   PRECIO
 p1     movida             6       10
 p2     movidón            6       10
 p3     movidote           6       10
-
-
 
 */
 

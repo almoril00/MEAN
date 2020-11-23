@@ -14,11 +14,22 @@ export class DetallePedidoComponent implements OnInit {
 
   @Input()
   public detalle:DetallePedido
+  //@Input() 
+  private cesta:Pedido
 
-  constructor() { 
+  constructor(private sessionService:SessionService) { 
+    this.cesta = sessionService.getItem("cesta")
   }
 
   ngOnInit(): void {
+  }
+
+  public aumentarCantidad():void{
+    this.cesta.aumentarCantidadDetalle(this.detalle.producto._id)
+  }
+  
+  public disminuirCantidad():void{
+    this.cesta.reducirCantidadDetalle(this.detalle.producto._id)
   }
 
 }
