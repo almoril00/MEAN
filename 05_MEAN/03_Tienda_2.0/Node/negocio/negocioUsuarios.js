@@ -217,10 +217,6 @@ exports.buscarPorCredenciales = function(login, pw){
                 console.log(error)
                 reject({ codigo: 500, descripcion: "Error en la base de datos"})                
             })
-
     })
 }
-
-
-
 

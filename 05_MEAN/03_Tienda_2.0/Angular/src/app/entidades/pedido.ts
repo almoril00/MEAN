@@ -16,12 +16,23 @@ export class Pedido {
     }
 
     //
-    public addDetalle(detalle:DetallePedido){
-        this.detalles.push(detalle)
-        //
-        //
-        //
-        console.log(this.detalles)
+    public addDetalle(nuevoDetalle:DetallePedido){
+        
+        let encontrado:boolean = false
+        for(let dp of this.detalles){
+            if(dp.producto._id == nuevoDetalle.producto._id){
+                //dp.cantidad = dp.cantidad + nuevoDetalle.cantidad
+                dp.cantidad += nuevoDetalle.cantidad
+                encontrado = true
+                break
+            }
+        }
+               
+        if(!encontrado){
+            this.detalles.push(nuevoDetalle)
+        }
+
+        this.calcularTotal()
     }
 
     public calcularTotal(){
@@ -47,11 +58,15 @@ Cliente: Venancia
 ------------------------------------
 PROD   DESC            CANT   PRECIO
 
-p1     cfkjshjksdh        6       10
-p2     cfkjshjksdh        6       10
-p3     cfkjshjksdh        6       10
+p1     movida             6       10
+p2     movidón            6       10
+p3     movidote           6       10
+
+
 
 */
+
+
 
 
 
