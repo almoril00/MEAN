@@ -32,4 +32,8 @@ export class DetallePedidoComponent implements OnInit {
     this.cesta.reducirCantidadDetalle(this.detalle.producto._id)
   }
 
+  public borrarDetalle():void{
+    this.cesta.eliminarDetalle(this.detalle.producto._id)
+  }
+
 }

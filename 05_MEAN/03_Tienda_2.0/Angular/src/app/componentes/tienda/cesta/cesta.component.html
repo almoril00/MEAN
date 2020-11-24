@@ -1,4 +1,8 @@
 
+<h4 *ngIf="cesta.getDetalles().length==0" class="d-flex justify-content-center mt-4 mb-4">
+    Todavía no hay productos en la cesta
+</h4>
+
 <div *ngFor="let dp of cesta.getDetalles()">
     <app-detallePedido [detalle]="dp"></app-detallePedido>
 </div>

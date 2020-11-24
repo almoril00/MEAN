@@ -61,7 +61,14 @@ export class Pedido {
 
     //Elimina el detalle que contiene el producto indicado
     public eliminarDetalle(idProducto:string){
-        //
+        for(let a=0; a<this.detalles.length; a++){
+            let dp = this.detalles[a]
+            if(dp.producto._id == idProducto){
+                this.detalles.splice(a,1)
+                break
+            }
+        }
+        this.calcularTotal()
     }
 
     public calcularTotal(){
