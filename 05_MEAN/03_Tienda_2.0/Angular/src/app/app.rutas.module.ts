@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
+import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
 
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
@@ -42,6 +43,10 @@ const rutasMaquetacionTienda = [
   {
     path      : 'cesta',
     component : CestaComponent
+  },
+  {
+    path      : 'confirmacion',
+    component : ConfirmacionCompraComponent
   }
 ]
 

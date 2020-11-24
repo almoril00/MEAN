@@ -18,23 +18,25 @@ import { InterceptorAutenticacion } from './interceptores/interceptor.autenticac
 import { ProductoComponent } from './componentes/tienda/producto/producto.component';
 import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
 import { DetallePedidoComponent } from './componentes/tienda/detallePedido/detallePedido.component';
+import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegistroComponent,
-    AceptacionTerminosComponent,
-    CabeceraComponent,
     PieComponent,
-    CatalogoComponent,
-    MaquetacionLoginComponent,
-    MaquetacionTiendaComponent,
+    AppComponent,
     MenuComponent,
+    CestaComponent,
+    LoginComponent,
     PerfilComponent,
     ProductoComponent,
-    CestaComponent,
-    DetallePedidoComponent
+    RegistroComponent,
+    CabeceraComponent,
+    CatalogoComponent,
+    DetallePedidoComponent,
+    MaquetacionLoginComponent,
+    MaquetacionTiendaComponent,
+    AceptacionTerminosComponent,
+    ConfirmacionCompraComponent
   ],
   imports: [
     BrowserModule,

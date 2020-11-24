@@ -4,15 +4,15 @@ import { Usuario } from './usuario';
 export class Pedido {
 
     public constructor(
-        public _id        : string  = null,
+        public _id          : string  = null,
         //Composición de objetos
-        public usuario    : Usuario = null,
-        public fecha      : string  = null,
-        public formaPago  : string  = null,
-        public dirEntrega : string  = null,
-        public estado     : string  = null,
-        public total      : number  = null,
-        private detalles  : DetallePedido[] = []){
+        public usuario      : Usuario = null,
+        public fechaEntrega : string  = null,
+        public formaPago    : string  = null,
+        public dirEntrega   : string  = null,
+        public estado       : string  = null,
+        public total        : number  = null,
+        private detalles    : DetallePedido[] = []){
     }
 
     //Añade un detalle al pedido
@@ -68,6 +68,11 @@ export class Pedido {
                 break
             }
         }
+        this.calcularTotal()
+    }
+
+    public eliminarDetalles(){
+        this.detalles = []
         this.calcularTotal()
     }
 

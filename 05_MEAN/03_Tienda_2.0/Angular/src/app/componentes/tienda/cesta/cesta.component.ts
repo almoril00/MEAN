@@ -20,4 +20,15 @@ export class CestaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //comprar
+
+  public vaciarCesta():void{
+    //Le podemos pedir a la cesta, que está guardada en el sessionService, que elimine sus detalles
+    this.cesta.eliminarDetalles()
+
+    //Tambien podemos directamente sustituir la cesta que hay en el sessionService por un pedido nuevo
+    //this.sessionService.setItem("cesta", new Pedido())
+    //this.cesta = this.sessionService.getItem("cesta")
+  }
+
 }

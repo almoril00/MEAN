@@ -14,11 +14,10 @@ export class DetallePedidoComponent implements OnInit {
 
   @Input()
   public detalle:DetallePedido
-  //@Input() 
+  @Input() 
   private cesta:Pedido
 
-  constructor(private sessionService:SessionService) { 
-    this.cesta = sessionService.getItem("cesta")
+  constructor() { 
   }
 
   ngOnInit(): void {
@@ -37,3 +36,9 @@ export class DetallePedidoComponent implements OnInit {
   }
 
 }
+
+
+
+
+
+

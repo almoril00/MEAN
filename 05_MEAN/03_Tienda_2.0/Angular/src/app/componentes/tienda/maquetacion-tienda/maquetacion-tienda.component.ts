@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
   selector: 'app-maquetacion-tienda',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaquetacionTiendaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sessionService:SessionService,
+              private router:Router) {
+
+    if(!sessionService.getItem("usuario")){
+      router.navigateByUrl("/")
+    }
+
+  }
 
   ngOnInit(): void {
   }
