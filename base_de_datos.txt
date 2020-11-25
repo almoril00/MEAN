@@ -94,7 +94,7 @@ TOTAL??
 			{
 				cantidad :
 				precio   :
-				producto :
+				producto : {
 				
 					//Opcion 1
 					_id_producto : Muy costoso en consultas

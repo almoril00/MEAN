@@ -1,8 +1,6 @@
 const Producto = require("../entidades/producto").Producto
 
-
 exports.listarProductos = function(criterio){
-
     return new Promise(function(resolve, reject){
         Producto
             .find( /*criterio*/ )
@@ -14,9 +12,7 @@ exports.listarProductos = function(criterio){
                 reject({ codigo:500, descripcion:"Error en la base de datos"})//MAL: 500
             })
     })
-
 }
-
 
 exports.buscarProducto = function(_id){
 
@@ -38,13 +34,11 @@ exports.buscarProducto = function(_id){
 
 }
 
-
 exports.insertarProducto = function(producto, autoridad){
 
     return new Promise(function(resolve, reject){
 
         //AUTORIZACIÓN
-        /*
         if(autoridad.rol != "EMPLEADO"){
             reject({ 
                 codigo : 403, 
@@ -52,7 +46,6 @@ exports.insertarProducto = function(producto, autoridad){
             })
             return
         }
-        */
         
         //VALIDACION
         //->reject

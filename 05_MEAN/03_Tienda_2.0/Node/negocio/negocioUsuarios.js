@@ -124,7 +124,6 @@ exports.modificarUsuario = function(usuario,  //Usuario a modificar
                 return
             }
 
-
             //El usuario recibido puede contener propiedades que no deben cambiar:
             //-pw
             //-rol

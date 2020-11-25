@@ -22,3 +22,16 @@ export class MaquetacionTiendaComponent implements OnInit {
   }
 
 }
+
+
+/*
+
+{ path: '',
+    redirectTo: '/heroes',
+    pathMatch: 'full'
+},
+{ path: '**', component: PageNotFoundComponent }
+
+
+
+*/
