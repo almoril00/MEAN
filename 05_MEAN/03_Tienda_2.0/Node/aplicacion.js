@@ -38,11 +38,7 @@ function pruebas(){
                         callback("NO EXISTE EL PRODUCTO") //Este hilo no ha podido completar su tarea
                         return
                     }
-                    console.log("=========================================")
-                    console.log(producto) 
-
                     total += detalle.cantidad*producto.precio
-                                      
                     callback() //Este hilo ha completado su tarea con éxito
                 })
                 .catch( error => {
@@ -57,8 +53,6 @@ function pruebas(){
             //modificar el estado del pedido a "ACEPTADO"
         })
         .catch( error => console.log(error))
-
-
     })
     .catch(error => console.log(error))
  
