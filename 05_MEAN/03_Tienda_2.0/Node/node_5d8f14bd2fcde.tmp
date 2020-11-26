@@ -17,7 +17,39 @@ console.log("Arrancando...")
 JWTUtil.crearClaveJWT()
 
 //Conectamos con la base de datos
-mongooseUtil.conectarBBDD(arrancarServidor)
+//mongooseUtil.conectarBBDD(arrancarServidor)
+mongooseUtil.conectarBBDD(prueba)
+
+
+
+
+const asyng = require("async")
+function prueba(){
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function arrancarServidor(){
 

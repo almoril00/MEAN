@@ -50,6 +50,8 @@ exports.insertarProducto = function(producto, autoridad){
         //VALIDACION
         //->reject
 
+        //Eliminamos cualquier valor que venga en el _id
+        delete producto._id
         let productoMG = new Producto(producto)
         productoMG
             .save()

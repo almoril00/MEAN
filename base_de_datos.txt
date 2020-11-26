@@ -73,8 +73,6 @@ PRODUCTOS
 PEDIDOS 
 
 
-TOTAL??
-
 [
 	{
 		_id        : ObjectId
@@ -90,8 +88,8 @@ TOTAL??
 		dirEntrega :
 		estado     :
 		TOTAL      : 500 
-		detalles   : [
-			{
+		detalles   : 
+			[{
 				cantidad :
 				precio   :
 				producto : {
@@ -107,9 +105,9 @@ TOTAL??
 					-descripcion
 					
 					//Opcion 3
-					el producto entero 					
-			}
-		]
+					el producto entero 
+				}
+			}]
 	}
 ]
 

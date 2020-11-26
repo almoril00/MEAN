@@ -54,7 +54,10 @@ exports.insertarUsuario = function(usuario){
                         reject({ codigo:400, descripcion:"Ya existe un usuario con ese login"})
                         return 
                     }
+                    //Eliminamos de usuario cualquier posible valor en el _id
+                    delete usuario._id
                     //Insertar, pero el usuario que hemos recibido no tiene save!
+                    //Necesitamos un objeto del MODELO
                     let usuarioMG = new Usuario(usuario)
                     return usuarioMG.save()
                 })

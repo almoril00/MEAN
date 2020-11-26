@@ -19,8 +19,7 @@ listar los pedidos
 aceptar un pedido
 
 
-FACTURAS
-	
+FACTURAS	
 	
 listar facturas
 
@@ -52,50 +51,78 @@ Content-type: application/json
 REST
 
 
-Recursos:
-
-productos
-pedidos
-detallePedido
-facturas
-detalleFactura
-usuarios
-clientes
-empleados
-
-
 ////////////
 //USUARIOS//
 ////////////
 
-METODO	RUTA		PARAMETROS 	BODY		RESPUESTA
+METODO	RUTA		PARAMETROS 	BODY		RESPUESTA	FUNCIONALIDAD
 		
-GET 	/usuarios	criterio	-		[ { json } ]	
-GET	/usuarios/:id	-		-		{ json }
-POST	/usuarios	-		{ json }	{ json }
-PUT 	/usuarios/:id	-		{ json }	{ json }
-DELETE  /usuarios/:id	-		-		-
+GET 	/usuarios	criterio	-		[ { json } ]	listarUsuarios
+GET	/usuarios/:id	-		-		{ json }        buscarUsuarioPorId
+POST	/usuarios	-		{ json }	{ json }	insertarUsuario
+PUT 	/usuarios/:id	-		{ json }	{ json }	modificarUsuario
+DELETE  /usuarios/:id	-		-		-		borrarUsuario
+
+/////////////
+//PRODUCTOS//
+/////////////
+
+METODO	RUTA		PARAMETROS 	BODY		RESPUESTA	FUNCIONALIDAD
+		
+GET 	/productos	criterio	-		[ { json } ]	listarProductos
+GET	/productos/:id	-		-		{ json }	buscarProdutoPorId
+POST	/productos	-		{ json }	{ json }	insertarProducto
+PUT 	/productos/:id	-		{ json }	{ json }	modificarProducto
+DELETE  /productos/:id	-		-		-		borrarProducto
+
+///////////
+//PEDIDOS//
+///////////
+
+METODO	RUTA			PARAMETROS 	BODY		RESPUESTA	FUNCIONALITÉ
+		
+GET 	/pedidos		criterio	-		[ { json } ]	listarPedidos
+GET	/pedidos/:id		-		-		{ json }	buscarPedidoPorId
+POST	/pedidos		-		{ json }	{ json }	insertarPedido
+PUT 	/pedidos/:id		-		{ json }	{ json }	modificarPedido
+DELETE  /pedidos/:id		-		-		-		borrarPedido
+
+PUT	/pedidos/:id/estados	-		{ json }	-		aceptarPedido/facturarPedido/confirmarPedido
 
 
-alta pedido
-modificar pedido
-borrar pedido
-listar pedidos
-buscar pedido por id
-aceptar un pedido
+Esto no es rest
 
-insertar producto
-modificar producto
-borrar producto
-buscar un producto por id
-listar por un criterio
+POST /pedidos/:id/aceptar
+POST /aceptarPedidos/:id
 
-X insertar factura
-X modificar factura
-X borrar factura
-abonar factura
-listar facturas
-buscar una factura por id
+
+PUT /pedidos/87/estados
+CT:app/json
+-----------------------
+{
+	"estado" : "ACEPTADO"
+}
+
+POST /ordenDeCompra
+
+
+---------------
+|¿QUE ES REST?|
+---------------
+|FALSEDAD     |
+|MENTIRA      |
+|ENGAÑO       |
+|CHARADA      |
+|PARIPE       |
+---------------
+
+
+
+
+
+
+
+
 
 
 

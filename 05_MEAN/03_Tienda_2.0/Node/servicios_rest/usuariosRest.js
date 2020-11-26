@@ -10,8 +10,7 @@ router.post  ('/usuarios', insertarUsuario)
 router.put   ('/usuarios/:id', modificarUsuario)
 router.delete('/usuarios/:id', borrarUsuario)
 
-//Solo necesitamos exportar el router porque ya sabe a qué
-//funciones hay que llamar
+//Solo necesitamos exportar el router
 exports.router = router
 
 //                                              //

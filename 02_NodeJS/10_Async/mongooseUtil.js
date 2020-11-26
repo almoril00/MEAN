@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 exports.conectarBBDD = function(callback){
 
-    const url="mongodb://localhost:27017/tienda" 
+    const url="mongodb://localhost:27017/Node_10" 
 
     mongoose
     .connect(url, { useNewUrlParser: true, 

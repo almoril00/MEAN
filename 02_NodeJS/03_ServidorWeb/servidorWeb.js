@@ -12,7 +12,8 @@ let mimeTypes = {
     "html" : "text/html",
     "js"   : "application/javascript",
     "css"  : "text/css",
-    "jpg"  : "image/jpeg"
+    "jpg"  : "image/jpeg",
+    "ico"  : "image/x-icon"
 }
 
 //Creamos el servidor y proporcionamos la función que procesará TODAS las peticiones

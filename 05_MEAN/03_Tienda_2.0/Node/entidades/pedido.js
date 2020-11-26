@@ -1,9 +1,10 @@
+const { ObjectId } = require("bson")
 const mongoose = require("mongoose")
 const Producto = require("./producto.js").Producto
 //const Usuario = require("./producto.js").Usuario
 
 let esquemaPedido = new mongoose.Schema({
-    //_id
+    //_id         : ObjectId,
     //No queremos el usuario entero
     //usuario     : Usuario.schema,
     //Queremos un subconjunto de sus propiedades

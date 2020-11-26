@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           this.sessionService.setItem("usuario",respuesta.usuario)
 
           //Si descrubrimos que inicializar la tienda es algo más que esta simple 
-          //línea nos lo llevariamos a otra parte
+          //línea nos lo llevariamos a otra parte          
           this.sessionService.setItem("cesta", new Pedido())
 
           this.router.navigateByUrl("/tienda/catalogo")

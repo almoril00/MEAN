@@ -8,6 +8,7 @@ router.get("/pedidos/:id", buscarPedido)
 router.post("/pedidos", insertarPedido)
 router.put("/pedidos/:id", modificarPedido)
 router.delete("/pedidos/:id", borrarPedido)
+//
 router.put("/pedidos/:id/estados", aceptarPedido)
 
 exports.router = router
@@ -37,12 +38,19 @@ function insertarPedido(request, response){
         })
 }
 
+//PUT /pedidos/:id
 function modificarPedido(request, response){
     let idPedido = request.params.id
     let pedido = request.body
     pedido._id = idPedido
-    //
-    //
+    
+    negocioPedidos
+        .modificarPedido(pedido, request.autoridad)
+        .then( pedidoModificado => response.json(pedidoModificado))
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        })
 }
 
 function borrarPedido(request, response){

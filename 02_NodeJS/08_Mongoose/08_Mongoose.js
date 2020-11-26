@@ -87,6 +87,10 @@ function pruebas(){
     //Save es asíncrono y funciona con callbacks y promesas
     //Una vez insertado nos proporcionan el objeto tal cual haya quedado
     //en la base de datos
+
+    //Cuidado! Debemos asegurarnos de que el objeto no tiene null como valor de _id
+    //antes del save si queremos que nos devuelvan el _id generado por mongoDB 
+
     //usr.save()
     //   .then( clienteInsertado => console.log(clienteInsertado))
     //   .catch( error => console.log(error))  
