@@ -59,8 +59,25 @@ function borrarPedido(request, response){
     //
 }
 
+//PUT /pedidos/:id/estados
+//CT: app/json
+//------------------------
+//{
+//    "estado" : "ACEPTADO"    
+//}
 function aceptarPedido(request, response){
-    //
-    //
-    //
+    
+    let idPedido = request.params.id
+    let estado = request.body.estado
+
+    negocioPedidos
+        .aceptarPedido(idPedido, request.autoridad)
+        .then( (factura) => {
+            response.json(factura)
+        })
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        })        
+
 }

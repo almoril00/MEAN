@@ -1,4 +1,3 @@
-const { ObjectId } = require("bson")
 const mongoose = require("mongoose")
 const Producto = require("./producto.js").Producto
 //const Usuario = require("./producto.js").Usuario

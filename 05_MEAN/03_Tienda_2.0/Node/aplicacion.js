@@ -18,71 +18,9 @@ JWTUtil.crearClaveJWT()
 
 //Conectamos con la base de datos
 //mongooseUtil.conectarBBDD(arrancarServidor)
-mongooseUtil.conectarBBDD(pruebas)
 
-const Pedido   = require("./entidades/pedido").Pedido
-const Producto = require("./entidades/producto").Producto
-const async    = require("async")
-function pruebas(){
-
-    Pedido
-    .findById("5fbfead3f441652b582dedf1")
-    .then( pedido => {
-
-        let total = 0;
-        async.each(pedido.detalles, function(detalle, callback) {            
-            Producto
-                .findById(detalle.producto._id)
-                .then( producto => {
-                    if(!producto){
-                        callback("NO EXISTE EL PRODUCTO") //Este hilo no ha podido completar su tarea
-                        return
-                    }
-                    total += detalle.cantidad*producto.precio
-                    callback() //Este hilo ha completado su tarea con éxito
-                })
-                .catch( error => {
-                    callback("ERROR EN LA BASE DE DATOS")
-                })
-        })
-        .then( () => {
-            console.log("TODO BIEN!")
-            console.log("Total:"+total)
-            //emitir factura
-            //preparar envío
-            //modificar el estado del pedido a "ACEPTADO"
-        })
-        .catch( error => console.log(error))
-    })
-    .catch(error => console.log(error))
- 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const negocioPedidos = require("./negocio/negocioPedidos")
+mongooseUtil.conectarBBDD(arrancarServidor)
 
 function arrancarServidor(){
 

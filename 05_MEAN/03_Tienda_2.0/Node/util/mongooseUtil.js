@@ -12,6 +12,7 @@ exports.conectarBBDD = function(callback){
             //Esto es para que despues de un update devuelvan el objeto tal cual ha quedado
             //en la coleccion
             mongoose.set('returnOriginal', false)
+            mongoose.set('useFindAndModify', false)
             callback()
         })
         .catch( error => console.log(error))

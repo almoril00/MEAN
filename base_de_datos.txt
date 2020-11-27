@@ -114,16 +114,29 @@ PEDIDOS
 
 FACTURAS
 
-Va a ser de mentirijilla
-
-[
 {
-	_id
-	_id_pedido
-	_total
-	...
+    _id		  : ObjectId,
+    usuario       :   { 
+        _id       : mongoose.ObjectId,
+        nombre    : String,
+        correoE   : String,
+        direccion : String,
+        telefono  : String
+    },
+
+    fechaFacturacion : String,
+    formaPago        : String,
+    dirFacturacion   : String,
+    estado           : String,
+    total            : Number,
+
+    detalles     : [ {
+        cantidad  : Number,
+        precio    : Number,
+        descuento : Number,
+        producto  : Producto.schema,
+    } ]
 }
-]
 
 
 ////////////////////////////////////////////////////
