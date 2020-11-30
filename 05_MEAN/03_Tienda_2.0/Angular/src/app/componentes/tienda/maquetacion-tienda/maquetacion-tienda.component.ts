@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
@@ -10,11 +10,26 @@ import { SessionService } from 'src/app/servicios/session.service';
 export class MaquetacionTiendaComponent implements OnInit {
 
   constructor(private sessionService:SessionService,
+              private activateRoute:ActivatedRoute,
               private router:Router) {
+       
+    console.log(activateRoute)
+
 
     if(!sessionService.getItem("usuario")){
       router.navigateByUrl("/")
+      return
     }
+
+    router.navigate([
+      {
+        outlets : {
+          //'primary'         : ['catalogo'] ,
+          'barra-derecha'   : ['resumenCesta'],
+          'barra-izquierda' : ['mostrarBarraIzq']
+        }
+      }
+    ], { relativeTo : activateRoute, skipLocationChange : true  } )
 
   }
 

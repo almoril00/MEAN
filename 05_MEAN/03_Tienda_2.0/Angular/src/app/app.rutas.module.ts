@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
 import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
+import { ResumenCestaComponent } from './componentes/tienda/resumen-cesta/resumen-cesta.component';
+import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquiereda.component';
 
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
@@ -47,10 +49,29 @@ const rutasMaquetacionTienda = [
   {
     path      : 'confirmacion',
     component : ConfirmacionCompraComponent
+  },
+
+  //Rutas para los named router outlets
+  //Son rutas a parte
+  {
+    outlet    : 'barra-derecha',
+    path      : 'resumenCesta',
+    component : ResumenCestaComponent
+  },
+  //{
+  //  outlet    : 'barra-derecha',
+  //  path      : 'ponquiMonqui',
+  //  component : BarraIzquierdaComponent
+  //},
+  {
+    outlet    : 'barra-izquierda',
+    path      : 'mostrarBarraIzq',
+    component : BarraIzquierdaComponent
   }
 ]
 
 //Estas rutas son para el router-outlet que hay en AppComponent.html
+//Son para la primera carpeta de la barra del navegador
 const rutas = [
   {
     path      : '',
@@ -67,7 +88,6 @@ const rutas = [
     component : MaquetacionTiendaComponent,
     children  : rutasMaquetacionTienda
   }
-
 ]
 
 

@@ -19,6 +19,8 @@ import { ProductoComponent } from './componentes/tienda/producto/producto.compon
 import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
 import { DetallePedidoComponent } from './componentes/tienda/detallePedido/detallePedido.component';
 import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
+import { ResumenCestaComponent } from './componentes/tienda/resumen-cesta/resumen-cesta.component';
+import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquiereda.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-c
     MaquetacionLoginComponent,
     MaquetacionTiendaComponent,
     AceptacionTerminosComponent,
-    ConfirmacionCompraComponent
+    ConfirmacionCompraComponent,
+    ResumenCestaComponent,
+    BarraIzquierdaComponent
   ],
   imports: [
     BrowserModule,
