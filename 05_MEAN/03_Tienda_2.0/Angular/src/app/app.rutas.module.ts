@@ -14,7 +14,7 @@ import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component'
 import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
 import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
 import { ResumenCestaComponent } from './componentes/tienda/resumen-cesta/resumen-cesta.component';
-import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquiereda.component';
+import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquierda.component';
 
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
@@ -51,23 +51,25 @@ const rutasMaquetacionTienda = [
     component : ConfirmacionCompraComponent
   },
 
+  /*
   //Rutas para los named router outlets
-  //Son rutas a parte
+  //Son rutas aparte
   {
     outlet    : 'barra-derecha',
     path      : 'resumenCesta',
     component : ResumenCestaComponent
   },
-  //{
-  //  outlet    : 'barra-derecha',
-  //  path      : 'ponquiMonqui',
-  //  component : BarraIzquierdaComponent
-  //},
+  {
+    outlet    : 'barra-derecha',
+    path      : 'ponquiMonqui',
+    component : BarraIzquierdaComponent
+  },
   {
     outlet    : 'barra-izquierda',
     path      : 'mostrarBarraIzq',
     component : BarraIzquierdaComponent
   }
+  */
 ]
 
 //Estas rutas son para el router-outlet que hay en AppComponent.html
@@ -89,8 +91,6 @@ const rutas = [
     children  : rutasMaquetacionTienda
   }
 ]
-
-
 
 @NgModule({
   declarations: [],

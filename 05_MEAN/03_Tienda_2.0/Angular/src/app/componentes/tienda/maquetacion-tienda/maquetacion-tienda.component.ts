@@ -15,25 +15,28 @@ export class MaquetacionTiendaComponent implements OnInit {
        
     console.log(activateRoute)
 
-
     if(!sessionService.getItem("usuario")){
       router.navigateByUrl("/")
       return
     }
 
-    router.navigate([
+    
+  }
+  
+  ngOnInit(): void {
+    
+    /*
+    this.router.navigate([
+      '/tienda',
       {
         outlets : {
-          //'primary'         : ['catalogo'] ,
           'barra-derecha'   : ['resumenCesta'],
           'barra-izquierda' : ['mostrarBarraIzq']
         }
       }
-    ], { relativeTo : activateRoute, skipLocationChange : true  } )
-
-  }
-
-  ngOnInit(): void {
+    ], { skipLocationChange : true  } )
+    */
+   
   }
 
 }

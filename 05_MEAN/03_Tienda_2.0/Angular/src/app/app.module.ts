@@ -20,7 +20,7 @@ import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
 import { DetallePedidoComponent } from './componentes/tienda/detallePedido/detallePedido.component';
 import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
 import { ResumenCestaComponent } from './componentes/tienda/resumen-cesta/resumen-cesta.component';
-import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquiereda.component';
+import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquierda.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +34,13 @@ import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/ba
     RegistroComponent,
     CabeceraComponent,
     CatalogoComponent,
+    ResumenCestaComponent,
     DetallePedidoComponent,
+    BarraIzquierdaComponent,
     MaquetacionLoginComponent,
     MaquetacionTiendaComponent,
     AceptacionTerminosComponent,
     ConfirmacionCompraComponent,
-    ResumenCestaComponent,
-    BarraIzquierdaComponent
   ],
   imports: [
     BrowserModule,
