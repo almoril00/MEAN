@@ -1,5 +1,6 @@
 //npm install async
 const async = require("async")
+const { promises } = require("fs")
 
 const mongooseUtil = require('./mongooseUtil')
 const Producto = require("./entidades/producto").Producto
@@ -25,7 +26,7 @@ function pruebas(){
         },
         { 
             nombre : "DDD",
-            existencias : 0
+            existencias : 100
         },
         { 
             nombre : "EEE",
@@ -33,14 +34,13 @@ function pruebas(){
         }
     ]
 
-    async
-        .each(productos, function(producto, callback){
 
-            console.log("=========================================")
-            console.log(producto)
+    let insertarProducto = function(producto){
+
+        return new Promise(function(resolve, reject){
 
             if(producto.existencias<1){
-                callback("ERROR. El producto "+producto.nombre+" no tiene existencias.")
+                reject("ERROR. El producto "+producto.nombre+" no tiene existencias.")
                 return
             }
 
@@ -49,21 +49,22 @@ function pruebas(){
                 .save()
                 .then( productoInsertado => {
                     console.log(producto.nombre+":"+productoInsertado._id)
-                    callback()
+                    resolve()
                 })
                 .catch( error => {
-                    callback("Error al insertar el producto "+producto.nombre)
-                })
-        })
-        .then( () => {
-            console.log("TODOS INSERTADOS")
-            //continuamos con el proceso...
-        })
-        .catch( error => {
-            console.log("NO SE INSERTARON TODOS")
-            console.log(error)
+                    reject("Error al insertar el producto "+producto.nombre)
+                })            
+
         })
 
+    }
+
+    let promesas = productos.map( p => insertarProducto(p) )
+
+    Promise
+        .all(promesas)
+        .then( () => console.log("OK!"))
+        .catch( error => console.log(error))
 
 }
 

@@ -31,8 +31,7 @@ export class CestaComponent implements OnInit {
     //Tambien podemos directamente sustituir la cesta que hay en el sessionService por un pedido nuevo
     //Hacemos esto para que sea un nuevo pedido sin _id y si se pulsa guardar
     //que se inserte en vez de modificarse    
-    this.sessionService.setItem("cesta", new Pedido())
-    this.cesta = this.sessionService.getItem("cesta")
+    this.pedidosService.crearCesta() 
   }
 
   //

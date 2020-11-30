@@ -95,9 +95,10 @@ exports.aceptarPedido = function(idPedido,autoridad){
         Pedido
         .findById(idPedido)
         .then( ped => {            
-            //
-            //HAY QUE MIRAR SI EL PEDIDO EXISTE
-            // 
+            if(!ped){
+                reject({ codigo:404, descripcion:"El pedido no existe, mira a ver."})
+                return
+            }
             pedido = ped
             
             return async.each(pedido.detalles, function(detalle, callback) {            

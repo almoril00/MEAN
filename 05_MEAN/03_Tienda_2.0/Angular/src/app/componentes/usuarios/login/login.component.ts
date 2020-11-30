@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Pedido } from 'src/app/entidades/pedido';
 import { Usuario } from 'src/app/entidades/usuario';
 import { AutenticacionService } from 'src/app/servicios/autenticacion.service';
+import { PedidosService } from 'src/app/servicios/pedidos.service';
 import { SessionService } from 'src/app/servicios/session.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private autenticacionService:AutenticacionService,
               private sessionService:SessionService,
+              private pedidosService:PedidosService,
               private router:Router) { 
     //Inicializar en constructor las propiedades del componene es más ortodoxo 
     this.usuario = new Usuario()
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
   public entrar():void{
 
     if(!this.usuario.login || !this.usuario.pw){
-      this.mensaje = "IMBECIL"
+      this.mensaje = "Por favor: escribe algo..."
       return
     }    
 
@@ -48,7 +50,12 @@ export class LoginComponent implements OnInit {
 
           //Si descrubrimos que inicializar la tienda es algo más que esta simple 
           //línea nos lo llevariamos a otra parte          
-          this.sessionService.setItem("cesta", new Pedido())
+          //let cesta:Pedido = new Pedido()
+          //cesta.usuario = respuesta.usuario
+          //this.sessionService.setItem("cesta", cesta)
+
+          //Lo hemos descubierto...
+          this.pedidosService.crearCesta()
 
           this.router.navigateByUrl("/tienda/catalogo")
         },
