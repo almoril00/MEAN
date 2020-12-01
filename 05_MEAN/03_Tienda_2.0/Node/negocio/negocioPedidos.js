@@ -153,4 +153,22 @@ exports.aceptarPedido = function(idPedido,autoridad){
     })
 }
 
+exports.listarPedidos = function(idUsuario, autoridad){
 
+    return new Promise( function(resolve, reject){
+
+        //Autorización
+        if( autoridad.rol=="CLIENTE" && autoridad._id != idUsuario){
+            reject({ codigo:403, descripcion:"Los clientes solo pueden listar sus pedidos"})
+            return
+        }
+
+        Pedido
+            .find( { "usuario._id" : idUsuario } )
+            .then( listadoPedidos => resolve(listadoPedidos) )
+            .catch( error => {
+                console.log(error)
+                reject({ codigo:500, descripcion:"Error en la base de datos al listar los pedidos"})
+            } )
+    })
+}

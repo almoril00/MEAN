@@ -5,16 +5,25 @@ let router = express.Router()
 
 router.get("/pedidos", listarPedidos)
 router.get("/pedidos/:id", buscarPedido)
-router.post("/pedidos", insertarPedido)
-router.put("/pedidos/:id", modificarPedido)
+router.post("/pedidos", insertarPedido) //
+router.put("/pedidos/:id", modificarPedido) //
 router.delete("/pedidos/:id", borrarPedido)
-//
-router.put("/pedidos/:id/estados", aceptarPedido)
+
+router.put("/pedidos/:id/estados", aceptarPedido) //
 
 exports.router = router
 
 function listarPedidos(request, response){
+    
     let idUsuario = request.query.idUsuario
+
+    negocioPedidos
+        .listarPedidos(idUsuario, request.autoridad)
+        .then( listaPedidos => response.json(listaPedidos))
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        })
     //
     //
 }

@@ -81,10 +81,12 @@ export class PedidosService {
             } else {
                 //ACEPTAMOS
                 funcion(pedido,resolve,reject)
-            }
-            
+            }            
         })
+    }
 
+    public listarPedidos(idUsuario:string):Observable<any>{
+        return this.httpClient.get(this.configuracion.url_servidor+"/pedidos?idUsuario="+idUsuario)
     }
 
 }

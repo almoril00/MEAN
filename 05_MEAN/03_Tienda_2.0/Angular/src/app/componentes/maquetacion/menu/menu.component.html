@@ -1,16 +1,17 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/tienda/perfil">{{ usuario.login }}</a>
+            <a class="nav-link" [routerLink]="['/tienda', { outlets : { 'primary' : 'perfil', 'barra-derecha' : 'resumenCesta' } }]">{{ usuario.login }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/tienda/catalogo">Catálogo</a>
+            <a class="nav-link" [routerLink]="['/tienda', { outlets : { 'primary' : 'catalogo', 'barra-derecha' : 'resumenCesta' } }]">Catálogo</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/tienda/cesta">Cesta</a>
+            <a class="nav-link" [routerLink]="['/tienda', { outlets : { 'primary' : 'cesta', 'barra-derecha' : null } }]">Cesta</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link">Pedidos</a>
+            <!--<a class="nav-link" routerLink="/tienda/pedidos">Pedidos</a>-->
+            <a class="nav-link" [routerLink]="['/tienda', { outlets : { 'primary' : 'pedidos', 'barra-derecha' : 'resumenCesta' } }]">Pedidos</a>
         </li>
         <li class="nav-item">
             <a class="nav-link">Facturas</a>

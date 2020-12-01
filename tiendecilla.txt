@@ -120,12 +120,46 @@ POST /ordenDeCompra
 
 
 
+paths:
+  
+  /login:
+    post:
+      
+  
+  /usuarios:
+    get:
+    post:
+  
+  /usuarios/{id}:
+    get:
+    put:
+    delete:
+  
+  /productos:
+    get:
+    post:
+  
+  /productos/{id}:
+    get:
+    put:
+    delete:
+  
+  /pedidos:
+    get:
+    post:  
+  
+  /pedidos/{id}
+    get:
+    put:
+    delete:  
+  
+  /pedidos/{id}/estados:
+    put:
+    
+  
 
 
-
-
-
-
+ { nombre : {$regex: new RegExp("áf"), $options: "i"}, "precio" : { $gt : 0, $lt:2000 } }
 
 
 

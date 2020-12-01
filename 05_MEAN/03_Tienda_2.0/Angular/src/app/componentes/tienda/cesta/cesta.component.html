@@ -1,4 +1,8 @@
 
+
+TOTAL: {{ cesta.total }}
+
+
 <h4 *ngIf="cesta.getDetalles().length==0" class="d-flex justify-content-center mt-4 mb-4">
     Todavía no hay productos en la cesta
 </h4>
@@ -12,7 +16,8 @@
     <h4>
         Total {{ cesta.total }} €
         <input type="button" value="Guardar" class="btn btn-primary ml-2" style="width:110px" (click)="guardar()"/>
-        <button class="btn btn-primary ml-2" routerLink="/tienda/confirmacion">Comprar</button>
+        <button class="btn btn-primary ml-2"
+                [routerLink]="['/tienda', { outlets : { 'primary' : 'confirmacion', 'barra-derecha' : 'resumenCesta' } }]">Comprar</button>
         <button class="btn btn-danger ml-2" (click)="vaciarCesta()">Vaciar</button>
     </h4>
 

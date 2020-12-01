@@ -32,6 +32,7 @@ export class CestaComponent implements OnInit {
     //Hacemos esto para que sea un nuevo pedido sin _id y si se pulsa guardar
     //que se inserte en vez de modificarse    
     this.pedidosService.crearCesta() 
+    this.cesta = this.sessionService.getItem("cesta")
   }
 
   //

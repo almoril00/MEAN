@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CBProducto } from 'src/app/entidades/CBProducto';
 import { Producto } from 'src/app/entidades/producto';
 import { ProductosService } from 'src/app/servicios/productos.service';
 
@@ -9,6 +10,7 @@ import { ProductosService } from 'src/app/servicios/productos.service';
 })
 export class CatalogoComponent implements OnInit {
 
+  public criterio:CBProducto = new CBProducto()
   public productos:Producto[] //Undefined
 
   constructor(private productosService:ProductosService) { 
@@ -21,13 +23,17 @@ export class CatalogoComponent implements OnInit {
   public listarProductos():void{
     this
       .productosService
-      .listarProductos()
+      .listarProductos(this.criterio)
       .subscribe(
         productos => this.productos = productos,
         error => {
           console.log(error)
         }
       )
+  }
+
+  public vaciarCriterio():void{
+    this.criterio = new CBProducto()
   }
 
 }

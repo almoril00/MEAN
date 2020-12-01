@@ -1,5 +1,21 @@
 
 
-<h2>RESUMEN</h2>
-<h2>CESTA</h2>
+<h4 class="text-center">
+    Cesta:    
+</h4>
+
+<h4 *ngIf="cesta.getDetalles().length==0" class="text-center">
+    La cesta está vacía
+</h4>
+
+<div *ngFor="let dp of cesta.getDetalles()">
+    {{dp.producto.nombre}} <br/>
+    <b>Cantidad:</b>{{dp.cantidad}} <b>Total:</b> {{dp.cantidad * dp.producto.precio}} €
+    <hr/>
+</div>
+
+<h4 *ngIf="cesta.getDetalles().length>0" class="text-center">
+    Total: {{ cesta.total }}
+</h4>
+
 

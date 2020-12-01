@@ -14,7 +14,7 @@ exports.router = router
 function listarProductos(request, response){
 
     //Obtener el criterio del request
-    let criterio = null;
+    let criterio = JSON.parse(request.query.criterio)
     negocioProductos
         .listarProductos(criterio)
         .then( listadoProductos => {

@@ -19,13 +19,10 @@ export class MaquetacionTiendaComponent implements OnInit {
       router.navigateByUrl("/")
       return
     }
-
     
   }
   
   ngOnInit(): void {
-    
-    /*
     this.router.navigate([
       '/tienda',
       {
@@ -34,22 +31,9 @@ export class MaquetacionTiendaComponent implements OnInit {
           'barra-izquierda' : ['mostrarBarraIzq']
         }
       }
-    ], { skipLocationChange : true  } )
-    */
-   
+    ], { skipLocationChange : true  } )   
   }
 
 }
 
 
-/*
-
-{ path: '',
-    redirectTo: '/heroes',
-    pathMatch: 'full'
-},
-{ path: '**', component: PageNotFoundComponent }
-
-
-
-*/

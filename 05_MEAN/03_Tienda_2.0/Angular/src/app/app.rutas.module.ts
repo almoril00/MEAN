@@ -15,6 +15,7 @@ import { CestaComponent } from './componentes/tienda/cesta/cesta.component';
 import { ConfirmacionCompraComponent } from './componentes/tienda/confirmacion-compra/confirmacion-compra.component';
 import { ResumenCestaComponent } from './componentes/tienda/resumen-cesta/resumen-cesta.component';
 import { BarraIzquierdaComponent } from './componentes/tienda/barra-izquierda/barra-izquierda.component';
+import { PedidosComponent } from './componentes/tienda/pedidos/pedidos.component';
 
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
@@ -50,8 +51,11 @@ const rutasMaquetacionTienda = [
     path      : 'confirmacion',
     component : ConfirmacionCompraComponent
   },
+  {
+    path      : 'pedidos',
+    component : PedidosComponent
+  },
 
-  /*
   //Rutas para los named router outlets
   //Son rutas aparte
   {
@@ -69,7 +73,6 @@ const rutasMaquetacionTienda = [
     path      : 'mostrarBarraIzq',
     component : BarraIzquierdaComponent
   }
-  */
 ]
 
 //Estas rutas son para el router-outlet que hay en AppComponent.html
@@ -78,16 +81,19 @@ const rutas = [
   {
     path      : '',
     component : MaquetacionLoginComponent,
+    //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
     children  : rutasMaquetacionLogin
   },
   {
     path      : 'usuarios',
     component : MaquetacionLoginComponent,
+    //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
     children  : rutasMaquetacionLogin
   },
   {
     path      : 'tienda',
     component : MaquetacionTiendaComponent,
+    //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
     children  : rutasMaquetacionTienda
   }
 ]
