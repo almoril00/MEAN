@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+
+    <!--Librería socket.io para el navegador-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>    
+    <link rel="stylesheet" 
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+            crossorigin="anonymous"> 
+</head>
+
+<script type="application/javascript">
+
+//En esta variable guardaremos el socket una vez esté abierto
+let socket = null
+
+function conectar(){
+
+    //Si no ha rellenado el alias no conectaremos
+    let alias = $("#alias").val()
+    if(alias.trim().length==0){
+        alert("Por favor escriba un alias")
+        return
+    }
+
+    //Son los clientes los que toman la iniciativa de conectar
+    //io.connect('http://IP:PUERTO', { opciones })
+    //Obtener el socket es síncrono, pero puede tardar cuerto tiempo en establecerse la conexión
+    socket = io.connect("http://localhost:10000", 
+                        {
+                            //forceNew : true,
+                            reconnection : false
+                        })
+
+    //Si queremos enterarnos de cuando se establece realmente la conexión
+    //añadimos el manejador de eventos 
+    socket.on('connect', function(){
+        console.log("Conexión establecida con el servidor")
+        enviarAlias()
+        modoConectado()
+    })
+
+    socket.on("nuevoMensaje", function(mensajeJSON){
+        nuevoMensaje(JSON.parse(mensajeJSON))
+    })
+
+    socket.on("listaUsuarios", function(listaUsuariosJSON){
+        mostrarListaUsuarios(JSON.parse(listaUsuariosJSON))
+    })
+
+    socket.on("aliasDuplicado", aliasDuplicado)
+    
+    //Este no es realmente necesario. Para desconectar hacer
+    //socket.disconnect() y ya
+    //Esto solo nos avisa de cuando se ha efecturado realmente la desconexión
+    socket.on("disconnect", modoDesconectado)
+
+}
+
+function aliasDuplicado(){
+    alert("El alias ya está siendo utilizado. Pruebe otro.")
+    desconectar()
+}
+
+function desconectar(){
+    //PAra cerrar un socket
+    socket.disconnect()
+    //En esta línea es posible que el socket siga conectado: es una tarea asíncrona
+    //modoDesconectado()
+}
+
+function enviarAlias(){
+    let alias = $("#alias").val()
+    socket.emit("alias",alias)
+}
+
+function enviarMensaje(){
+    //Con la función emit enviamos un mensaje a través de un socket
+    //Los mensajes en Socket.io son extremadamente sencillos:
+    //-son textos
+    //-tienen un nombre de mensaje y un valor
+    let mensaje = {
+        alias : $("#alias").val(),
+        texto : $("#mensaje").val()
+    }
+
+    socket.emit("mensaje", JSON.stringify(mensaje))
+    $("#mensaje").val("")
+}
+
+function nuevoMensaje(mensaje){
+    //Como todo el mundo sabe, esta comilla se llama backTick
+    $(`<div>${mensaje.alias}-${mensaje.texto}</div>`).appendTo("#mensajes")
+}
+
+function mostrarListaUsuarios(listaUsuarios){
+    $("#usuarios").html("")
+    $(listaUsuarios).each(function(){
+        $(`<div> 
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                ${this}
+           </div>`).appendTo("#usuarios")
+    })
+}
+
+function modoConectado(){
+    $("#btnConectar").prop("disabled", true )
+    $("#btnDesconectar").prop("disabled", false )
+    $("#btnEnviar").prop("disabled", false )
+    $("#alias").prop("disabled",true)
+}
+
+function modoDesconectado(){
+    socket = null
+    $("#btnConectar").prop("disabled", false )
+    $("#btnDesconectar").prop("disabled", true )
+    $("#btnEnviar").prop("disabled", true )
+    $("#alias").prop("disabled",false)
+}
+
+$(inicializacion)
+function inicializacion(){
+
+    $("#btnConectar").click(conectar)
+    $("#btnDesconectar").click(desconectar)
+    $("#btnEnviar").click(enviarMensaje)
+
+    modoDesconectado()
+
+}
+
+</script>
+
+<body>
+
+    <div class="jumbotron">
+        <h1>Chat 3000</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-7">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            Alias
+                        </div>
+                        <div class="col-7">
+                            <input type="text" id="alias" class="form-control"/>
+                        </div>
+                        <div class="col-3">
+                            <button id="btnConectar"    class="btn btn-primary btn-block">Conectar</button>
+                            <button id="btnDesconectar" class="btn btn-warning btn-block">Desconectar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            Mensaje
+                        </div>
+                        <div class="col-7">
+                            <textarea id="mensaje" class="form-control"></textarea>
+                        </div>
+                        <div class="col-3">
+                            <button id="btnEnviar" class="btn btn-primary btn-block">Enviar</button>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    Mensajes
+                </div>                
+                <div class="card-body">
+                    <div id="mensajes"></div>
+                </div>
+            </div>
+        </div>        
+        <div class="col-3">
+            <div class="card mt-2">
+                <div class="card-header">
+                    Participantes
+                </div>
+                <div class="card-body">
+                    <div id="usuarios"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

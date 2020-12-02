@@ -24,6 +24,13 @@ function login(request, response){
         .buscarPorCredenciales(credenciales.login, credenciales.pw)
         .then( usuario => {
 
+            /*
+            jwt.sign({
+                exp: Math.floor(Date.now() / 1000) + (60 * 60),
+                data: 'foobar'
+              }, 'secret');
+            */
+
             let token = jwt.sign(
                 { _id: usuario._id, login: usuario.login, rol: usuario.rol }, 
                 JWTUtil.privateKey, 
