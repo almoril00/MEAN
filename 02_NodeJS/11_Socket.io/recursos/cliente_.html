@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-    
+
     <!--Librería socket.io para el navegador-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-
+    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-            crossorigin="anonymous"></script>        
+                 integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+                 crossorigin="anonymous"></script>
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>    
     <link rel="stylesheet" 
@@ -21,6 +21,29 @@
 
 //En esta variable guardaremos el socket una vez esté abierto
 let socket = null
+
+function obtenerSalas(){
+    $.ajax({
+        url : "/salas"
+    })
+    .done(mostrarSalas)
+    .fail(error => { alert('Error al obtener las salas')})
+}
+
+function mostrarSalas(salas){
+    $("#salas").html("")
+    $(salas).each( (pos, sala) => {
+        $(`<input type='radio' 
+                  name='sala' 
+                  value='${sala}' 
+                  onclick="cambiarSala('${sala}')"/> ${sala}<br/>`)
+        .appendTo("#salas")
+    })
+}
+
+function cambiarSala(sala){
+    socket.emit("cambiarSala", sala)
+}
 
 function conectar(){
 
@@ -63,45 +86,7 @@ function conectar(){
     //socket.disconnect() y ya
     //Esto solo nos avisa de cuando se ha efecturado realmente la desconexión
     socket.on("disconnect", modoDesconectado)
-}
 
-function obtenerSalas(){
-    $.ajax({ 
-        url : 'http://localhost:10000/salas' 
-    })
-    .done(mostrarSalas)
-    .fail( error => alert("Fallo de los gordos"))
-}
-
-function mostrarSalas(salas){
-    console.log(salas)
-
-    $("#salas").html('')
-
-    /*
-    $(salas).each(function(pos, sala){
-        //Aqui this es cada uno de los elementos del array
-        $(`<input type='radio' 
-                  name='sala' 
-                  value='${sala}' 
-                  onclick='cambiarSala( "${sala}" ) '/> ${sala}<br/>`)
-        .appendTo("#salas")
-    })
-    */
-
-    $(salas).each(function(pos, sala){
-        //Aqui this es cada uno de los elementos del array
-        $(`<input type='radio' 
-                  name='sala' 
-                  value='${sala}'/> ${sala}<br/>`)
-        .click( e => cambiarSala(sala) )
-        .appendTo("#salas")
-    })    
-}
-
-function cambiarSala(sala){
-    console.log(sala)
-    socket.emit("cambiarSala", sala)
 }
 
 function aliasDuplicado(){
@@ -157,7 +142,6 @@ function modoConectado(){
     $("#btnDesconectar").prop("disabled", false )
     $("#btnEnviar").prop("disabled", false )
     $("#alias").prop("disabled",true)
-    $("#mensaje").prop("disabled",false)
 }
 
 function modoDesconectado(){
@@ -166,8 +150,9 @@ function modoDesconectado(){
     $("#btnDesconectar").prop("disabled", true )
     $("#btnEnviar").prop("disabled", true )
     $("#alias").prop("disabled",false)
-    $("#mensaje").prop("disabled",true)
 }
+
+
 
 $(inicializacion)
 function inicializacion(){

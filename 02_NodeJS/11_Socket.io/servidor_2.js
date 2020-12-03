@@ -1,50 +1,35 @@
-//npm install socket.io
 const socketIO = require("socket.io")
-
 const http = require("http")
 const express = require("express")
-const { response } = require("express")
-
-
-//Socket.io no es una implementación de websockets (aunque lo utiliza)
-
-//Necesitamos abrir un puerto para recibir las solicitudes de conexión
-//Para ello podemos utilizar el módulo 'http' o 'express'
-
-//Creamos un objeto server normal y corriente
 
 let app = express()
 app.use(express.static("./recursos"))
+
+//Publicamos un api RESt para que los clientes soliciten las salas
+let salas = [ 'General', 'Sala 1', 'Sala 2', 'Sala 3', 'Sala 4' ]
+app.get('/salas', function(request, response){
+    response.json(salas)
+})
 
 let servidor = http.createServer(app)
 servidor.listen(10000, function(){
     console.log("Esperando peticiones en el puerto 10000")
 })
 
-//Una vez que disponemos de un objeto server escuchando en un puerto
-//podemos crear la infraestructura de Socket.io
+
 let io = socketIO(servidor)
 
-//
+//Aqui guardamos los alias de los usuarios
 let aliasUsuarios = []
 
-//En socket.io todo funciona por EVENTOS
-
-//Eventos:
-//-un cliente se ha conectado
-//-un cliente se ha desconectado
-//-un cliente nos ha enviado un mensaje
-
-//io.on(<nombre_evento>, function manejadora de ese evento)
-
-//Socket.io lleva 'la cuenta' de todas las conexiones abiertas con los
-//distintos clientes
-//Cuando se conecta uno nuevo nos pasan el socket por parámetro por si
-//queremos hacer algo con el (queremos)
 io.on('connection', function(socket){
     console.log("Nueva conexión")
+    console.log(socket.rooms)
+    
+    //Por defcto uniremos a los nuevos usuarios a la sala 'General'
+    socket.join('General')
+    console.log(socket.rooms)
 
-    //Lo que hacemos con el socket que nos entregan es 'configurarlo'
     socket.on('alias', function(alias){
         nuevoAlias(socket, alias)
     })
@@ -53,16 +38,17 @@ io.on('connection', function(socket){
         nuevoMensaje(socket,mensajeJSON)
     })
 
+    socket.on('cambiarSala', function(sala){
+        cambiarSala(socket, sala)
+    })
+
     socket.on("disconnect", function(){
         usuarioDesconectado(socket)
     })
 
 })
 
-
 function nuevoAlias(socket, alias){
-    //En estas funciones 'this' es el socket
-    //console.log(this)
     console.log("Alias recibido:"+alias)    
 
     let encontrado = false
@@ -73,13 +59,11 @@ function nuevoAlias(socket, alias){
         }
     }
     if(encontrado){
-        //Para enviar desde el servidor un mensaje a un cliente concreto
-        //debemos usar su socket
         socket.emit("aliasDuplicado","Este alias ya está siendo utilizado")
         return
     }
 
-    //Cuando alguien se desconecte debemos eliminar su alias del array
+    //Cuando alguien se desconecte debemos acordarnos de eliminar su alias del array
     aliasUsuarios.push(alias)
 
     //Asociamos el alias al socket
@@ -93,11 +77,29 @@ function nuevoMensaje(socket, mensajeJSON){
     console.log("Mensaje recibido:")
     console.log(JSON.parse(mensajeJSON))
 
-    //si quisieramos enviar una respuesta inmediata a este mensaje...
-    //socket.emit("ACK","Mensaje recibido")
+    for(let room of socket.rooms){
+        if(room == socket.id){
+            continue
+        }
+        io.to(room).emit("nuevoMensaje", mensajeJSON)
+    }
 
-    //si queremos enviar un mensaje a todos los sockets que haiga:
-    io.emit("nuevoMensaje",mensajeJSON)
+
+}
+
+function cambiarSala(socket, sala){
+    console.log("El usuario "+socket.alias+" quiere cambiarse a la sala "+sala)
+
+    let rooms = socket.rooms
+    //Sacamos al socket de todas las salas en las que esté
+    for(room of rooms){
+        //Excepto de su sala privada
+        if(room != socket.id){
+            socket.leave(room)
+        }
+    }
+    socket.join(sala)
+    console.log(socket.rooms)
 }
 
 function usuarioDesconectado(socket){
