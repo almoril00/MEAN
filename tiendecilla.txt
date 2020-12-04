@@ -82,6 +82,7 @@ DELETE  /productos/:id	-		-		-		borrarProducto
 METODO	RUTA			PARAMETROS 	BODY		RESPUESTA	FUNCIONALITÉ
 		
 GET 	/pedidos		criterio	-		[ { json } ]	listarPedidos
+				idUsuario
 GET	/pedidos/:id		-		-		{ json }	buscarPedidoPorId
 POST	/pedidos		-		{ json }	{ json }	insertarPedido
 PUT 	/pedidos/:id		-		{ json }	{ json }	modificarPedido
@@ -103,7 +104,11 @@ CT:app/json
 	"estado" : "ACEPTADO"
 }
 
+
+
 POST /ordenDeCompra
+
+
 
 ---------------
 |¿QUE ES REST?|
@@ -156,6 +161,157 @@ paths:
   /pedidos/{id}/estados:
     put:
     
+  
+  
+  
+  
+  
+LISTAR LOS PEDIDOS DE UN USUARIO
+  
+
+
+GET	SELECT
+POST	INSERT
+PUT	UPDATE
+DELETE	DELETE
+
+SELECT * FROM PEDIDOS WHERE ID_USR=fhdjkdghkjs
+  
+            |
+GET /pedidos?idUsuario=1234567890ABCDEF1234
+            |
+
+
+GET /usuarios/1234567890ABCDEF1234/pedidos
+
+
+/usuarios
+
+	usr-1.txt
+	usr-2.txt
+	usr-3.txt
+	usr-4.txt
+	usr-5.txt
+	
+	
+/pedidos
+
+	ped-0
+	ped-1
+	ped-2
+	ped-3
+	ped-4
+	ped-5
+
+
+
+GET /usuarios/3/pedidos
+
+
+
+/usuarios
+
+	/usr-1
+		usr-1.txt
+		/pedidos
+			ped-0
+			ped-4
+		/facturas
+		/incidencias
+		/direcciones
+		
+	/usr-2
+		usr-2.txt
+		/pedidos
+			ped-1
+			ped-2
+		/facturas
+		/incidencias
+		/direcciones		
+		
+	/usr-3
+		usr-3.txt
+		/pedidos
+			ped-3
+			ped-5
+		/facturas
+		/incidencias
+		/direcciones	
+
+
+
+
+
+
+
+
+<script src="https://unpkg.com/realm-web@0.8.0/dist/bundle.iife.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+usuario._id 
+  
+  
+1..n
+1..*
+n..m
+*..*
+  
+  
+usuario   1..n    pedido
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+POST /clientes
+---------------
+{ }
+
+
+GET /clientes?param1=valor1
+---------------------------
+{
+
+}
+  
+  
+  
+  
+  
+
+
+
+
+  
+  
+  
+  
+  
+  
   
 
 

@@ -29,7 +29,7 @@ function conectar(){
 
     //Creamos el objeto cliente
     //Aqui prclientoporcionamos el id de la aplicación stitch a la que queremos conectar
-    const client = stitch.Stitch.initializeDefaultAppClient('agenda3000mkv-wrbqj');
+    const client = stitch.Stitch.initializeDefaultAppClient('agenda3000mkv-gouhq');
 
     //Obtenemos el esquema
     esquema = client.getServiceClient(stitch.RemoteMongoClient.factory, 
@@ -46,24 +46,83 @@ function conectar(){
 }
 
 function insertarPersona(){
-
     //crear un objeto con los datos del formulario
     let persona = {}
-    $("[campo]").each(function(pos, nodo){
+    $("#formulario [campo]").each(function(pos, nodo){
         persona[nodo.id] = nodo.value
     })
     console.log(persona)
+
+    //
+    // QUERY ANYWHERE
+    //
+    //Haz las consultas donde te salga de las narices
 
     //enviar el insert al servidor
     esquema
         .collection('personas')
         .insertOne(persona)
         .then( X => {
-            console.log(X)
+            console.log("Insertado:",X)
+            listarPersonas()
+        })
+        .catch( error => console.log(error))
+}
+
+function seleccionarPersona(id){
+    console.log("Seleccionar:"+id)
+
+    esquema
+        .collection("personas")
+        .findOne({ _id : id})
+        .then( persona => {
+            if(!persona){
+                console.log("No existe una persona con ese id")
+                return
+            }
+            rellenarFormulario(persona)
         })
         .catch( error => console.log(error))
 
 }
+
+function rellenarFormulario(persona){
+
+    for(let propiedad in persona){
+        $("#formulario [id="+propiedad+"]").val(persona[propiedad])
+    }
+
+}
+
+function listarPersonas(){
+    esquema
+        .collection('personas')
+        .find()
+        .toArray()
+        .then( personas => rellenartabla(personas) )
+        .catch( error => console.log(error))
+}
+
+function rellenartabla(personas){
+    console.log(personas)
+
+    $("#tablaPersonas").html('')
+    $(personas).each(function(pos, persona){
+        $(`<tr>
+                <td>${persona.nombre}</td>
+                <td>${persona.direccion}</td>
+                <td>${persona.telefono}</td>
+                <td>${persona.correoE}</td>
+           </tr>`)
+        .click(function(){
+            seleccionarPersona(persona._id)            
+        })
+        .appendTo("#tablaPersonas")
+    })
+    
+}
+
+
 
 $(inicializar)
 function inicializar(){
@@ -71,18 +130,16 @@ function inicializar(){
     $("#btnInsertar").click(insertarPersona)
 
     conectar()
+    listarPersonas()
 
 }
 
 </script>
 
 <body>
-
   
     <div class="jumbotron">
-        <marquee>
-            <h1>Agenda 3000 Stitch Edition</h1>
-        </marquee>
+        <h1>Agenda 3000 Stitch Edition</h1>
     </div>
     
     <div class="text-center mt-2 mb-2">
@@ -93,11 +150,7 @@ function inicializar(){
     </div>
 
     <div class="row">
-
-        <div class="col-sm-0 col-lg-2"></div>
-
-        <div class="col-sm-12 col-lg-8"> 
-
+        <div class="col-sm-12 col-lg-8 offset-lg-2"> 
             <!--$("#formulario [campo]")-->
             <div class="row" id="formulario">  
 
@@ -130,7 +183,28 @@ function inicializar(){
                 </div>                 
             </div>         
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-8 offset-lg-2"> 
+            <table class="table table-striped table-hover mt-4">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Correo E</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPersonas">
+                </tbody>
+            </table>
+        </div>
     </div>    
-    
+
 </body>
 </html>
+
+
+
+
