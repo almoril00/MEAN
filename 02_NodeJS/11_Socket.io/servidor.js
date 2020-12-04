@@ -159,6 +159,11 @@ function nuevoMensaje(socket, mensajeJSON){
 function cambiarSala(socket, sala){
     console.log("El usuario "+socket.alias+" quiere cambiarse a la sala "+sala)
 
+    //Comprobamos que la sala a la que se quiere cambiar el usuario exista
+    if( !salas.find( s => s==sala) ){
+        return
+    }
+
     //Cada vez que hacemos join metemos al socket en una nueva sala
     //Nos interesa que solo esté en su sala privada y en la recibida
     let rooms = socket.rooms

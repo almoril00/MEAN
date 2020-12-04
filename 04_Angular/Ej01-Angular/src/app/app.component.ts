@@ -34,7 +34,6 @@ export class AppComponent {
   public disco:Disco = new Disco()
   public discos:Disco[] = []
 
-  
   public insertarDisco():void{
     console.log("Insertando el disco")
     
