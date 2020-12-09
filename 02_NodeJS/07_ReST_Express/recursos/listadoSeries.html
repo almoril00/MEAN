@@ -11,16 +11,11 @@
 <script tpye="application/javascript">
 
 function getSeries(){
-
     //AJAX
-
     $.ajax( { url : '/series' } )
     .done(rellenarTablaSeries)
     .fail(procesarError)
-
 }
-
-
 
 function seleccionarSerie(_id){
  
@@ -117,15 +112,11 @@ function mostrarMensaje(){
 $(inicializar)
 
 function inicializar(){
-
     //poner los eventooooooooooos...
     $("#btnNueva").click(verFormularioSeries)
-
     mostrarMensaje()
-
     //Peticiones AJAX necesarias para cargar datos
     getSeries()
-
 }
 
 </script>
