@@ -47,13 +47,17 @@ function conectar(callback){
     }    
     console.log("========================")
     console.log(app.id)
+    */
     console.log("========================")
     console.log(app.users)
-    */
+    app.users.forEach( u => console.log(u._profile))
 
-    //Procuraremos que en el array de usuarios solo haya uno para no tener dudas de cual
-    //es el usuario autenticado
+    //En el array de usuarios el usuario autenticado siempre es el primero
     usuario = app.users[0]
+    //O también:
+    usuario = app.currentUser
+    console.log("USUARIOS",app.users)
+    console.log("USUARIO",usuario)
 
     //Obtenemos una 'conexión' a la bb.dd que está en Atlas
     const mongo = app.services.mongodb("mongodb-atlas");
@@ -85,14 +89,6 @@ function insertarPersona(){
     //Le añadimos a la persona el valor para idUsuario
     persona.idUsuario = usuario._id
 
-    console.log(persona)
-
-    //
-    // QUERY ANYWHERE
-    //
-    //Haz las consultas donde te salga de las narices
-
-    //enviar el insert al servidor
     esquema
         .collection('personas')
         .insertOne(persona)
@@ -227,36 +223,8 @@ function inicializar(){
     $("#btnLogout").click(logOut)
     //Despues de conectar se ejecutará el callback (listarPersonas)
     conectar(listarPersonas)   
-    modoInserccion() 
-
-    //Por si el usuario se despide a la francesa
-    /*
-    window.onbeforeunload = function(e) {
-        e.preventDefault();
-        logOut()
-    }
-    */
-
-    window.addEventListener('beforeunload', async function (e) {
-        e.preventDefault();
-        e.returnValue = ""
-        
-        await usuario.logOut()
-        
-        /*
-        usuario
-            .logOut()
-            .then( x => {
-                //window.location = "login.html"
-            })
-            .catch( error => console.log(error))
-        */
-    });
-
+    modoInserccion()
 }
-
-
-
 
 </script>
 

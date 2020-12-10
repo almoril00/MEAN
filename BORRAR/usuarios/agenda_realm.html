@@ -44,34 +44,102 @@ function conectar(callback){
         console.log(a)
     }
     console.log("==========================")
-    for(a in app.users){
+    for(a in app.functions){
         console.log(a)
     }
     console.log(app.users)
 
+    app.users[0].functions.sumar(10,20)
+    .then( rs => console.log(rs))
+    .catch(error => console.log(error))
+    
+    app.users[0].functions.esfurrular()
+    .then( rs => console.log(rs))
+    .catch(error => console.log(error))
+    
+
+    let usuario = app.currentUser
+    console.log(usuario)
+    console.log(usuario.customData)
+
+    
+    
+    esquema
+        .collection("usuarios_info")
+        .updateOne(
+            { idUsuario : usuario._id },
+            { $set : { dato : "OJO AL DATO "} }
+        )
+        .then( rs => {
+            console.log(rs)
+            //Comprobamos que se ha modificado un documento
+            if( rs.modifiedCount!=1){
+                console.log("Error al modificar los datos del usuario")
+                return
+            }            
+        })
+
+    app.currentUser.refreshCustomData()
+    .then( x => console.log(x))
+    .catch( e => console.log(e))
+
+/*
+    esquema
+    .collection('usuarios_info')
+    .insertOne({ idUsuario : usuario._id, dato : "???"})
+    .then( X => {
+        console.log("Insertado:",X)
+        listarPersonas()
+    })
+    .catch( error => console.log(error))*/
+
+
 
     /*
-    const email = "a@b.c";
-    //const email = "d@e.f";
-    const password = "1234567890";
-    let credentials = Realm.Credentials.emailPassword(email, password);
-    app
-        .logIn(credentials)
-        .then( user => {
-            console.log(user)
-            usuario = user._id
-            //Obtenemos una 'conexión' a la bb.dd que está en Atlas
-            const mongo = app.services.mongodb("mongodb-atlas");
-            //Obtenemos el esquema
-            esquema = mongo.db("borrar")
-
-            callback()
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    const email = "ringo@correo.es"
+    const password = "1234567890"
+    app.emailPasswordAuth.registerUser(email, password)
+    .then( rs => console.log(rs))
+    .catch(error => console.log(error))
     */
+
 }
+
+exports = async function(arg){
+  /*
+    Accessing application's values:
+    var x = context.values.get("value_name");
+
+    Accessing a mongodb service:
+    var collection = context.services.get("mongodb-atlas").db("dbname").collection("coll_name");
+    var doc = collection.findOne({owner_id: context.user.id});
+
+    To call other named functions:
+    var result = context.functions.execute("function_name", arg1, arg2);
+
+    Try running in the console below.
+  */
+  
+  var collection = context.services.get("mongodb-atlas").db("borrar").collection("personas");
+  let personas = await collection.find().toArray();
+  
+  console.log("HOLA")
+  
+  //console.log(JSON.stringify(personas))
+  
+  /*
+  let nombres = ""
+  for(let p of personas){
+    nombres += ","+p.nombre
+  }
+  */
+  
+  let nombres = personas.map( p => p.nombre).reduce( (acumulador, p)=> acumulador+","+p )
+  
+  return nombres;
+};
+
+
 
 function insertarPersona(){
     //crear un objeto con los datos del formulario

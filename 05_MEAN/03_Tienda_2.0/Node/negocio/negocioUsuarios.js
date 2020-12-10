@@ -28,7 +28,7 @@ let reglas = {
     telefono  : 'min:9|max:40',
 }
 
-//EL usuario que recibimos ha salido del body de la peticion HTTP
+//El usuario que recibimos ha salido del body de la peticion HTTP
 exports.insertarUsuario = function(usuario){
 
     return new Promise(
@@ -45,7 +45,7 @@ exports.insertarUsuario = function(usuario){
             usuario.rol = "CLIENTE"
 
             //Comprobamos que no exista ya un usuario con el mismo login
-            //Insertamos el nuevo usuario
+            //Y luego insertamos el nuevo usuario
             Usuario
                 .findOne({ login : usuario.login })
                 .then( usuarioEncontrado => {
@@ -71,6 +71,51 @@ exports.insertarUsuario = function(usuario){
                 }) 
         })
 }
+
+
+//EL usuario que recibimos ha salido del body de la peticion HTTP
+exports.insertarUsuario_await = function(usuario){
+
+    console.log("INSERTAR USUARIO AWAIT")
+
+    return new Promise(
+        async function(resolve, reject){
+
+            //VALIDAR            
+            let errores = validar(usuario, reglas)
+            if(errores){
+                reject({ codigo:400, descripcion:errores})
+                return
+            }
+
+            //Por defecto los nuevos usuario son CLIENTES
+            usuario.rol = "CLIENTE"
+
+            //Comprobamos que no exista ya un usuario con el mismo login
+            //Y luego insertamos el nuevo usuario
+
+            try {
+                let usuarioencontrado = await Usuario.findOne( { login : usuario.login })
+                if(usuarioencontrado){
+                    //MAL: 400, Ya hay un usuario con ese login
+                    reject({ codigo:400, descripcion:"Ya existe un usuario con ese login"})
+                    return
+                }
+                //Eliminamos de usuario cualquier posible valor en el _id
+                delete usuario._id
+                //Insertar, pero el usuario que hemos recibido no tiene save!
+                //Necesitamos un objeto del MODELO
+                let usuarioMG = new Usuario(usuario)
+                let resultado = await usuarioMG.save()
+
+                resolve(resultado._id)
+            } catch (error){
+                console.log(error)
+                reject({ codigo:500, descripcion:"Error en la base de datos"})
+            }
+        })
+}
+
 
 exports.borrarUsuario = function(_id, autoridad){
     return new Promise( 

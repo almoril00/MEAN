@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+
+function funcionQueDevuelveUnaPromesa(s1,s2){
+
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            let suma = s1+s2
+            console.log("SUMA:"+(suma))
+            resolve(suma)
+        }, 2000)
+    })
+
+}
+
+function funcionQueConcatenaPromesas(){
+
+    console.log("==================")
+    console.log("tarea 1")
+    console.log("tarea 2")
+
+    let suma1
+    funcionQueDevuelveUnaPromesa(30,50)
+    .then( sum => {
+        suma1 = sum
+        return funcionQueDevuelveUnaPromesa(100,150)
+    })
+    .then( suma2 => {
+        return funcionQueDevuelveUnaPromesa(suma1, suma2)
+    })
+    .then( sumaFinal => {
+        console.log("Tarea 3 SUMA FINAL:"+sumaFinal)
+        console.log("tarea 4")
+        console.log("tarea 5")    
+    })
+
+}
+
+async function funcionQueUsaAwait(){
+
+    console.log("==================")
+    console.log("tarea 1")
+    console.log("tarea 2")
+
+    //Si vamos a invocar una funcion que devuelve una promesa podemos utilizat
+    //la palabra reservada 'await' para simplificar el código ahorrandonos los 'then'
+
+    //Se FINJE que la funcion es síncrona
+    //Lo que se entregaría en el then lo podemos recoger en una variable
+    let suma1 = await funcionQueDevuelveUnaPromesa(30,50)
+    let suma2 = await funcionQueDevuelveUnaPromesa(100,150)
+    let suma3 = await funcionQueDevuelveUnaPromesa(suma1,suma2)
+    console.log("tarea 3 SUMA FINAL (AWAIT):"+suma3)
+
+    console.log("tarea 4")
+    console.log("tarea 5")  
+
+    //Cualquier return que tenga una función 'async' se pierde como lágrimas en la 
+    //lluvia, como pedos en la tormenta, como un pis en el mar
+    return "NASTI DE PLASTI"
+
+}
+
+//funcionQueDevuelveUnaPromesa(10,20)
+//.then( suma => console.log("SUMA_2:"+suma) )
+//.catch( error => console.log(error))
+
+//funcionQueConcatenaPromesas()
+
+let x = funcionQueUsaAwait()
+console.log(x) //Es una promesa!
+console.log("FIN")
+
+</script>
+
+<body>
+
+    <h1>25 Async-await</h1>
+    
+</body>
+</html>

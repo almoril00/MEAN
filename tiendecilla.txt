@@ -245,13 +245,9 @@ GET /usuarios/3/pedidos
 
 
 
-<script src="https://unpkg.com/realm-web@0.8.0/dist/bundle.iife.js"></script>
-
-
-
-
-
-
+const email = "someone@example.com";
+const password = "Pa55w0rd";
+await app.emailPasswordAuth.registerUser(email, password);
 
 
 

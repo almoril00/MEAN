@@ -45,7 +45,7 @@ function insertarUsuario(request, response){
     let usuario = request.body
     
     negocioUsuarios
-        .insertarUsuario(usuario)
+        .insertarUsuario_await(usuario)
         .then( id => response.json({ _id : id }) )
         .catch( error => response.status(error.codigo).json(error) )
 

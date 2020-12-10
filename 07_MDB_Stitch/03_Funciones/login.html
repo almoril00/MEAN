@@ -24,7 +24,7 @@
 function login(){
 
     //Obtenemos un objeto que representa a la aplicación que corre en los servidores de MongoDB
-    const app = new Realm.App({ id: "agenda_usuarios-shouk" });
+    const app = new Realm.App({ id: "aplicacionfunciones-ejzhy" });
 
     let email = $("#email").val()
     let pw    = $("#pw").val()
@@ -35,7 +35,7 @@ function login(){
         .logIn(credenciales)
         .then( usuario => {
             console.log(usuario)
-            window.location = "agenda.html" //url relativa
+            window.location = "tareas.html" //url relativa
         })
         .catch( error => {
             console.log(error)
