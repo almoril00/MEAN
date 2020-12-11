@@ -56,8 +56,19 @@ function conectar(callback){
     usuario = app.users[0]
     //O también:
     usuario = app.currentUser
+
+    //Si no hay usuario es que alguien está intentado saltarse la pantalla de login
+    //escribiendo directamente 'agenda.html' en la barra del navegador
+    if(!usuario){
+        window.location = "login.html"
+        return
+    }
+
     console.log("USUARIOS",app.users)
     console.log("USUARIO",usuario)
+    console.log("CUSTOM_DATA",usuario.customData)
+    //Mostramos el nombre del usuario
+    $("#nombreUsuario").html("Custom data: "+usuario.customData.nombre)
 
     //Obtenemos una 'conexión' a la bb.dd que está en Atlas
     const mongo = app.services.mongodb("mongodb-atlas");
@@ -233,6 +244,8 @@ function inicializar(){
     <div class="jumbotron">
         <h1>Agenda 3000 Realm Edition (Usuarios)</h1>
     </div>
+
+    <h3 class="text-center" id="nombreUsuario"></h3>
     
     <div class="text-center mt-2 mb-2">
         <button class="btn btn-primary mr-1" id="btnInsertar">Insertar</button>

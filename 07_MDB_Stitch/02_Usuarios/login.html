@@ -24,7 +24,7 @@
 function login(){
 
     //Obtenemos un objeto que representa a la aplicación que corre en los servidores de MongoDB
-    const app = new Realm.App({ id: "agenda_usuarios-shouk" });
+    const app = new Realm.App({ id: "agenda_usuarios-shouk" })
 
     let email = $("#email").val()
     let pw    = $("#pw").val()
@@ -40,12 +40,16 @@ function login(){
         .catch( error => {
             console.log(error)
         })
+}
 
+function registro(){
+    window.location = "registro.html"
 }
 
 $(inicializar)
 function inicializar(){
     $("#btnLogin").click(login)        
+    $("#btnRegistro").click(registro)        
 }
 
 </script>
@@ -80,6 +84,7 @@ function inicializar(){
                 
                     <div class="text-center">
                         <input type="button" id="btnLogin" class="btn mr-1 btn-primary" style="width:110px" value="Login" />
+                        <input type="button" id="btnRegistro" class="btn mr-1 btn-primary" style="width:110px" value="Registro" />
                     </div>   
             
                 </div>

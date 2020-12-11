@@ -1,9 +1,7 @@
-//npm install mongodb-stitch-browser-sdk
-
-
+//npm install realm-web
 import { Component } from '@angular/core';
 
-import { Stitch, RemoteMongoClient, AnonymousCredential} from 'mongodb-stitch-browser-sdk'
+import { App, Credentials } from 'realm-web'
 
 
 @Component({
@@ -16,20 +14,22 @@ export class AppComponent {
 
   constructor(){
 
+    //Obtenemos un objeto que representa a la aplicación que corre en los servidores de MongoDB
+    const app = new App({ id: "agenda_usuarios-shouk" });
 
-    const client = Stitch.initializeDefaultAppClient('ejemplo1-ejiie');
-    let db = client.getServiceClient(RemoteMongoClient.factory, 
-                                 'mongodb-atlas')
-                                 .db('esquema');
+    let email = "venancia@correo.es"
+    let pw    = "1234567890"
 
-    client
-        .auth
-        .loginWithCredential(new AnonymousCredential())
-        .then( () => console.log("Autenticado"))
-        .catch( error => console.log(error));  
+    let credenciales = Credentials.emailPassword(email, pw)
 
-    
+    app
+        .logIn(credenciales)
+        .then( usuario => {
+            console.log(usuario)
+        })
+        .catch( error => {
+            console.log(error)
+        })    
   }
-
 
 }

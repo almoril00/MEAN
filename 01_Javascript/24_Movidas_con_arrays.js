@@ -42,6 +42,7 @@ for(let palabra of palabras){
     }
 }
 console.log(encontrado)
+
 //find recibe una funcion a la que se le pasan cada uno de los elementos del array
 //dentro se compara con el elemento buscado.
 //si es igual se devuelve true y el bucle finaliza (devuelve el primero que coincida)
@@ -57,6 +58,12 @@ if(elementoEncontrado){
 } else {
     console.log(":(")
 }
+
+//
+//JOIN
+//
+console.log("=====================================")
+console.log("JOIN:"+palabras.join(","))
 
 //
 //MAP
@@ -337,3 +344,7 @@ let coche = {
 console.log("marca" in coche)
 console.log("movida" in coche)
 */
+
+
+
+

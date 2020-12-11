@@ -107,9 +107,9 @@ exports = async function(){
     //Pero hay que colocar async en la función!!!    
     var collection = context.services.get("mongodb-atlas").db("esquema_funciones").collection("tareas");  
     let tareas = await collection.find().toArray()
-    return tareas.map(t => t.titulo).reduce((acumulador, titulo) => acumulador+", "+titulo)
+    //return tareas.map(t => return t.titulo).reduce((acumulador, titulo) => acumulador+", "+titulo)
+    return tareas.map( t => t.titulo).join(",")    
 }
-
 
 /////////////////////////////////////////////////////////////////////
 
