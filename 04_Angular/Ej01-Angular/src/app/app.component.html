@@ -132,6 +132,24 @@ Las expresiones pueden ser aritméticas, booleanas, tareas con cadenas de texto.
     <td>{{d.year}}</td>
     <td>{{d.genero}}</td>
   </tr>
+
+  <!--
+  Para decidir si algo se muestra o no usamos *ngIf y una expresión que si se resuelve
+  a true la etiqueta aparece   
+  -->
+  <tr *ngIf="discos.length == 0">
+    <td colspan="4">No hay discos en la tabla</td>
+  </tr>
   
 </table>
 
+<!--
+ Si queremos asignar los estilos dinámicamente no usaremos algo como:
+<div class="{{expresion}}"></div>
+Para ello hay algo previsto en Angular
+<div [ngClass]="expresion"></div> 
+-->
+
+<div [ngClass]="estilo">
+  HOLA QUE TAL
+</div>

@@ -34,6 +34,9 @@ export class AppComponent {
   public disco:Disco = new Disco()
   public discos:Disco[] = []
 
+  //Para el [ngClass]
+  public estilo:string = "estilo"
+
   public insertarDisco():void{
     console.log("Insertando el disco")
     
