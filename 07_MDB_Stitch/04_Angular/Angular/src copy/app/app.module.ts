@@ -9,10 +9,9 @@ import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegistroComponent } from './componentes/usuarios/registro/registro.component';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
 import { MaquetacionLoginComponent } from './componentes/usuarios/maquetacion-login/maquetacion-login.component';
+import { MaquetacionAplicacionComponent } from './componentes/aplicacion/maquetacion-aplicacion/maquetacion-aplicacion.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaquetacionAplicacionComponent } from './componentes/aplicacion/maquetacion-aplicacion/maquetacion-aplicacion.component';
-import { ListadoTareasUsrComponent } from './componentes/aplicacion/listado-tareas-usr/listado-tareas-usr.component';
 
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
@@ -41,12 +40,13 @@ const rutas = [
     //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
     children  : rutasMaquetacionLogin
   },
+  ,
   {
     path      : 'aplicacion',
     component : MaquetacionAplicacionComponent,
     //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
     //children  : rutasMaquetacionAplicacion
-  } 
+  }  
 ]
 
 @NgModule({
@@ -58,9 +58,7 @@ const rutas = [
     LoginComponent,
     RegistroComponent,
     PerfilComponent,
-    MaquetacionLoginComponent,
-    MaquetacionAplicacionComponent,
-    ListadoTareasUsrComponent
+    MaquetacionLoginComponent
   ],
   imports: [
     BrowserModule,
