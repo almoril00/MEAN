@@ -11,7 +11,6 @@ export class AutenticacionService {
         this.app = realmService.getApp()
     }
 
-
     public logIn(correoE:string, pw:string):any{
         let credenciales = Credentials.emailPassword(correoE, pw)
         //Asincrono

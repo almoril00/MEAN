@@ -1,19 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
-import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
-import { PieComponent } from './componentes/maquetacion/pie/pie.component';
-import { LoginComponent } from './componentes/usuarios/login/login.component';
-import { RegistroComponent } from './componentes/usuarios/registro/registro.component';
-import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
-import { MaquetacionLoginComponent } from './componentes/usuarios/maquetacion-login/maquetacion-login.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaquetacionAplicacionComponent } from './componentes/aplicacion/maquetacion-aplicacion/maquetacion-aplicacion.component';
-import { ListadoTareasUsrComponent } from './componentes/aplicacion/listado-tareas-usr/listado-tareas-usr.component';
+import { CabeceraComponent } from 'src copy/app/componentes/maquetacion/cabecera/cabecera.component';
+import { PieComponent } from 'src copy/app/componentes/maquetacion/pie/pie.component';
+import { AdminModule } from './modulos/admin-module/admin.module';
+import { EmpleadosModule } from './modulos/empleados-module/empleados.module';
+import { UsuariosModule } from './modulos/usuarios-module/usuarios.module';
+import { MaquetacionLoginComponent } from 'src copy/app/componentes/usuarios/maquetacion-login/maquetacion-login.component';
 
+/*
 //Estas rutas son para el router-outlet que hay en MaquetacionLogin.html
 const rutasMaquetacionLogin = [
   {
@@ -25,49 +22,45 @@ const rutasMaquetacionLogin = [
     component : RegistroComponent
   }
 ]
-
-//Estas rutas son para el router-outlet que hay en AppComponent.html
-//Son para la primera carpeta de la barra del navegador
-const rutas = [
-  {
-    path      : '',
-    component : MaquetacionLoginComponent,
-    //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
-    children  : rutasMaquetacionLogin
-  },
-  {
-    path      : 'usuarios',
-    component : MaquetacionLoginComponent,
-    //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
-    children  : rutasMaquetacionLogin
-  },
-  {
-    path      : 'aplicacion',
-    component : MaquetacionAplicacionComponent,
-    //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
-    //children  : rutasMaquetacionAplicacion
-  } 
-]
+*/
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
     CabeceraComponent,
     PieComponent,
-    LoginComponent,
-    RegistroComponent,
-    PerfilComponent,
-    MaquetacionLoginComponent,
-    MaquetacionAplicacionComponent,
-    ListadoTareasUsrComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(rutas)
+    UsuariosModule,
+    AdminModule,
+    EmpleadosModule,
+    RouterModule.forRoot(AppModule.rutas)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  static rutas = [
+    {
+      path       : '',
+      redirectTo : '/usuarios/login',
+      pathMatch  : 'full'
+    },
+    {
+      path      : 'usuarios',
+      component : MaquetacionLoginComponent,
+      //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
+      children  : UsuariosModule.rutasMaquetacionLogin
+    },
+    /*{
+      path      : 'aplicacion',
+      component : MaquetacionAplicacionComponent,
+      //Como dentro de esta componente hay un router-outlet tiene un array de rutas hijas que son para él
+      //children  : rutasMaquetacionAplicacion
+    }*/
+  ]
+
+}

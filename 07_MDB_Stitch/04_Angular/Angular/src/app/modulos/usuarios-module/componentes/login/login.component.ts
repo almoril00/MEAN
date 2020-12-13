@@ -7,8 +7,7 @@ import { AutenticacionService } from 'src/app/servicios/autenticacion.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
 
@@ -23,23 +22,25 @@ export class LoginComponent {
 
   constructor(private autenticationService:AutenticacionService,
               private router:Router) { 
-
-    console.log("========================================")
-    console.log(this.usuario)
-    
+    console.log("MIERDAS")
   }
   
   public entrar():void{
     
+    console.log("=================================")
+
+    /*
+
     this.autenticationService.logIn(this.usuario.correoE,this.usuario.pw)
     .then( usuario => {
+      console.log("???????????????????")
       console.log(usuario)
-      this.router.navigateByUrl("/aplicacion")
+      //this.router.navigateByUrl("/aplicacion")
     })
     .catch( error => {
       console.log(error)
       this.mensaje = "Credenciales incorrectas"
-    })
+    })*/
 
   }
 
