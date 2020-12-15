@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EmpleadosModule } from './modulos/empleados-module/empleados.module';
 import { UsuariosModule } from './modulos/usuarios-module/usuarios.module';
@@ -9,6 +8,7 @@ import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.c
 import { PieComponent } from './componentes/maquetacion/pie/pie.component';
 import { MaquetacionLoginComponent } from './modulos/usuarios-module/componentes/maquetacion-login/maquetacion-login.component';
 import { MaquetacionAplicacionComponent } from './modulos/empleados-module/componentes/maquetacion-aplicacion/maquetacion-aplicacion.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +18,6 @@ import { MaquetacionAplicacionComponent } from './modulos/empleados-module/compo
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     UsuariosModule,
     EmpleadosModule,
     RouterModule.forRoot(AppModule.rutas)
@@ -28,7 +27,7 @@ import { MaquetacionAplicacionComponent } from './modulos/empleados-module/compo
 })
 export class AppModule {
 
-  static rutas = [
+  public static rutas = [
     {
       path       : '',
       redirectTo : '/usuarios/login',
@@ -49,3 +48,6 @@ export class AppModule {
   ]
 
 }
+
+
+

@@ -13,17 +13,24 @@ export class RealmService {
     }
 
     public getApp():any{
+        console.log("GET APP")
         //Inicialización perezosa (lazy init)
         if(!this.app){
-            //this.app = new App({ id: "app_tareas-kovjm" })
-            this.app = new App({ id: "app-tareas-pruebas-pprli" })
+            this.app = new App({ id: "app_tareas-kovjm" })
+            //this.app = new App({ id: "app-tareas-pruebas-pprli" })
         }
         return this.app
     }
 
     public getEsquema():any{
+        console.log("GET ESQUEMA")
         if(!this.esquema){
-            this.esquema = this.getApp().services.mongodb("mongodb-atlas").db("esquema_funciones")
+            let user = this.getApp().currentUser
+            if(!user){
+                console.log("Usuario no autenticado al obtener el esquema")
+                return
+            }
+            this.esquema = user.mongoClient("mongodb-atlas").db("esquema_tareas")  
         }
         return this.esquema
     }

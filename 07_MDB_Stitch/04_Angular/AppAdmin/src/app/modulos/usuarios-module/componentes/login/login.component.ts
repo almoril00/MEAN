@@ -20,18 +20,14 @@ export class LoginComponent {
   }
   
   public entrar():void{
-    
-  
 
     this.autenticationService.logIn(this.usuario.correoE,this.usuario.pw)
     .then( usuario => {
       console.log(usuario)
+      console.log(usuario.customData)
       this.router.navigateByUrl("/aplicacion")
     })
-    .catch( error => {
-      console.log(error)
-      this.mensaje = "Credenciales incorrectas"
-    })
+    .catch( mensaje => this.mensaje = mensaje)
 
   }
 

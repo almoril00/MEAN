@@ -20,8 +20,6 @@ export class LoginComponent {
   }
   
   public entrar():void{
-    
-  
 
     this.autenticationService.logIn(this.usuario.correoE,this.usuario.pw)
     .then( usuario => {

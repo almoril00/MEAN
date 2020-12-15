@@ -7,9 +7,12 @@ import { Usuario } from '../entidades/usuario';
 export class AutenticacionService {
 
     private app:any
+    //private esquema:any
 
     public constructor(private realmService:RealmService){
         this.app = realmService.getApp()
+        
+        //this.esquema = realmService.getEsquema()
     }
 
     public logIn(correoE:string, pw:string):any{
@@ -24,7 +27,7 @@ export class AutenticacionService {
 
     public getUser():Usuario {
         let usrRealm = this.app.currentUser;
-        let usuario:Usuario = new Usuario(usrRealm._id, 
+        let usuario:Usuario = new Usuario(usrRealm._id, //idUsuario
                                           usrRealm.email, 
                                           null, 
                                           usrRealm.customData.nombre,
@@ -33,39 +36,94 @@ export class AutenticacionService {
         return usuario
     }
 
-    public registrarUsuario(customerData):void{
-        
-        /*
-        try {
+    public registrarUsuario(usuario:Usuario):any{
 
-            //Registramos al usuario
-            await this.app.emailPasswordAuth.registerUser(correoE, pw)
+        return new Promise(async (resolve, reject) => {
+
+            let customUserData:any = {
+            nombre    : usuario.nombre,
+            direccion : usuario.direccion,
+            telefono  : usuario.telefono
+            }
+        
+            try {
+                
+                //Registramos al usuario
+                await this.app.emailPasswordAuth.registerUser(usuario.correoE, usuario.pw)
+                
+                //Autenticamos al usuario para averiguar que _id le ha correspondido
+                let credenciales = Credentials.emailPassword(usuario.correoE, usuario.pw)
+                let usrRealm = await this.app.logIn(credenciales)
+                console.log(usrRealm)
             
-            //Autenticamos al usuario para averiguar que _id le ha correspondido
-            let credenciales = Realm.Credentials.emailPassword(correoE, pw)
-            let usuario = await this.app.logIn(credenciales)
-            console.log(usuario)
-        
-            //Le añadimos la información extra...
-            //Para ello insertamos 'manualmente' la información en la coleccion 'custom_user_data'
-            //y nos aseguramos de que la propiedad 'idUsuario' tenga el valor correcto
-            customUserData.idUsuario = usuario._id
-        
-            const coleccion = this.app.services.mongodb("mongodb-atlas").db("agenda_usuarios").collection("custom_user_data");
-            let resultado = await coleccion.insertOne(customUserData)
-        
-              //Refrescamos los datos del usuario puesto que en local storage todavia no tiene la información extra!
-              //incluye una petición HTTP al servidor asi que es asíncrona
-            usuario = await this.app.currentUser.refreshCustomData()
-            console.log("FIN")
-            //Aprovechando que el usuario ya está autenticado le mandamos
-            //a la agenda
-            //window.location= "agenda.html"
-        
-        } catch (e){
-        console.log(e)
-        }*/
+                //Le añadimos la información extra...
+                //Para ello insertamos 'manualmente' la información en la coleccion 'custom_user_data'
+                //y nos aseguramos de que la propiedad 'idUsuario' tenga el valor correcto
+                customUserData.idUsuario = usrRealm._id
+            
+                const coleccion = this.realmService.getEsquema().collection("custom_user_data");
+                let resultado = await coleccion.insertOne(customUserData)
+            
+                //Refrescamos los datos del usuario puesto que en local storage todavia no tiene la información extra!
+                //incluye una petición HTTP al servidor asi que es asíncrona
+                usrRealm = await this.app.currentUser.refreshCustomData()
+                console.log("FIN")
 
+                resolve(null)
+            
+            } catch (e){
+                console.log(e)
+                reject(e)
+            }
+        })
+    }
+
+    /*Modificar usuario concatenando promesas...
+    public modificarUsuario(usuario:Usuario):any{
+
+        return new Promise( (resolve, reject) => {
+
+            let coleccion = this.realmService
+                .getEsquema()
+                .collection("custom_user_data");   
+                
+            coleccion
+                .updateOne( { idUsuario : usuario.idUsuario }, 
+                            { $set : usuario } )
+                .then( rs => { 
+                    console.log("RS:", rs)
+                    //Una vez modificado el custom_user_data actualizamos el usuario en el local storage
+                    return this.app.currentUser.refreshCustomData()
+                })
+                .then( rs => {
+                    console.log("Datos del usuario modificados")
+                    resolve(null)
+                })
+                .catch( error => {
+                    console.log(error)
+                    reject(error)
+                })            
+            })
+    }*/
+
+    //Modificar usuario utilizando AWAIT...
+    public modificarUsuario(usuario:Usuario):any{
+        return new Promise( async (resolve, reject) => {
+
+            try {
+                let coleccion = this.realmService
+                    .getEsquema()
+                    .collection("custom_user_data");                       
+                let rs = await coleccion.updateOne( { idUsuario : usuario.idUsuario }, 
+                                                    { $set : usuario } )
+                let usrRealm = await this.app.currentUser.refreshCustomData()
+                console.log("Datos del usuario modificados")
+                resolve(null)
+            } catch(error) {
+                console.log(error)
+                reject(error)
+            }
+        })
     }
 
 }

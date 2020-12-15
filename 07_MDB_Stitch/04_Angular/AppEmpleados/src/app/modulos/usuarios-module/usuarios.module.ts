@@ -10,9 +10,9 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
 @NgModule({
   declarations: [
     LoginComponent,
+    PerfilComponent,
     RegistroComponent,
     MaquetacionLoginComponent,
-    PerfilComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +28,8 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
 })
 export class UsuariosModule {
 
-  static rutasMaquetacionLogin = [
+  //rutas para el router outlet que hay en MaquetacionLoginComponent
+  public static rutasMaquetacionLogin = [
     {
       path      : 'login',
       component : LoginComponent
