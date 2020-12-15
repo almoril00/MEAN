@@ -24,12 +24,31 @@ export class TareasAdminComponent implements OnInit {
       .then( empleados => this.empleados = empleados)
       .catch( error => console.log(error))
 
+    this.listarTareas()
   }
 
   ngOnInit(): void {
   }
 
+  public async listarTareas(){
+    
+    console.log("A VER QUE PASA AQUI")
+    try{
+      this.tareas = await this.tareasService.listarTareas()
+      console.log(this.tareas)
+    } catch (error) {
+      console.log("ZASCA!")
+    }
+  }
+
   public insertar():void{
+
+    this
+      .tareasService
+      .insertarTarea(this.tarea)
+      .then( rs => { console.log(rs)})
+      .catch( error => {})
+
   }
 
   public modificar():void{

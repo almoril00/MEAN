@@ -56,9 +56,9 @@ export class AutenticacionService {
         return new Promise(async (resolve, reject) => {
 
             let customUserData:any = {
-            nombre    : usuario.nombre,
-            direccion : usuario.direccion,
-            telefono  : usuario.telefono
+                nombre    : usuario.nombre,
+                direccion : usuario.direccion,
+                telefono  : usuario.telefono
             }
         
             try {
@@ -125,12 +125,18 @@ export class AutenticacionService {
     public modificarUsuario(usuario:Usuario):any{
         return new Promise( async (resolve, reject) => {
 
+            let customUserData:any = {
+                nombre    : usuario.nombre,
+                direccion : usuario.direccion,
+                telefono  : usuario.telefono
+            }
+
             try {
                 let coleccion = this.realmService
                     .getEsquema()
                     .collection("custom_user_data");                       
                 let rs = await coleccion.updateOne( { idUsuario : usuario.idUsuario }, 
-                                                    { $set : usuario } )
+                                                    { $set : customUserData } )
                 let usrRealm = await this.app.currentUser.refreshCustomData()
                 console.log("Datos del usuario modificados")
                 resolve(null)

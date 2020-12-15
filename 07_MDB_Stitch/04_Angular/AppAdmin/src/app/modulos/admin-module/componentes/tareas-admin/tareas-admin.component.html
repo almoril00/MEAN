@@ -6,63 +6,62 @@
     <button class="btn btn-warning mr-1" id="btnVaciar"    (click)="vaciar()">Vaciar</button>
 </div>
 
-<div class="row">
-    <div class="col-sm-12 col-lg-8 offset-lg-2"> 
-        <div class="row" id="formulario">  
+<div class="row" id="formulario">  
 
-            <div class="col-2 mt-1">
-                <label for="titulo">Título</label>
-            </div>
-            <div class="col-10 mt-1">
-                <input class="form-control" id="titulo" [(ngModel)]="tarea.titulo"/>
-            </div>
-
-            <div class="col-2 mt-1">
-                <label>Empleado</label>
-            </div>
-            <div class="col-10 mt-1">
-                <select class="form-control" campo="" id="idUsuario" [(ngModel)]="tarea.idUsuario">
-                    <option value="0">Seleccione...</option>
-                    <option *ngFor="let e of empleados" value="e.idUsuario">{{e.nombre}}</option>
-                </select>
-            </div>
-            <div class="col-2 mt-1">
-                <label>Descripción</label>
-            </div>
-            <div class="col-10 mt-1">
-                <input class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion"/>
-            </div>
-
-            <div class="col-2 mt-1">
-                <label>Prioridad</label>
-            </div>
-            <div class="col-10 mt-1">
-                <input class="form-control" id="prioridad" [(ngModel)]="tarea.prioridad"/>
-            </div>
-         
-            <div class="col-2 mt-1">
-                <label>Estado</label>
-            </div>
-            <div class="col-10 mt-1">
-                <input class="form-control" id="estado" [(ngModel)]="tarea.estado"/>
-            </div>                 
-        </div>         
+    <div class="col-2 mt-1">
+        <label for="titulo">Título</label>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-12 col-lg-8 offset-lg-2"> 
-        <table class="table table-striped table-hover mt-4">
-            <thead>
-                <tr>
-                    <th>Titulo</th>
-                    <th>Descripcion</th>
-                    <th>Prioridad</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody id="tablaTareas">
-            </tbody>
-        </table>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="titulo" [(ngModel)]="tarea.titulo"/>
     </div>
-</div>    
+
+    <div class="col-2 mt-1">
+        <label>Empleado</label>
+    </div>
+    <div class="col-10 mt-1">
+        <select class="form-control" campo="" id="idUsuario" [(ngModel)]="tarea.idUsuario">
+            <option value="0">Seleccione...</option>
+            <option *ngFor="let e of empleados" value="{{e.idUsuario}}">{{e.nombre}}</option>
+        </select>
+    </div>
+    <div class="col-2 mt-1">
+        <label>Descripción</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion"/>
+    </div>
+
+    <div class="col-2 mt-1">
+        <label>Prioridad</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="prioridad" [(ngModel)]="tarea.prioridad"/>
+    </div>
+    
+    <div class="col-2 mt-1">
+        <label>Estado</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="estado" [(ngModel)]="tarea.estado"/>
+    </div>                 
+</div>         
+
+<table class="table table-striped table-hover mt-4">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody id="tablaTareas">
+        <tr *ngFor="let t of tareas">
+            <td>{{t.titulo}}</td>
+            <td>{{t.descripcion}}</td>
+            <td>{{t.prioridad}}</td>
+            <td>{{t.estado}}</td>
+        </tr>
+    </tbody>
+</table>
+   

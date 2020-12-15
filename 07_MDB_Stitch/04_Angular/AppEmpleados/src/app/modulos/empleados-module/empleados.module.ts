@@ -4,11 +4,13 @@ import { MaquetacionAplicacionComponent } from './componentes/maquetacion-aplica
 import { MenuComponent } from './componentes/menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { PerfilComponent } from '../usuarios-module/componentes/perfil/perfil.component';
+import { ListadoTareasUsrComponent } from './componentes/listado-tareas-usr/listado-tareas-usr.component';
 
 @NgModule({
   declarations: [
-    MaquetacionAplicacionComponent,
-    MenuComponent
+    MenuComponent,
+    ListadoTareasUsrComponent,
+    MaquetacionAplicacionComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,10 @@ export class EmpleadosModule {
     {
       path      : 'perfil',
       component : PerfilComponent
+    },
+    {
+      path      : 'tareas',
+      component : ListadoTareasUsrComponent
     }
   ]
 

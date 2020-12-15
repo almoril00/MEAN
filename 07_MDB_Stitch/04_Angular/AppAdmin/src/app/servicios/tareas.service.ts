@@ -1,21 +1,43 @@
 import { Injectable } from '@angular/core';
+import { Tarea } from '../entidades/tarea';
+import { RealmService } from './realm.service';
 
 @Injectable( { providedIn : 'root' })
 export class TareasService {
 
-    public listarTareas():void{
 
+    public constructor(private realmService:RealmService){
+    }
 
-        
-        //app
-        //esquema.collecion
-        
-        
+    public listarTareas():any{
+        return new Promise( async (resolve, reject) => {
+            try {
+                let tareas = await this.realmService.getEsquema().collection("tareas").find()
+                resolve(tareas)
+            } catch(error){
+                console.log(error)
+                reject(error)
+            }
+        })
     }
     
-    public insertarTarea(tarea):void{
+    public insertarTarea(tarea:Tarea):any{
         
-        //esquema.collecion
+        return new Promise( async (resolve, reject) => {
+
+            //El _id de la tarea se decide en el servidor
+            delete tarea._id
+
+            try{
+                let rs = await this.realmService.getEsquema().collection("tareas").insertOne(tarea)
+                resolve(rs)
+            } catch(error) {
+                console.log(error)
+                reject(error)
+            }
+
+        })
+
     }
 
 }
