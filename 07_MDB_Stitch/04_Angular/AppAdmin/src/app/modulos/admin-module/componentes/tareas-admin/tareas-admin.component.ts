@@ -41,6 +41,20 @@ export class TareasAdminComponent implements OnInit {
   }
 
   public async insertar(){
+
+    //en tarea tenemos idUsuario
+    //pero no tenemos el nombre
+    
+    /*
+    for(let usr of this.empleados){
+      if(usr.idUsuario == this.tarea.idUsuario){
+        this.tarea.nombreUsuario = usr.nombre
+      }
+    }
+    */
+    let usuario:Usuario = this.empleados.find( e => e.idUsuario==this.tarea.usuario.idUsuario )
+    this.tarea.usuario.nombre = usuario.nombre
+
     try{
       let rs = await this
         .tareasService
@@ -82,7 +96,7 @@ export class TareasAdminComponent implements OnInit {
 
   public vaciar():void{
       this.tarea = new Tarea()
-      this.tarea.idUsuario = "0"
+      this.tarea.usuario = { idUsuario:"0", nombre:null }
   }
 
 }

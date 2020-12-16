@@ -18,7 +18,7 @@ export class TareasService {
                     .realmService
                     .getEsquema()
                     .collection("tareas")
-                    .find( { idUsuario : this.autenticacionService.getUser().idUsuario })
+                    .find( ) //{ idUsuario : this.autenticacionService.getUser().idUsuario })
                 resolve(tareas)
             } catch(error){
                 console.log(error)
