@@ -10,11 +10,11 @@ import { ListadoTareasUsrComponent } from './componentes/listado-tareas-usr/list
   declarations: [
     MenuComponent,
     ListadoTareasUsrComponent,
-    MaquetacionAplicacionComponent
+    MaquetacionAplicacionComponent //Tiene un router outlet
   ],
   imports: [
     CommonModule,
-    RouterModule.forRoot(EmpleadosModule.rutasMaquetacionAplicacion)
+    RouterModule.forRoot(EmpleadosModule.rutasMaquetacionAplicacion) //Rutas para el router outlet de MaquetacionAplicacionComponent
   ],
   exports: [
     MaquetacionAplicacionComponent,

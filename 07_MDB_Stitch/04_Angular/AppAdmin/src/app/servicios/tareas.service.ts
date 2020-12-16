@@ -12,6 +12,8 @@ export class TareasService {
     public listarTareas():any{
         return new Promise( async (resolve, reject) => {
             try {
+                //Si en este find hubiera un filtro sería para paginar las tareas o buscarlas por algun criterio que
+                //que le fuera util al administrador
                 let tareas = await this.realmService.getEsquema().collection("tareas").find()
                 resolve(tareas)
             } catch(error){

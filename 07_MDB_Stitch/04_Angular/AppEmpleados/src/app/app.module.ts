@@ -12,15 +12,15 @@ import { MaquetacionAplicacionComponent } from './modulos/empleados-module/compo
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CabeceraComponent,
+    AppComponent, //Tiene un router-outlet
     PieComponent,
+    CabeceraComponent
   ],
   imports: [
     BrowserModule,
     UsuariosModule,
     EmpleadosModule,
-    RouterModule.forRoot(AppModule.rutas)
+    RouterModule.forRoot(AppModule.rutas) //rutas para el router outlet de AppComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
