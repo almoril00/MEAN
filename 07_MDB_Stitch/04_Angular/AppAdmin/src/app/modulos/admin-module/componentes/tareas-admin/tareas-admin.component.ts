@@ -42,13 +42,11 @@ export class TareasAdminComponent implements OnInit {
   }
 
   public insertar():void{
-
     this
       .tareasService
       .insertarTarea(this.tarea)
       .then( rs => { console.log(rs)})
       .catch( error => {})
-
   }
 
   public modificar():void{
@@ -56,7 +54,7 @@ export class TareasAdminComponent implements OnInit {
 
   public borrar():void{
   }
-  
+
   public vaciar():void{
   }
 

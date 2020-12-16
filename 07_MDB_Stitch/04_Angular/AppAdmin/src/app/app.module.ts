@@ -9,7 +9,6 @@ import { PieComponent } from './componentes/maquetacion/pie/pie.component';
 import { MaquetacionLoginComponent } from './modulos/usuarios-module/componentes/maquetacion-login/maquetacion-login.component';
 import { MaquetacionAplicacionComponent } from './modulos/admin-module/componentes/maquetacion-aplicacion/maquetacion-aplicacion.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
