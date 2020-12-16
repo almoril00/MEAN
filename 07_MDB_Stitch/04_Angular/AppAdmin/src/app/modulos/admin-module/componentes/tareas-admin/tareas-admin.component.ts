@@ -30,8 +30,7 @@ export class TareasAdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public async listarTareas(){
-    
+  public async listarTareas(){    
     console.log("A VER QUE PASA AQUI")
     try{
       this.tareas = await this.tareasService.listarTareas()
@@ -41,16 +40,17 @@ export class TareasAdminComponent implements OnInit {
     }
   }
 
-  public insertar():void{
-    this
-      .tareasService
-      .insertarTarea(this.tarea)
-      .then( rs => { 
-        console.log(rs) 
-        this.listarTareas()
-        this.vaciar()
-      })
-      .catch( error => {})
+  public async insertar(){
+    try{
+      let rs = await this
+        .tareasService
+        .insertarTarea(this.tarea)
+      console.log(rs) 
+      this.listarTareas()
+      this.vaciar()
+    } catch (error){
+      console.log(error)
+    }
   }
 
   public async modificar(){
