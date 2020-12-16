@@ -17,7 +17,7 @@ export class EmpleadosService {
                     .realmService
                     .getEsquema()
                     .collection("custom_user_data")
-                    .find() // { rol : "EMPLEADO" })
+                    .find({ rol : "EMPLEADO" })
 
                 console.log(empleados)
 

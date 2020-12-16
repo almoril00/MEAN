@@ -17,7 +17,7 @@ export class TareasAdminComponent implements OnInit {
   public constructor(private empleadosService:EmpleadosService,
                      private tareasService:TareasService) { 
     
-    this.tarea = new Tarea()
+    this.vaciar()
     this
       .empleadosService
       .listarEmpleados()
@@ -45,17 +45,44 @@ export class TareasAdminComponent implements OnInit {
     this
       .tareasService
       .insertarTarea(this.tarea)
-      .then( rs => { console.log(rs)})
+      .then( rs => { 
+        console.log(rs) 
+        this.listarTareas()
+        this.vaciar()
+      })
       .catch( error => {})
   }
 
-  public modificar():void{
+  public async modificar(){
+    try{
+      await this.tareasService.modificarTarea(this.tarea)
+      this.listarTareas()
+    } catch (error){
+      console.log(error)
+    }
   }
 
-  public borrar():void{
+  public async borrar(){
+    try{
+      await this.tareasService.borrarTarea(this.tarea)
+      this.listarTareas()
+      this.vaciar()
+    } catch (error){
+      console.log(error)
+    }    
+  }
+
+  public async seleccionar(idTarea:string){
+    try {
+      this.tarea = await this.tareasService.buscarTareaPorId(idTarea)
+    } catch (error){
+      console.log(error)
+    }
   }
 
   public vaciar():void{
+      this.tarea = new Tarea()
+      this.tarea.idUsuario = "0"
   }
 
 }
