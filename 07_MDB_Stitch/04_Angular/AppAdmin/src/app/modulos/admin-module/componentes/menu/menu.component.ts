@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/entidades/usuario';
+import { AutenticacionService } from 'src/app/servicios/autenticacion.service';
 
 @Component({
   selector: 'app-menu',
@@ -6,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { 
+  public usuario:Usuario
+
+  constructor(private router:Router,
+              private autenticacionService:AutenticacionService) { 
+    this.usuario = autenticacionService.getUser()
   }
 
   ngOnInit(): void {
+  }
+
+  public logOut():void{
+  
+    this.autenticacionService.logOut()
+    .then( () => {
+      //this.router.navigate(["/usuarios/login"])
+      this.router.navigateByUrl("/usuarios/login")
+    })
+    .catch( e => console.log(e))
   }
 
 }

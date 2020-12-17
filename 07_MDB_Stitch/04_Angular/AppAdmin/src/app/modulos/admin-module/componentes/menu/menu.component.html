@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/aplicacion/perfil">PERFIL</a>
+            <a class="nav-link" routerLink="/aplicacion/perfil">{{usuario.nombre}}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" routerLink="/aplicacion/tareas">Tareas</a>
         </li>       
         <li class="nav-item">
-            <a class="nav-link">Salir</a>
+            <a class="nav-link" (click)="logOut()">Salir</a>
         </li>
     </ul>
 </nav>   

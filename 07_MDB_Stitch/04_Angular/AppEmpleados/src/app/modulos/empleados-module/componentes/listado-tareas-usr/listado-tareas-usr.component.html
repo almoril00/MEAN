@@ -15,7 +15,21 @@
             <td>{{t.titulo}}</td>
             <td>{{t.descripcion}}</td>
             <td>{{t.prioridad}}</td>
-            <td>{{t.estado}}</td>
+            <td>
+                <div class="d-flex">
+                    <!-- accederemos a este desplegable utilizando document.getElementById! -->
+                    <div class="p-2">
+                        <select class="form-control" value="{{t.estado}}" id="estado-{{t._id}}">
+                            <option value="PENDIENTE">PENDIENTE</option>
+                            <option value="EN PROCESO">EN PROCESO</option>
+                            <option value="FINALIZADA">FINALIZADA</option>
+                        </select>
+                    </div>
+                    <div class="p-2">
+                        <input type="button" class="btn btn-sm btn-primary" value="Cambiar" (click)="modificarEstado(t)"/>
+                    </div>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

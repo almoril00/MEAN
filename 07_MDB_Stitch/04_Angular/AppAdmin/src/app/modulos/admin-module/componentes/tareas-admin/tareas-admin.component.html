@@ -42,7 +42,11 @@
         <label>Estado</label>
     </div>
     <div class="col-10 mt-1">
-        <input class="form-control" id="estado" [(ngModel)]="tarea.estado"/>
+        <select class="form-control" id="estado" [(ngModel)]="tarea.estado">
+            <option>PENDIENTE</option>
+            <option>EN PROCESO</option>
+            <option>FINALIZADA</option>
+        </select>
     </div>                 
 </div>         
 

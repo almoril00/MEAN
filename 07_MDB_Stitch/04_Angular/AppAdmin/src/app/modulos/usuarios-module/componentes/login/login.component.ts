@@ -25,7 +25,7 @@ export class LoginComponent {
     .then( usuario => {
       console.log(usuario)
       console.log(usuario.customData)
-      this.router.navigateByUrl("/aplicacion")
+      this.router.navigateByUrl("/aplicacion/tareas")
     })
     .catch( mensaje => this.mensaje = mensaje)
 

@@ -22,10 +22,10 @@ export class AutenticacionService {
             //Asincrono
             this.app.logIn(credenciales)
             .then( usrRealm => {
-                /*if(usrRealm.customData.rol != "ADMIN"){
+                if(usrRealm.customData.rol != "ADMIN"){
                     reject("Usted no es de aqui")
                     return
-                }*/
+                }
                 resolve(usrRealm)
             })
             .catch(error => {
@@ -36,9 +36,37 @@ export class AutenticacionService {
 
     }
 
-    public logOut():void{
-        //app.currentUser.logout
+    public logOut():any{
+
+        return new Promise( async (resolve, reject) => {
+            
+            //Por si acaso hubiera más de un usuario autenticado hacemos
+            //logout a todos
+            let usuarios = this.app.users
+            
+            let ok = true
+            for(let usr of usuarios){
+                try {
+                    await usr.logOut()
+                } catch (e){
+                    console.log(e)
+                    ok = false
+                }
+            }
+
+            if(ok){
+                resolve(null)
+            } else {
+                reject("WTF!")
+            }            
+
+            //Si quisieramos que no quedara ni rastro de los usuarios nos basta con
+            //limpiar el localStorage con napalm.
+            //¡No haría falta ni invocar logOut!
+            //localStorage.clear()
+        })        
     }
+
 
     public getUser():Usuario {
         let usrRealm = this.app.currentUser;
