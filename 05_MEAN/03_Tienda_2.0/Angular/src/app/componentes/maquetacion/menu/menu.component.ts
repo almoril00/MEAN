@@ -12,9 +12,7 @@ export class MenuComponent implements OnInit {
   public usuario:Usuario
 
   constructor(private sessionService:SessionService) { 
-
     this.usuario = sessionService.getItem("usuario")
-
   }
 
   ngOnInit(): void {

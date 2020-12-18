@@ -9,6 +9,10 @@ const router = express.Router()
 //La autenticacion con token y SIN ESTADO
 //tiene login pero no logout
 router.post("/login", login)
+
+//Para renovar el JWT es necesario un token válido!!!
+//Esta petición será interceptada por InterceptorAutenticacion
+router.post("/renovarJWT", renovarJWT)
 //Exportamos el router
 exports.router = router
 
@@ -28,11 +32,16 @@ function login(request, response){
             jwt.sign({
                 exp: Math.floor(Date.now() / 1000) + (60 * 60),
                 data: 'foobar'
-              }, 'secret');
+            }, 'secret');
             */
-
-            let token = jwt.sign(
-                { _id: usuario._id, login: usuario.login, rol: usuario.rol }, 
+           
+           let token = jwt.sign(
+               { 
+                   _id: usuario._id, 
+                   login: usuario.login, 
+                   rol: usuario.rol, 
+                   exp: Math.floor(Date.now() / 1000) + 40,
+                }, 
                 JWTUtil.privateKey, 
                 { algorithm: 'HS512'}
             )
@@ -47,6 +56,7 @@ function login(request, response){
                 "login" : "venancia",
                 "roles" : "CLIENTE",
                 "iat"   : FECHA_CREACION 
+                "exp"   : FECHA DE EXPIRACIÓN
             }
             .
             gdjheruoñvh9by875u6oighbty9p8uytjg9r8phy598tjgb98ytneu98gu986gheu89hdgfugf
@@ -72,4 +82,25 @@ function login(request, response){
 }
 
 
+function renovarJWT(request, response){
+
+    let autoridad = request.autoridad
+           
+    let token = jwt.sign(
+        { 
+            _id: autoridad._id, 
+            login: autoridad.login, 
+            rol: autoridad.rol, 
+            exp: Math.floor(Date.now() / 1000) + 60,
+        }, 
+        JWTUtil.privateKey, 
+        { algorithm: 'HS512'}
+    )
+            
+    let body = {
+        JWT     : token
+    }
+    response.json(body) 
+
+}
 

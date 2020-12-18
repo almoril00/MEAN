@@ -46,6 +46,25 @@ export class LoginComponent implements OnInit {
       .subscribe(
         respuesta => {
           this.sessionService.setItem("JWT", respuesta.JWT)
+
+          console.log("JWT",respuesta.JWT)
+
+          let cargamento:any = JSON.parse(atob(respuesta.JWT.split(".")[1]))
+
+          console.log("====================================")
+          console.log(cargamento)
+          let horaServidor  = cargamento.iat 
+          //10:00:00
+          let horaExpiracion = cargamento.exp
+          //11:00:00
+          let horaNavegador = Math.floor(Date.now()/1000)
+          //13:00:00
+          let diferenciaHora = horaServidor-horaNavegador
+          //10800
+          let horaExpiracionJWT = horaExpiracion+diferenciaHora
+          //14:00:00
+
+          this.sessionService.setItem("horaExpiracionJWT", horaExpiracionJWT)
           this.sessionService.setItem("usuario",respuesta.usuario)
 
           //Si descrubrimos que inicializar la tienda es algo más que esta simple 

@@ -28,6 +28,7 @@ export class CatalogoComponent implements OnInit {
         productos => this.productos = productos,
         error => {
           console.log(error)
+          console.log(error.error.mensaje)
         }
       )
   }
